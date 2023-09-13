@@ -1,0 +1,6 @@
+[submodule "inference_results_v2.0"]
+	path = inference_results_v2.0
+	url = https://github.com/Pablouc/inference_results_v2.0.git
+[submodule "gpu-rodinia"]
+	path = gpu-rodinia
+	url = https://github.com/Pablouc/gpu-rodinia.git
