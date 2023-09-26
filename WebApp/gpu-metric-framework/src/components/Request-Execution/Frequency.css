@@ -1,0 +1,9 @@
+.text-box {
+    font-size: 20px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 12px;
+    margin-left: 30px;
+    margin-top: 10px;
+  }

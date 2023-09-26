@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    justify-content: space-between; /* Alinea los contenedores al principio y al final del espacio disponible */
+    height: 500px;
+  }
+
+  .left-container {
+    flex: 1; /* Ocupa todo el espacio disponible en el lado izquierdo */
+    padding: 20px;
+    background-color: #e0e0e0;
+    margin-right: 10px;
+  }
+
+  .right-container {
+    flex: 1; /* Ocupa todo el espacio disponible en el lado derecho */
+    padding: 20px;
+    background-color: #e0e0e0;
+  }
+
+.label {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333; /* Text color */
+    margin-top: 40px;
+    margin-bottom: 50px;
+    width: 200px;
+    height: 60px;
+    
+  }
+
+  .button{
+    font-size: 20px;
+    padding: 10px 40px;
+    border-radius: 12px;
+    color: black;
+    border: 2px solid rgb(0, 0, 0);
+    transition-duration: 0.4s;
+    margin-top: 20px;
+  }
+
+  .button:hover{
+    background-color: rgb(71, 77, 72); 
+    color: white;
+  }
