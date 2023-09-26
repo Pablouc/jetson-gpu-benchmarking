@@ -1,4 +1,0 @@
-Verifying performance.
-reference score = 2018.41
-test score = 2019.13
-TEST PASS

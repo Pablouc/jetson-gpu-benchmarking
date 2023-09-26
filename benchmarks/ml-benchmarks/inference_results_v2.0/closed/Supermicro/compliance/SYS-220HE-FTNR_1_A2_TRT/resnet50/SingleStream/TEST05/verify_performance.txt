@@ -1,4 +1,0 @@
-Verifying performance.
-reference score = 702735
-test score = 708559
-TEST PASS

@@ -1,3 +1,0 @@
-No special calibration required for Inferentia submission.
-
-For more details, please refer to `closed/NVIDIA/README.md`.
