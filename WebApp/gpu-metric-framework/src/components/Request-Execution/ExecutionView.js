@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 
 import './ExecutionView.css';
 import DynamicCheckbox from './DynamicCheckbox';
@@ -6,6 +6,7 @@ import Card from '../UI/Card';
 import StaticCheckbox from './StaticCheckbox';
 import Dropdown from './Dropdown';
 import TextInput from './TextInput';
+
 
 function ExecutionView(props) { 
     const freqString= 'Please enter a frequency between 800GHz and 1100GHz.';
@@ -17,9 +18,6 @@ function ExecutionView(props) {
     const blocks='blocks';
     const threads='threads';
 
-    const [submitFlag, setSubmitFlag] = useState(false);
-    const [appsNames, setAppsNames] = useState([]);
-
     let userData = {};
 
     const executeHandler = ( enteredUserData ) => {
@@ -30,30 +28,20 @@ function ExecutionView(props) {
 
           console.log(userData);
     }
-
-    useEffect( () => {
-        fetch('API_URL')
-        .then( (response) => {
-            return response.json();
-        })
-        .then(data =>{
-            setAppsNames(data.'JSON KEY NAME');
-        })
-
-    }, []);
-
+    
+    console.log(props.appsURL);
+    console.log(props.workloadsURL);
 
     return(
         <div className='container'>
             <Card className='left-container'>
                 <div>
                     <label className='label'>Select the applications</label>
-                    <DynamicCheckbox field={apps} onExecuteEvent = {executeHandler} ></DynamicCheckbox>
-                    console.log(submitFlag);
+                    <DynamicCheckbox itemsURL={props.appsURL} field={apps} onExecuteEvent = {executeHandler} ></DynamicCheckbox>
                 </div>
                 <div>
                     <label className='label'>Select the workloads</label>
-                    <DynamicCheckbox field={workloads} onExecuteEvent = {executeHandler}></DynamicCheckbox>
+                    <DynamicCheckbox itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler}></DynamicCheckbox>
                 </div>
                 <div>
                     <div>
