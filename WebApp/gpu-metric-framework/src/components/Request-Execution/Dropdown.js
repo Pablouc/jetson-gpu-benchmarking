@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './Dropdown.css';
 
-const Dropdown = () => {
+const Dropdown = (props) => {
 
     const [selectedNumber, setSelectedNumber] = useState(null);
 
@@ -11,6 +11,15 @@ const Dropdown = () => {
     };
   
     const numbers = Array.from({ length: 15 }, (_, i) => i + 1);
+
+    
+    useEffect(() => {
+      // This code will run after the state has been updated
+      const execNum={ 
+        execNum: selectedNumber
+      };
+      props.onExecuteEvent(execNum);  
+      }, [selectedNumber]);
   
     return (
       <div>
