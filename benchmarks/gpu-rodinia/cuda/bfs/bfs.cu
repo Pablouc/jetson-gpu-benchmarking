@@ -15,11 +15,18 @@
 
   Created by Pawan Harish.
  ************************************************************************************/
+
+#include "bfs.h"
+
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <cuda.h>
+#include <cuda_runtime_api.h>
+#include <cuda_runtime.h>
 
 #ifdef TIMING
 #include "timing.h"
@@ -53,36 +60,50 @@ struct Node
 #include "kernel.cu"
 #include "kernel2.cu"
 
-void BFSGraph(int argc, char** argv);
+
+void BFSGraph(char* input_f, int num_blocks, int num_threads_per_block, cudaStream_t stream);
+
+void Usage(const char* inputFile){
+
+	fprintf(stderr,"Usage: %s <input_file>\n", inputFile);
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main Program
 ////////////////////////////////////////////////////////////////////////////////
-int main( int argc, char** argv) 
+/*int main( int argc, char* argv[]) 
 {
+      if (argc != 4) {
+         Usage(argv[0]);
+         exit(0);
+      }
+
+        int num_blocks = atoi(argv[2]);
+	int num_threads_per_block = atoi(argv[3]);
+	
 	no_of_nodes=0;
 	edge_list_size=0;
-	BFSGraph( argc, argv);
+	BFSGraph( argc, argv, num_blocks, num_threads_per_block);
 }
+*/
 
-void Usage(int argc, char**argv){
-
-fprintf(stderr,"Usage: %s <input_file>\n", argv[0]);
-
-}
 ////////////////////////////////////////////////////////////////////////////////
 //Apply BFS on a Graph using CUDA
 ////////////////////////////////////////////////////////////////////////////////
-void BFSGraph( int argc, char** argv) 
+void BFSGraph( char* input_f, int num_blocks, int num_threads_per_block, cudaStream_t stream) 
 {
-
+/*
     char *input_f;
-	if(argc!=2){
-	Usage(argc, argv);
+	if(argc!=4){
+	Usage(argv[0]);
 	exit(0);
 	}
 
-	input_f = argv[1];
+	input_f = argv[1];*/
+
+
+	printf("Input File: %s\n", input_f); // Print the input file path
 	printf("Reading File\n");
 	//Read in Graph from a file
 	fp = fopen(input_f,"r");
@@ -94,11 +115,25 @@ void BFSGraph( int argc, char** argv)
 
 	int source = 0;
 
-	fscanf(fp,"%d",&no_of_nodes);
+	int garbage;
+	fscanf(fp,"%d",&garbage);
+			
+	no_of_nodes =num_threads_per_block;
 
-	int num_of_blocks = 1;
+	int num_of_blocks = num_blocks;
 	int num_of_threads_per_block = no_of_nodes;
 
+
+	//const char* streamPtrStr = getenv("CUDA_STREAM");
+	//cudaStream_t stream;
+	//cudaStreamCreate(&stream);
+	//sscanf(streamPtrStr, "%p", (void**)&stream);
+
+	//printf("CUDA_STREAM environment variable: %s\n", streamPtrStr);
+	
+	
+	
+	
 	//Make execution Parameters according to the number of nodes
 	//Distribute threads across multiple Blocks if necessary
 	if(no_of_nodes>MAX_THREADS_PER_BLOCK)
@@ -220,12 +255,17 @@ void BFSGraph( int argc, char** argv)
 		h2d_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-		Kernel<<< grid, threads, 0 >>>( d_graph_nodes, d_graph_edges, d_graph_mask, d_updating_graph_mask, d_graph_visited, d_cost, no_of_nodes);
+		Kernel<<< grid, threads, 0, stream >>>( d_graph_nodes, d_graph_edges, d_graph_mask, d_updating_graph_mask, d_graph_visited, d_cost, no_of_nodes);
 		// check if kernel execution generated and error
+	        cudaStreamSynchronize(stream);
+		
 
-		Kernel2<<< grid, threads, 0 >>>( d_graph_mask, d_updating_graph_mask, d_graph_visited, d_over, no_of_nodes);
+		Kernel2<<< grid, threads, 0, stream >>>( d_graph_mask, d_updating_graph_mask, d_graph_visited, d_over, no_of_nodes);
 		// check if kernel execution generated and error
+		cudaStreamSynchronize(stream);
 
+
+               
 #ifdef  TIMING
 		cudaDeviceSynchronize();
 		gettimeofday(&tv_kernel_end, NULL);
@@ -273,6 +313,9 @@ void BFSGraph( int argc, char** argv)
 	free( h_updating_graph_mask);
 	free( h_graph_visited);
 	free( h_cost);
+
+	// Destroy stream after all aperations
+	//cudaStreamDestroy(stream);
 #ifdef  TIMING
     gettimeofday(&tv_close_start, NULL);
 #endif

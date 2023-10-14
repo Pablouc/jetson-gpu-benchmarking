@@ -3,6 +3,8 @@ include ../../common/make.config
 # C compiler
 CC = gcc
 CC_FLAGS = -g  -O2
+CUDA_LIB_DIR= /usr/local/cuda-11.4/targets/aarch64-linux/lib/
+
 
 # CUDA compiler
 NVCC = $(CUDA_DIR)/bin/nvcc

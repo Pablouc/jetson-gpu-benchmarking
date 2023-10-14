@@ -1,28 +1,24 @@
-include ../../common/make.config
+include /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/common/make.config
 
+CUDA_LIB_DIR = /usr/local/cuda-11.4/targets/aarch64-linux/lib/
 CC := $(CUDA_DIR)/bin/nvcc
-
 INCLUDE := $(CUDA_DIR)/include
+UTIL := /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/util
+SRC = /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/bfs/bfs.cu
+OBJ = bfs.o  # Object file name
+LIB = libbfs.a  # Static library name
 
-SRC = bfs.cu
+all: $(LIB)
 
-EXE = bfs.out
+$(OBJ): $(SRC)
+		$(CC) -c $(SRC) -o $(OBJ) -I$(INCLUDE) -I$(UTIL) -DTIMING
 
-release: $(SRC)
-	$(CC) $(SRC) -o $(EXE) -I$(INCLUDE) -I../util -L$(CUDA_LIB_DIR) -DTIMING
+$(LIB): $(OBJ)
+		ar rcs $(LIB) $(OBJ)
+			rm -f $(OBJ)
 
-clang: $(SRC)
-	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
-		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
+release: $(LIB)
 
-enum: $(SRC)
-	$(CC) -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
+clean:
+		rm -f $(LIB) $(OBJ) $(EXE) $(EXE).linkinfo result.txt
 
-debug: $(SRC)
-	$(CC) -g $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
-
-debugenum: $(SRC)
-	$(CC) -g -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
-
-clean: $(SRC)
-	rm -f $(EXE) $(EXE).linkinfo result.txt
