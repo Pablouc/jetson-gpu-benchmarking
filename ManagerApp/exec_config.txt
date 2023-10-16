@@ -1,0 +1,6 @@
+Simult=True
+Blocks=16
+Threads=64
+Frequency=1000000
+Apps=hola1,hola1,hola3
+Workloads=graph123,graph345,graph567
