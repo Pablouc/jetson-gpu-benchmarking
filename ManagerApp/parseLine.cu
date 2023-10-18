@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
 #include "parseLine.h"
+#include "structs.h"
+
 using namespace std;
 
 
@@ -20,13 +22,18 @@ int parseLine(const char* line, Configuration& config) {
 			--len;
 
 		}
-
+//appsNum
 		
 		if (strcmp(key, "Simult") == 0) {
 
 			config.simult = (strcmp(value, "True") == 0);
 
-		} else if (strcmp(key, "Blocks") == 0) {
+		}
+		else if (strcmp(key, "AppsNum") == 0) {		
+			config.appsNum = atoi(value);
+				
+				                
+		}else if (strcmp(key, "Blocks") == 0) {
 			config.blocks = atoi(value);
 
 		} else if (strcmp(key, "Threads") == 0) {

@@ -1,6 +1,7 @@
 Simult=True
+AppsNum=3
 Blocks=16
 Threads=64
 Frequency=1000000
-Apps=hola1,hola1,hola3
-Workloads=graph123,graph345,graph567
+Apps=bfs,hola,holaaa
+Workloads=graph65536.txt,graph345,graph567

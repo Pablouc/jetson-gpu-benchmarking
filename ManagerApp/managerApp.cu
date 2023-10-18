@@ -5,6 +5,9 @@
 #include <fstream>
 #include <cstring>
 #include "parseLine.h"
+#include "structs.h"
+#include "simultExecution.h"
+
 using namespace std;
 
   
@@ -58,6 +61,8 @@ int managerApp(const char* configFile) {
 	}
 
 	cout << endl;
+
+	simultExecution(config);
 
 
 	

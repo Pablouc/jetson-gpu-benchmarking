@@ -2,16 +2,7 @@
 #define PARSELINE_H
 
 #include <cstring>
-
-struct Configuration {
-	bool simult;
-	int executions;
-	int blocks;
-	int threads;
-	int frequency;
-	char* apps[8];
-	char* workloads[8];
-};
+#include "structs.h"
 
 int parseLine(const char* line, Configuration& config);
 
