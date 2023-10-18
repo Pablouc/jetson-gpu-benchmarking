@@ -4,9 +4,10 @@
 #include <cuda_runtime.h>
 #include "structs.h"
 #include "simultExecution.h"
+
 using namespace std;
 #include "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/bfs/bfs.h"
-
+#include "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/lud.h"
 
 // Workloads Paths
 char* bfsWorkloadPath = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/bfs/"; //graph65536.txt
@@ -64,8 +65,12 @@ int simultExecution(Configuration& config) {
 		   cout << "ConcatenatedPath: " << concatenatedPath << endl;
 		   BFSGraph(concatenatedPath, config.blocks, config.threads, streams[i]);
 
-	   }
+	   } 
 
+	   const char* input_file = NULL;  // Set your input file name
+	   int matrix_dim = 768;  // Set your matrix dimension
+	   int do_verify = 1;
+           lud_main(input_file, matrix_dim, do_verify, streams[i]);
 	   cudaEventRecord(stop);
 	   cudaEventSynchronize(stop);
 

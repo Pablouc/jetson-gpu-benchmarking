@@ -2,47 +2,46 @@ CC = gcc
 NVCC = nvcc
 
 DEFS += \
-		-DGPU_TIMER \
-		$(SPACE)
+			-DGPU_TIMER \
+					$(SPACE)
 
 NVCCFLAGS += -I../common \
-			 -O3 \
-			 -use_fast_math \
-			 -arch=sm_72 \
-			 -lm \
-			 $(SPACE)
+	     			 -O3 \
+				 			 -use_fast_math \
+							 			 -arch=sm_72 \
+										 			 -lm \
+													 			 $(SPACE)
 
 CFLAGS += -I../common \
-					-I/usr/include/cuda \
-		  -O3 \
-		  -Wall \
-		  $(SPACE)
+	  					-I/usr/include/cuda \
+								  -O3 \
+								  		  -Wall \
+										  		  $(SPACE)
 
 # Add source files here
 EXECUTABLE  := lud_cuda
-# Cuda source files (compiled with cudacc)
+# # Cuda source files (compiled with cudacc)
 CUFILES     := lud_kernel.cu
-# C/C++ source files (compiled with gcc / c++)
+# # C/C++ source files (compiled with gcc / c++)
 CCFILES     := lud.c lud_cuda.c ../common/common.c
 
-OBJS = ../common/common.o lud.o lud_kernel.o
+OBJS = lud.o lud_kernel.o ../common/common.o
 
-.PHONY: all clean 
-all : $(EXECUTABLE)
+LIBRARY = liblud.a
 
-.c.o : 
-	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
+.PHONY: all clean
 
-%.o:	%.cu 
-	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
+all: $(LIBRARY)
 
-clang: $(SRC)
-	clang++ lud.cu lud_kernel.cu ../common/common.c -o $(EXECUTABLE) \
-		-I../common -I../../util --cuda-gpu-arch=sm_20 \
-		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
+$(LIBRARY): $(OBJS)
+	ar rcs $@ $^
 
-$(EXECUTABLE) : $(OBJS)
-	$(NVCC) $(NVCCFLAGS) -o $@  $?
+%.o: %.c
+	$(CC) $(CFLAGS) $(DEFS) -o $@ -c $<
+
+%.o: %.cu
+	$(NVCC) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
 
 clean:
-	rm -f $(EXECUTABLE) $(OBJS) *.linkinfo
+	rm -f $(LIBRARY) $(OBJS)
+
