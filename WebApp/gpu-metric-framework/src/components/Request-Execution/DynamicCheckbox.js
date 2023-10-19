@@ -6,10 +6,12 @@ function DynamicCheckbox(props) {
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [appsOptions, setAppsOptions] = useState(null);
+  const [error, setError] = useState(null);
 
   //Function to fetch data from the api
   //The item will depend on the props, it could be for the workloads or the apps data.
   useEffect(() => {
+    setError(null);
     fetch(props.itemsURL)
     .then((response) => {
       if (!response.ok) {
@@ -21,9 +23,9 @@ function DynamicCheckbox(props) {
       setAppsOptions(data.itemNames);
     })
     .catch((error) => {
-      console.error('Fetch error:', error);
+      setError(error.message);
     });
-  }, []); 
+  }, []);
   
 
   //This function retrieves the data to the parent(ExecutionView) throught the function props.onExecuteEvent
@@ -67,7 +69,7 @@ function DynamicCheckbox(props) {
             <label className="dropdown-item" key={option}>
               <input
                 type="checkbox"
-                checked={selectedOptions.includes(option)}
+                checked={selectedOptions.includes(option) && props.refresh_Flag}
                 onChange={() => toggleOption(option)}
               />{" "}
               {option}
@@ -75,6 +77,7 @@ function DynamicCheckbox(props) {
           ))}
         </div>
       </Card>
+      {error != null && <label className='warning'>Error: {error}</label>}
       <p>Selected options: {selectedOptions.join(', ')}</p>
     </div>
   );

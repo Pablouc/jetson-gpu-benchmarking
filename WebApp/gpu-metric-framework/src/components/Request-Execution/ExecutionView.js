@@ -17,20 +17,36 @@ function ExecutionView(props) {
     const freq='freq';
     const blocks='blocks';
     const threads='threads';
-
     let userData = {};
+
+    const [refreshFlag, setRefreshFlag] = useState(false);
+
 
     const executeHandler = ( enteredUserData ) => {
         userData = {
             ...userData, // Keep the existing data in userData
             ...enteredUserData, // Add the data from enteredUserData
           };     
-
-          console.log(userData);
     }
-    
-    console.log(props.appsURL);
-    console.log(props.workloadsURL);
+
+
+
+
+    async function requestExecution(){
+        setRefreshFlag(true);
+        const response = await fetch(props.executionURL, {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers:{
+                "Content-Type": "application/json"
+            }
+           
+        });
+        const data = await response.json();
+
+        setRefreshFlag(false);
+        console.log(data);
+    }
 
     return(
         <div className='container'>
@@ -69,7 +85,7 @@ function ExecutionView(props) {
                     <label className='label'>Amount of threads</label>
                     <TextInput field={threads} onExecuteEvent = {executeHandler} label={threadString}></TextInput>
                 </div>
-                <button className='button' onClick={executeHandler}>Execute</button>
+                <button className='button' onClick={requestExecution}>Execute</button>
             </Card>
         </div>
     );
