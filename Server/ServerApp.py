@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+import threading
+import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 
 # Create a Flask web application
@@ -8,12 +10,21 @@ CORS(app)
 
 # Sample array of app names
 appsNames= {
-    "itemNames" : ['gaussian', 'particlefilter', 'pathfinder', 'hotspot', 'bfs']
+    "itemNames" : ['bfs', 'lud']
 }
 
 workloadsNames= {
-    "itemNames" : ['gaussian66989.txt', 'particlefilter.txt', 'pathfinder.txt', 'hotspot.txt', 'bfs.txt']
+    "itemNames" : ['graph65536.txt', '256.dat']
 }
+
+# This function will run your executable.
+def run_managerApp():
+    subprocess.run(["../../ManagerApp/managerApp"])
+
+# This function will run your script.
+def run_monitoring():
+    subprocess.run(["python", "../../ManagerApp/managerApp"])
+
 
 #GET METHODS
 
@@ -39,6 +50,15 @@ def execution_request():
     data = request.get_json()
     executionRequest = data
     print(executionRequest)
+   
+
+    thread1 = threading.Thread(target=run_managerApp)  # This thread will run the executable
+    thread2 = threading.Thread(target=run_monitoring)      # This thread will run the script
+
+    # Start the two threads
+    thread1.start()
+    thread2.start()
+
     return jsonify({"message": "Execution request processed successfully."})
 
 
