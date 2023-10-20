@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <cstring>
 #include <iostream>
 #include <cuda_runtime.h>
 #include "structs.h"
@@ -70,6 +71,33 @@ int simultExecution(Configuration& config) {
 	   const char* input_file = NULL;  // Set your input file name
 	   int matrix_dim = 768;  // Set your matrix dimension
 	   int do_verify = 1;
+	   char makeCommand[200]; // adjust the size according to your needs
+	       
+	   int rdWgSizeValue = 64; // The value you want to set for RD_WG_SIZE_0_0
+
+	    int cleanResult = system("make -C /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/ clean");
+
+	           
+	       // Construct the make command with the specific variable value
+	           snprintf(makeCommand, sizeof(makeCommand), "make -C /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/ BLOCK_SIZE=%d", rdWgSizeValue);
+
+		       // Execute the make command with system()
+		       int result = system(makeCommand);
+
+	   	       
+	   // Check the result of the system() call	   
+       	   if (result == 0) {
+		               
+		   // The command executed successfully	  
+       		   cout << "Make command executed successfully.\n";
+	   } else {
+					           
+		   // There was an error executing the command
+		   cerr << "Error executing make command.\n";
+
+	   }
+
+
            lud_main(input_file, matrix_dim, do_verify, streams[i]);
 	   cudaEventRecord(stop);
 	   cudaEventSynchronize(stop);

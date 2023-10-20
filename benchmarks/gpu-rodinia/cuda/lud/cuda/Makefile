@@ -1,16 +1,19 @@
 CC = gcc
 NVCC = nvcc
 
+# Default BLOCK_SIZE value
+BLOCK_SIZE ?= 16
+
 DEFS += \
-			-DGPU_TIMER \
-					$(SPACE)
+	-DGPU_TIMER \
+	$(SPACE)
 
 NVCCFLAGS += -I../common \
-	     			 -O3 \
-				 			 -use_fast_math \
-							 			 -arch=sm_72 \
-										 			 -lm \
-													 			 $(SPACE)
+	   -O3 \
+	   -use_fast_math \
+	 -arch=sm_72 \
+	 -lm \
+	 $(SPACE)
 
 CFLAGS += -I../common \
 	  					-I/usr/include/cuda \
@@ -36,11 +39,13 @@ all: $(LIBRARY)
 $(LIBRARY): $(OBJS)
 	ar rcs $@ $^
 
+staticlib: $(LIBRARY)
+
 %.o: %.c
-	$(CC) $(CFLAGS) $(DEFS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(DEFS) -DBLOCK_SIZE=$(BLOCK_SIZE) -o $@ -c $<
 
 %.o: %.cu
-	$(NVCC) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
+	$(NVCC) $(NVCCFLAGS) $(DEFS) -DBLOCK_SIZE=$(BLOCK_SIZE) -o $@ -c $<
 
 clean:
 	rm -f $(LIBRARY) $(OBJS)
