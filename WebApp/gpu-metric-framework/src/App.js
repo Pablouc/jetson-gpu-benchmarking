@@ -1,9 +1,11 @@
 import Navbar from "./components/UI/Navbar";
 import ExecutionView from "./components/Request-Execution/ExecutionView";
 
-const appsNamesURL = 'http://127.0.0.1:5000/appsNames';
-const workloadsNamesURL = 'http://127.0.0.1:5000/workloadsNames';
-const requestExecutionURL = 'http://127.0.0.1:5000/setExecutionRequest'
+const ngrokURL = 'https://914a-141-3-72-67.ngrok-free.app/';
+
+const appsNamesURL = ngrokURL + 'appsNames';
+const workloadsNamesURL = ngrokURL + 'workloadsNames';
+const requestExecutionURL = ngrokURL + 'setExecutionRequest'
 
 
 function App() {

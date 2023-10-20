@@ -12,7 +12,12 @@ function DynamicCheckbox(props) {
   //The item will depend on the props, it could be for the workloads or the apps data.
   useEffect(() => {
     setError(null);
-    fetch(props.itemsURL)
+    fetch(props.itemsURL {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
