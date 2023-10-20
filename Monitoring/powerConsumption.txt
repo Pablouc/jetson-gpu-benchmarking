@@ -1,0 +1,16 @@
+Timestamp: Fr 20. Okt 17:43:31 CEST 2023
+curr1_input: 
+in1_input: 
+=========================
+Timestamp: Fr 20. Okt 17:44:58 CEST 2023
+curr1_input: 
+in1_input: 
+=========================
+Timestamp: Fr 20. Okt 17:48:15 CEST 2023
+curr1_input: 
+in1_input: 
+=========================
+Timestamp: Fr 20. Okt 17:52:28 CEST 2023
+curr1_input: 856
+in1_input: 4944
+=========================
