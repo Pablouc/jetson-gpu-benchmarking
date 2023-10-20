@@ -1,52 +1,48 @@
 CC = gcc
 NVCC = nvcc
 
-# Default BLOCK_SIZE value
-BLOCK_SIZE ?= 16
-
 DEFS += \
-	-DGPU_TIMER \
-	$(SPACE)
+		-DGPU_TIMER \
+		$(SPACE)
 
 NVCCFLAGS += -I../common \
-	   -O3 \
-	   -use_fast_math \
-	 -arch=sm_72 \
-	 -lm \
-	 $(SPACE)
+			 -O3 \
+			 -use_fast_math \
+			 -arch=sm_20 \
+			 -lm \
+			 $(SPACE)
 
 CFLAGS += -I../common \
-	  					-I/usr/include/cuda \
-								  -O3 \
-								  		  -Wall \
-										  		  $(SPACE)
+					-I/usr/include/cuda \
+		  -O3 \
+		  -Wall \
+		  $(SPACE)
 
 # Add source files here
 EXECUTABLE  := lud_cuda
-# # Cuda source files (compiled with cudacc)
+# Cuda source files (compiled with cudacc)
 CUFILES     := lud_kernel.cu
-# # C/C++ source files (compiled with gcc / c++)
+# C/C++ source files (compiled with gcc / c++)
 CCFILES     := lud.c lud_cuda.c ../common/common.c
 
-OBJS = lud.o lud_kernel.o ../common/common.o
+OBJS = ../common/common.o lud.o lud_kernel.o
 
-LIBRARY = liblud.a
+.PHONY: all clean 
+all : $(EXECUTABLE)
 
-.PHONY: all clean
+.c.o : 
+	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
 
-all: $(LIBRARY)
+%.o:	%.cu 
+	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
 
-$(LIBRARY): $(OBJS)
-	ar rcs $@ $^
+clang: $(SRC)
+	clang++ lud.cu lud_kernel.cu ../common/common.c -o $(EXECUTABLE) \
+		-I../common -I../../util --cuda-gpu-arch=sm_20 \
+		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
 
-staticlib: $(LIBRARY)
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(DEFS) -DBLOCK_SIZE=$(BLOCK_SIZE) -o $@ -c $<
-
-%.o: %.cu
-	$(NVCC) $(NVCCFLAGS) $(DEFS) -DBLOCK_SIZE=$(BLOCK_SIZE) -o $@ -c $<
+$(EXECUTABLE) : $(OBJS)
+	$(NVCC) $(NVCCFLAGS) -o $@  $?
 
 clean:
-	rm -f $(LIBRARY) $(OBJS)
-
+	rm -f $(EXECUTABLE) $(OBJS) *.linkinfo
