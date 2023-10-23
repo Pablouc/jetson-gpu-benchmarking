@@ -12,10 +12,11 @@ function DynamicCheckbox(props) {
   //The item will depend on the props, it could be for the workloads or the apps data.
   useEffect(() => {
     setError(null);
-    fetch(props.itemsURL {
-      method: 'POST',
+    fetch(props.itemsURL ,{
+      method: 'GET',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': '1'
       }
   })
     .then((response) => {
