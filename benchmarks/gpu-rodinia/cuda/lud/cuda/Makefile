@@ -34,7 +34,7 @@ all : $(EXECUTABLE)
 	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
 
 %.o:	%.cu 
-	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
+	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -DRD_WG_SIZE=$(RD_WG_SIZE) -o $@ -c $<
 
 clang: $(SRC)
 	clang++ lud.cu lud_kernel.cu ../common/common.c -o $(EXECUTABLE) \

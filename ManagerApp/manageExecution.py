@@ -18,54 +18,96 @@ def process_input(data):
     return apps_list, data['execType'], data['execNum'], data['freq']
 
 
+def modify_makefile(command):
+    command_res = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    if command_res.returncode == 0 :
+        print("Makefile executed succesfully")
+        print(command_res.stdout)
+
+    else:
+        print("Error executing the makefile")
+        print(command_res.stderr)
+
 
 # This function will run your executable.
 def run_script(path):
-    subprocess.run([path])
+    command_result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    if command_result.returncode == 0:
+        print("Command executed successfully.")
+        print("Output:")
+        print(command_result.stdout)
+
+        # Append the output to the specified file       
+        with open('execution_results.txt', 'a') as file:                    
+            file.write(command_result.stdout)
+            file.write('\n')  # Add a newline to separate multiple runs
+
+    else:
+        print(f"Error executing the command. Exit code: {command_result.returncode}")
+        print("Error output:")
+        print(command_result.stderr)
+
 
 
 def simultExecution(apps, iterations, frequency):
-    
+
     #Scaling the frequency
-    frequencyScript = './home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
+    frequencyScript = '/home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
     run_script(frequencyScript)
+
+    #Clearing the output file 
+    with open('execution_results.txt',"w") as file:
+        pass
     
     #Defining Paths
-    appsPath ='./home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda'   
+    appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
     workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
 
 
     #Executing Applications
     for i in range( int(iterations)-1 ):
+        tempPath = ''
         for app in apps:
-            if apps.name == "Bfs":
-                tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads
-                run_script(tempPath)
-            
-            elif apps.name == "lavaMD":
-                tempPath = appsPath + 'lavaMD ' +  app.workloads
-                run_script(tempPath)
-            
-            elif apps.name == "Particle Filter ":
-                tempPath = appsPath + 'particlefilter_float ' + app.workloads
-                run_script(tempPath)
+            if app.name == "Bfs":
+                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads + ' & '
+                print("bfs")
 
-            elif apps.name == "Srad":
-                tempPath = appsPath + 'srad_v1 ' +  app.workloads
-                run_script(tempPath)
+            elif app.name == "lavaMD":
+                tempPath += appsPath + 'lavaMD ' +  app.workloads + ' & '
+                print("lava")
 
-            elif apps.name == "Lud":
-                tempPath = appsPath + 'lud_cuda ' + workloadsPath + 'lud/' + app.workloads
-                run_script(tempPath)
+            elif app.name == "Particle Filter":
+                tempPath += appsPath + 'particlefilter_float ' + app.workloads + ' & '
+                print("filter")
 
-            elif apps.name == "Cfd":
-                tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
-                run_script(tempPath)
-            
+            elif app.name == "Srad":
+                tempPath += appsPath + 'srad_v1 ' +  app.workloads + ' & '
+                print("srad")
+
+            elif app.name == "Lud":
+                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
+                
+                if i == 0 :
+                    modify_makefile(f"cd {make_path} && make clean")
+                    modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+                    modify_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
+                tempPath += appsPath + 'lud_cuda ' +'-i '+ workloadsPath + 'lud/' + app.workloads + ' & '
+                print("lud")
+
+            elif app.name == "Cfd":
+                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
+                if i == 0 :
+                    modify_makefile(f"cd {make_path} && make clean") 
+                    modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+                    modify_makefile(f"cd {make_path} && cp euler3d {appsPath}")
+                tempPath += appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
+                print("cfd")            
             else:
                 print("No app selected")
 
-
+        run_script(tempPath) 
             
 
         
@@ -80,15 +122,42 @@ jsonStruct = {
     'apps': [
         {
             'name': 'Bfs',
-            'workloads': '256.dat',
-            'blocks': '32',
-            'threads': '16'
-        },
-        {
-            'name': 'Lud',
             'workloads': 'graph65536.txt',
             'blocks': '32',
             'threads': '16'
+        },
+        {                        
+            'name': 'lavaMD',         
+            'workloads': '-boxes1d 10',                          
+            'blocks': '32',                           
+            'threads': '16'
+                           
+        },
+        {                     
+            'name': 'Particle Filter',
+            'workloads': '-x 128 -y 128 -z 10 -np 1000',             
+            'blocks': '32',                              
+            'threads': '16'
+                           
+        },
+        {
+            'name': 'Srad',
+            'workloads': '100 0.5 502 458',              
+            'blocks': '32',                              
+            'threads': '16'
+                           
+        },
+        {
+            'name': 'Cfd',
+            'workloads': 'fvcorr.domn.097K',               
+            'blocks': '32',                               
+            'threads': '16'   
+        },
+        {
+            'name': 'Lud',
+            'workloads': '256.dat',
+            'blocks': '32',
+            'threads': '24'
         }
     ],
     'execType': 'not-simult',

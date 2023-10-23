@@ -1,0 +1,130 @@
+WG size of kernel = 24 X 24
+Reading matrix from file /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/lud/256.dat
+Time consumed(ms): 5.874000
+VIDEO SEQUENCE TOOK 0.037295
+TIME TO SEND TO GPU: 0.007590
+GPU Execution: 0.075406
+FREE TIME: 0.000138
+TIME TO SEND BACK: 0.004364
+SEND ARRAY X BACK: 0.000426
+SEND ARRAY Y BACK: 0.001602
+SEND WEIGHTS BACK: 0.002198
+XE: 48.403405
+YE: 72.520424
+17.772209
+PARTICLE FILTER TOOK 0.276891
+ENTIRE PROGRAM TOOK 0.314186
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 10 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 188.209000
+Exec: 17.417002
+DtoH: 19.156002
+Close: 0.454000
+Total: 249.813004
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000022000000 s,  0.003004930913 % : READ COMMAND LINE PARAMETERS
+ 0.000075000004 s,  0.010244082659 % : READ IMAGE FROM FILE
+ 0.003632999957 s,  0.496223330498 % : RESIZE IMAGE
+ 0.207241997123 s, 28.306722640991 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000172000000 s,  0.023493094370 % : COPY DATA TO CPU->GPU
+ 0.000048999998 s,  0.006692800671 % : EXTRACT IMAGE
+ 0.472508996725 s, 64.538948059082 % : COMPUTE
+ 0.000010000000 s,  0.001365877688 % : COMPRESS IMAGE
+ 0.004778000060 s,  0.652616322041 % : COPY DATA TO GPU->CPU
+ 0.042176000774 s,  5.760725498199 % : SAVE IMAGE INTO FILE
+ 0.001463999972 s,  0.199964478612 % : FREE MEMORY
+Total time:
+0.732129991055 s
+WG size of kernel:initialize = 16, WG size of kernel:compute_step_factor = 16, WG size of kernel:compute_flux = 16, WG size of kernel:time_step = 16
+Name:                     Xavier
+Starting...
+thread block size of kernel = 128 
+Configuration used: boxes1d = 10
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.214910000563 s, 10.615974426270 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001645999961 s,  0.081307962537 % : GPU MEM: ALO
+ 0.005948999897 s,  0.293864578009 % : GPU MEM: COPY IN
+ 1.795389056206 s, 88.687377929688 % : GPU: KERNEL
+ 0.005415000021 s,  0.267486393452 % : GPU MEM: COPY OUT
+ 0.001093000057 s,  0.053991254419 % : GPU MEM: FRE
+Total time:
+2.024401903152 s
+0.00272084 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
+WG size of kernel = 24 X 24
+Reading matrix from file /home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/lud/256.dat
+Time consumed(ms): 0.985000
+VIDEO SEQUENCE TOOK 0.067302
+TIME TO SEND TO GPU: 0.009791
+GPU Execution: 0.102454
+FREE TIME: 0.000243
+TIME TO SEND BACK: 0.003873
+SEND ARRAY X BACK: 0.000107
+SEND ARRAY Y BACK: 0.001271
+SEND WEIGHTS BACK: 0.002252
+XE: 48.420540
+YE: 72.352502
+17.677213
+PARTICLE FILTER TOOK 0.316716
+ENTIRE PROGRAM TOOK 0.384018
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 10 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 173.402008
+Exec: 17.124998
+DtoH: 17.705999
+Close: 0.345000
+Total: 232.445007
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000125996477 % : SETUP VARIABLES
+ 0.000029000001 s,  0.003653897904 % : READ COMMAND LINE PARAMETERS
+ 0.000074000003 s,  0.009323738515 % : READ IMAGE FROM FILE
+ 0.003868000116 s,  0.487354338169 % : RESIZE IMAGE
+ 0.217693999410 s, 27.428678512573 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000468000013 s,  0.058966349810 % : COPY DATA TO CPU->GPU
+ 0.000059000002 s,  0.007433792111 % : EXTRACT IMAGE
+ 0.523389995098 s, 65.945297241211 % : COMPUTE
+ 0.000010000000 s,  0.001259964774 % : COMPRESS IMAGE
+ 0.004519999959 s,  0.569504082203 % : COPY DATA TO GPU->CPU
+ 0.042134001851 s,  5.308735370636 % : SAVE IMAGE INTO FILE
+ 0.001426000032 s,  0.179670974612 % : FREE MEMORY
+Total time:
+0.793672978878 s
+WG size of kernel:initialize = 16, WG size of kernel:compute_step_factor = 16, WG size of kernel:compute_flux = 16, WG size of kernel:time_step = 16
+Name:                     Xavier
+Starting...
+thread block size of kernel = 128 
+Configuration used: boxes1d = 10
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.117026001215 s,  6.142990589142 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001316000009 s,  0.069080173969 % : GPU MEM: ALO
+ 0.001739999978 s,  0.091337002814 % : GPU MEM: COPY IN
+ 1.779023051262 s, 93.385414123535 % : GPU: KERNEL
+ 0.005150999874 s,  0.270389020443 % : GPU MEM: COPY OUT
+ 0.000776999979 s,  0.040786694735 % : GPU MEM: FRE
+Total time:
+1.905032992363 s
+0.00267195 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
