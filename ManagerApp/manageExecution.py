@@ -67,24 +67,24 @@ def simultExecution(apps, iterations, frequency):
 
 
     #Executing Applications
-    for i in range( int(iterations)-1 ):
+    for i in range( int(iterations) ):
         tempPath = ''
         for app in apps:
             if app.name == "Bfs":
                 tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads + ' & '
-                print("bfs")
+            
 
             elif app.name == "lavaMD":
                 tempPath += appsPath + 'lavaMD ' +  app.workloads + ' & '
-                print("lava")
+             
 
             elif app.name == "Particle Filter":
                 tempPath += appsPath + 'particlefilter_float ' + app.workloads + ' & '
-                print("filter")
+              
 
             elif app.name == "Srad":
                 tempPath += appsPath + 'srad_v1 ' +  app.workloads + ' & '
-                print("srad")
+               
 
             elif app.name == "Lud":
                 make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
@@ -94,7 +94,7 @@ def simultExecution(apps, iterations, frequency):
                     modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
                     modify_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
                 tempPath += appsPath + 'lud_cuda ' +'-i '+ workloadsPath + 'lud/' + app.workloads + ' & '
-                print("lud")
+                
 
             elif app.name == "Cfd":
                 make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
@@ -103,7 +103,7 @@ def simultExecution(apps, iterations, frequency):
                     modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
                     modify_makefile(f"cd {make_path} && cp euler3d {appsPath}")
                 tempPath += appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
-                print("cfd")            
+                           
             else:
                 print("No app selected")
 
@@ -160,19 +160,18 @@ jsonStruct = {
             'threads': '24'
         }
     ],
-    'execType': 'not-simult',
+    'execType': 'simult',
     'execNum': '3',
     'freq': '1007250000'
 }
 
 
-
-apps, exec_type, exec_num, freq = process_input(jsonStruct)
-
-# Now, you can work with the list of App instances and the other values as needed
-for app in apps:
-    print(app.name, app.workloads, app.blocks, app.threads)
-
-simultExecution(apps, exec_num, freq)
+def manageExecution(jsonObject):
+    
+    apps, exec_type, exec_num, freq = process_input(jsonObject)
+    
+    if exec_type == 'simult':
+        simultExecution(apps, exec_num, freq)
 
 
+manageExecution(jsonStruct)
