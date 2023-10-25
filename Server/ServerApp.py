@@ -1,4 +1,9 @@
+import sys
+import os
 
+# Add the path to the json_folder directory to sys.path
+json_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ManagerApp'))
+sys.path.append(json_folder_path)
 
 
 from flask import Flask, jsonify, request
@@ -6,7 +11,7 @@ import threading
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from ..ManagerApp.manageExecution import manageExecution
+from manageExecution import manageExecution
 
 # Create a Flask web application
 app = Flask('evaluatorServer')
