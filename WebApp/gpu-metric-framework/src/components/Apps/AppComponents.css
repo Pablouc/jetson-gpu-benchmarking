@@ -1,0 +1,26 @@
+.app-style {
+    border: 1px;      /* Borde sólido */
+    padding: 20px;               /* Espacio interior */
+    margin-bottom: 20px;         /* Espacio entre cada div */
+    border-radius: 5px;          /* Bordes redondeados */
+    box-shadow: 0 4px 8px; /* Sombra sutil */
+    background-color: #628fca;  /* Color de fondo */
+}
+
+.text-style {
+    font-size: 15px;
+    padding: 2px;
+    border: 1px ;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+
+.input-style {
+    font-size: 15px;
+    padding: 2px;
+    border: 1px ;
+    border-radius: 5px; 
+    margin-left: 30px;
+    margin-top: 10px;
+}

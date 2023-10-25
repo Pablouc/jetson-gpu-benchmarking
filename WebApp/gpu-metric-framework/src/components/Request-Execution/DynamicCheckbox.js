@@ -4,7 +4,7 @@ import Card from '../UI/Card';
 
 function DynamicCheckbox(props) {
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState([]);
   const [appsOptions, setAppsOptions] = useState(null);
   const [error, setError] = useState(null);
 
@@ -38,32 +38,30 @@ function DynamicCheckbox(props) {
   //This function gets triggered every time after the page renders
   useEffect(() => {
     // This code will run after the render
-    if(props.field=='apps'){
-      const apps={ 
-        apps:selectedOptions.join(', ')
+    if (props.appName === 'BFS' && selectedOption !== null) {
+      const bfs_workload = {
+        bfs_workload: selectedOption
       };
-      props.onExecuteEvent(apps); 
+      props.onExecuteEvent(bfs_workload);
+    } else if (props.appName === 'CFD' && selectedOption !== null) {
+      const cfd_workload = {
+        cfd_workload: selectedOption
+      };
+      props.onExecuteEvent(cfd_workload);
     }
-    
-    else if(props.field=='workloads'){
-      const workloads={ 
-        workloads:selectedOptions.join(', ')
-      };
-      props.onExecuteEvent(workloads); 
-    } 
-    }, [selectedOptions]);
+  }, [selectedOption]);
 
     
-    //Function to update the list of items in the list that is going to be retrieved to the parent component.
-    const toggleOption = (option) => {
-      if (selectedOptions.includes(option)) {
-        setSelectedOptions(selectedOptions.filter((item) => item !== option));
-        console.log(selectedOptions.join(', '));
-      } else {
-        setSelectedOptions([...selectedOptions, option]);
-        console.log(selectedOptions.join(', '));
-      }
-    };
+  // Function to update the selected option
+  const toggleOption = (option) => {
+    if (selectedOption === option) {
+      // Deselect the option if it's already selected
+      setSelectedOption(null);
+    } else {
+      // Select the new option
+      setSelectedOption(option);
+    }
+  };
 
   return (
     <div>
@@ -75,7 +73,8 @@ function DynamicCheckbox(props) {
             <label className="dropdown-item" key={option}>
               <input
                 type="checkbox"
-                checked={selectedOptions.includes(option) && props.refresh_Flag}
+                className='options-style'
+                checked={selectedOption === option}
                 onChange={() => toggleOption(option)}
               />{" "}
               {option}
@@ -84,7 +83,8 @@ function DynamicCheckbox(props) {
         </div>
       </Card>
       {error != null && <label className='warning'>Error: {error}</label>}
-      <p>Selected options: {selectedOptions.join(', ')}</p>
+      
+
     </div>
   );
 }

@@ -1,8 +1,9 @@
 .dropdown {
-    font-size: 20px;
-    padding: 5px;
+    font-size: 15px;
+    padding: 2px;
     border: 1px solid #ccc;
     background-color: #fff;
+    border-radius: 5px;
     margin-left: 30px;
     margin-top: 10px;
   }
@@ -10,4 +11,8 @@
   .warning{
     color: red;
     font-weight: bold;
+  }
+
+  .options-style{
+    margin-left: 30px;
   }

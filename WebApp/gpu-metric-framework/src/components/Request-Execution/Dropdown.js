@@ -4,7 +4,7 @@ import './Dropdown.css';
 
 const Dropdown = (props) => {
 
-    const [selectedNumber, setSelectedNumber] = useState(null);
+    const [selectedNumber, setSelectedNumber] = useState('');
 
     const handleSelectChange = (e) => {
       setSelectedNumber(e.target.value);

@@ -1,7 +1,7 @@
 .container {
     display: flex;
     justify-content: space-between; /* Alinea los contenedores al principio y al final del espacio disponible */
-    height: 500px;
+    height:900px;
   }
 
   .left-container {
@@ -28,17 +28,22 @@
     
   }
 
+  .margins{
+    margin-top: 1px;
+}
+
+
   .button{
     font-size: 20px;
     padding: 10px 40px;
-    border-radius: 12px;
+    border-radius: 5px;
     color: black;
     border: 2px solid rgb(0, 0, 0);
+    background-color: #628fca;
     transition-duration: 0.4s;
     margin-top: 20px;
   }
 
   .button:hover{
-    background-color: rgb(71, 77, 72); 
     color: white;
   }

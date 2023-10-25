@@ -5,19 +5,21 @@ from flask import Flask, jsonify, request
 import threading
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
+from jsonParsing import transform_input_json 
+from ..ManagerApp.manageExecution import manageExecution
 
 # Create a Flask web application
 app = Flask('evaluatorServer')
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True  # This enables JSON pretty-printing
 CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
 
-# Sample array of app names
-appsNames= {
-    "itemNames" : ['bfs', 'lud']
+
+bfs_workloads= {
+    "itemNames" : ['graph1MW_6.txt', 'graph4096.txt', 'graph65536.txt']
 }
 
-workloadsNames= {
-    "itemNames" : ['graph65536.txt', '256.dat']
+cfd_workloads= {
+    "itemNames" : ['fvcorr.domn.097K', 'fvcorr.domn.193K', 'missile.domn.0.2M']
 }
 
 # This function will run your executable.
@@ -32,25 +34,24 @@ def run_monitoring():
 #GET METHODS
 
 # Define a route to return the app names as JSON
-@app.route('/appsNames', methods=['GET'])
-def get_app_names():
+@app.route('/bfs_workloads', methods=['GET'])
+def get_BFSworkloads():
     # Convert the array to JSON
-    response = jsonify(appsNames)
+    response = jsonify(bfs_workloads)
     # Add the 'ngrok-skip-browser-warning' header to the response
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
 
-# Define a route to return the workloads names as JSON
-@app.route('/workloadsNames', methods=['GET'])
-def get_workloads_names():
-    #Convert the array to JSON
-    response = jsonify(workloadsNames)
-
+# Define a route to return the app names as JSON
+@app.route('/cfd_workloads', methods=['GET'])
+def get_CFDworkloads():
+    # Convert the array to JSON
+    response = jsonify(cfd_workloads)
     # Add the 'ngrok-skip-browser-warning' header to the response
     response.headers['ngrok-skip-browser-warning'] = '1'
     
-    return response 
+    return response
 
 
 #POST METHODS
@@ -63,7 +64,8 @@ def execution_request():
                
         headers = {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',                                            'Access-Control-Allow-Methods': 'POST, OPTIONS'
+                'Access-Control-Allow-Headers': 'Content-Type', 
+                'Access-Control-Allow-Methods': 'POST, OPTIONS'
                                                                
                 }
                 
@@ -75,6 +77,13 @@ def execution_request():
     data = request.get_json()
     executionRequest = data
     print(executionRequest)
+
+    #Transform the input to the JSON expected format of the managerApp
+    executionJson =  transform_input_json(executionRequest)
+    print(executionJson)
+
+    #Executing apps
+    manageExecution(executionJson)
    
 
     #thread1 = threading.Thread(target=run_managerApp)  # This thread will run the executable

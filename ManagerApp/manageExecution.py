@@ -122,41 +122,29 @@ jsonStruct = {
     'apps': [
         {
             'name': 'Bfs',
-            'workloads': 'graph65536.txt',
-            'blocks': '32',
-            'threads': '16'
+            'workloads': 'graph65536.txt'
         },
         {                        
             'name': 'lavaMD',         
-            'workloads': '-boxes1d 10',                          
-            'blocks': '32',                           
-            'threads': '16'
-                           
+            'workloads': '-boxes1d 10'           
         },
         {                     
             'name': 'Particle Filter',
-            'workloads': '-x 128 -y 128 -z 10 -np 1000',             
-            'blocks': '32',                              
-            'threads': '16'
+            'workloads': '-x 128 -y 128 -z 10 -np 1000'
                            
         },
         {
             'name': 'Srad',
-            'workloads': '100 0.5 502 458',              
-            'blocks': '32',                              
-            'threads': '16'
-                           
+            'workloads': '100 0.5 502 458'                           
         },
         {
             'name': 'Cfd',
             'workloads': 'fvcorr.domn.097K',               
-            'blocks': '32',                               
             'threads': '16'   
         },
         {
             'name': 'Lud',
             'workloads': '256.dat',
-            'blocks': '32',
             'threads': '24'
         }
     ],
@@ -174,4 +162,4 @@ def manageExecution(jsonObject):
         simultExecution(apps, exec_num, freq)
 
 
-manageExecution(jsonStruct)
+#manageExecution(jsonStruct)
