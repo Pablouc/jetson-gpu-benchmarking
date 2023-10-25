@@ -95,13 +95,19 @@ function ExecutionView(props) {
 
                 <div>
                  <label className='label'>Amount of executions</label>
-                 <Dropdown onExecuteEvent = {executeHandler}></Dropdown>
+                 <Dropdown injected={false} onExecuteEvent = {executeHandler}></Dropdown>
+                </div>
+
+                <div>
+                 <label className='label'>Amount of executions</label>
+                 <Dropdown injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                 </div>
                 
-                <div>
+                {/*<div>
                     <label className='label'>Select the GPU frequency</label>
                     <TextInput field={freq} onExecuteEvent = {executeHandler} label={freqString}></TextInput>
                 </div>
+            */}
                 <button className='button' onClick={requestExecution}>Execute</button>
             </Card>
         </div>

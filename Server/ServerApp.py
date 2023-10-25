@@ -18,6 +18,8 @@ app = Flask('evaluatorServer')
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True  # This enables JSON pretty-printing
 CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
 
+frequencies = ['114750000', '204000000', '306000000', '408000000', '510000000', '599250000', '701250000', '752250000', '803250000',
+                '854250000', '905250000', '956250000', '1007250000', '1058250000', '1109250000']
 
 bfs_workloads= {
     "itemNames" : ['graph1MW_6.txt', 'graph4096.txt', 'graph65536.txt']
@@ -37,6 +39,17 @@ def run_monitoring():
 
 
 #GET METHODS
+
+# Define a route to return the app names as JSON
+@app.route('/frequencies', methods=['GET'])
+def get_frequencies():
+    # Convert the array to JSON
+    response = jsonify(frequencies)
+    # Add the 'ngrok-skip-browser-warning' header to the response
+    response.headers['ngrok-skip-browser-warning'] = '1'
+    
+    return response
+
 
 # Define a route to return the app names as JSON
 @app.route('/bfs_workloads', methods=['GET'])
