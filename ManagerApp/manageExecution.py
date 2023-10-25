@@ -11,9 +11,22 @@ class App:
 
 
 def process_input(data):
-    # Create App instances while iterating over the input data
-    apps_list = [App(app_data['name'], app_data['workloads'], app_data['blocks'], app_data['threads']) for app_data in data['apps']]
-    
+   # Create App instances while iterating over the input data
+    apps_list = []
+
+    for app_data in data['apps']:
+        name = app_data['name']
+        workloads = app_data['workloads']
+
+        # Check if the app is "BFS" or "CFD" to include threads
+        if name in ["BFS", "CFD"]:
+            threads = app_data.get('threads', None)
+        else:
+            threads = None
+
+        app_instance = App(name, workloads, threads)
+        apps_list.append(app_instance)
+
     # Return the list of App instances and other values
     return apps_list, data['execType'], data['execNum'], data['freq']
 
