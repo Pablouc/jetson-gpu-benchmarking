@@ -60,7 +60,9 @@ def run_script(path):
         # Append the output to the specified file       
         with open('execution_results.txt', 'a') as file:                    
             file.write(command_result.stdout)
-            file.write('\n')  # Add a newline to separate multiple runs
+            file.write('\n')  
+            file.write('\n')
+            file.write('\n')# Add a newline to separate multiple runs
 
     else:
         print(f"Error executing the command. Exit code: {command_result.returncode}")
@@ -126,8 +128,73 @@ def simultExecution(apps, iterations, frequency):
             else:
                 print("No app selected")
         
-        print(tempPath)
         run_script(tempPath) 
+
+
+def sequentialExecution(apps, iterations, frequency):
+    
+    #Scaling the frequency
+    frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
+    run_script(frequencyScript)
+    print(frequencyScript)
+
+    #Clearing the output file 
+    with open('execution_results.txt',"w") as file:
+        pass
+    
+    #Defining Paths
+    appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
+    workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
+
+
+    #Executing Applications
+    for i in range( int(iterations) ):
+        tempPath = ''
+        for app in apps:
+            if app.name == "BFS":
+                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
+                run_script(tempPath)
+            
+
+            elif app.name == "LavaMD":
+                tempPath += appsPath + 'lavaMD ' +  app.workloads
+                run_script(tempPath)
+             
+
+            elif app.name == "Particle Filter":
+                tempPath += appsPath + 'particlefilter_float ' + app.workloads
+                run_script(tempPath)
+              
+
+            elif app.name == "Srad":
+                tempPath += appsPath + 'srad_v1 ' +  app.workloads 
+                run_script(tempPath)
+               
+
+            elif app.name == "Lud":
+                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
+                
+                if i == 0 :
+                    modify_makefile(f"cd {make_path} && make clean")
+                    modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+                    modify_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
+                tempPath += appsPath + 'lud_cuda '  + app.workloads
+                run_script(tempPath)
+                
+
+            elif app.name == "CFD":
+                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
+                if i == 0 :
+                    modify_makefile(f"cd {make_path} && make clean") 
+                    modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+                    modify_makefile(f"cd {make_path} && cp euler3d {appsPath}")
+                tempPath += appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
+                run_script(tempPath)
+                           
+            else:
+                print("No app selected")
+        
+         
             
 
         
@@ -180,6 +247,9 @@ def manageExecution(jsonObject):
 
     if exec_type == 'simult':
         simultExecution(apps, exec_num, freq)
+    
+    elif exec_type == 'not-simult':
+        sequentialExecution(apps, exec_num, freq)
 
 
 manageExecution(jsonStruct)

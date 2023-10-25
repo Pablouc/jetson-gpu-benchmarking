@@ -1,7 +1,7 @@
 import Navbar from "./components/UI/Navbar";
 import ExecutionView from "./components/Request-Execution/ExecutionView";
 
-const ngrokURL = 'http://127.0.0.1:5000/';
+const ngrokURL = 'https://561c-141-3-72-67.ngrok-free.app/';
 
 const cfd_workloadsNamesURL = ngrokURL + 'cfd_workloads';
 const bfs_workloadsNamesURL = ngrokURL + 'bfs_workloads';
