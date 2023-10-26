@@ -18,11 +18,16 @@ const StaticCheckbox = (props) =>{
 
     useEffect(() => {
         // This code will run after the state has been updated
+
+        if( props.refresh === true){
+            setExecutionFlag(false);
+        }
+        
         const executionType={ 
           execType: executionFlag
         };
         props.onExecuteEvent(executionType);  
-        }, [executionFlag]);
+        }, [props.refresh ,executionFlag]);
 
     return(
         <div>

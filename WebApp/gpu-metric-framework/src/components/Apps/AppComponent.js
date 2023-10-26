@@ -4,7 +4,6 @@ import './AppComponents.css';
 
 const AppComponent = (props) => {
   
-    const workloads = 'workloads';
     let userData={}
 
     const [isChecked, setIsChecked] = useState(false);
@@ -54,7 +53,21 @@ const AppComponent = (props) => {
     //Sending data the the parent
     useEffect(() => {
     // This code will run after the state has been updated
-
+    if( props.refresh == true){
+        setIsChecked(false);
+        set_cfd_Threads('');
+        setNiter('');
+        setLambda('');
+        setNc('');
+        setNr('');
+        setWidth('');
+        setHeight('');
+        setNfr('');
+        setNp('');
+        setMatrixSize('');
+        set_lud_threads('');
+        setBoxes('');
+    }
 
     if(props.appName=='CFD'){
         const cfd={ 
@@ -96,14 +109,14 @@ const AppComponent = (props) => {
         };
         props.onExecuteEvent(lud); 
     } 
-    }, [userData, cfd_threads, niter, lambda, nc, nr, width, height, nfr, np, matrixSize, lud_threads, boxes]);
+    }, [props.refresh ,userData, cfd_threads, niter, lambda, nc, nr, width, height, nfr, np, matrixSize, lud_threads, boxes]);
     
 
 
   return (
     <div className='app-style'>
         <label>
-      <input type="checkbox" onChange={handleCheckboxChange}/>{props.appName}
+      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>{props.appName}
       </label>
       <div className='text-style'>
         

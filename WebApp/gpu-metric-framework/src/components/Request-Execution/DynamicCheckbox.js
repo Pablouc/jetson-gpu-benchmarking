@@ -38,6 +38,11 @@ function DynamicCheckbox(props) {
   //This function gets triggered every time after the page renders
   useEffect(() => {
     // This code will run after the render
+
+    if(props.refresh == true){
+      setSelectedOption(null);
+    }
+    
     if (props.appName === 'BFS' && selectedOption !== null) {
       const bfs_workload = {
         bfs_workload: selectedOption
@@ -49,7 +54,7 @@ function DynamicCheckbox(props) {
       };
       props.onExecuteEvent(cfd_workload);
     }
-  }, [selectedOption]);
+  }, [props.refresh ,selectedOption]);
 
     
   // Function to update the selected option

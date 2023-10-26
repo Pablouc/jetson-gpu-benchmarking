@@ -44,6 +44,11 @@ const Dropdown = (props) => {
     
     useEffect(() => {
       // This code will run after the state has been updated
+      if( props.refresh === true){
+        setSelectedNumber('');
+        setSelectedFrequency('');
+      }
+
       if(props.injected== false){
         const execNum={ 
           execNum: selectedNumber
@@ -58,7 +63,7 @@ const Dropdown = (props) => {
         props.onExecuteEvent(freq); 
       }
 
-      }, [selectedFrequency,selectedNumber]);
+      }, [props.refresh ,selectedFrequency,selectedNumber]);
 
   
     return (

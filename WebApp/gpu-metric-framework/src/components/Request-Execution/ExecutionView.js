@@ -1,17 +1,13 @@
 import React, {useState } from 'react';
 
 import './ExecutionView.css';
-import DynamicCheckbox from './DynamicCheckbox';
 import Card from '../UI/Card';
 import StaticCheckbox from './StaticCheckbox';
 import Dropdown from './Dropdown';
-import TextInput from './TextInput';
 import AppComponent from '../Apps/AppComponent';
 
 function ExecutionView(props) { 
-    const freqString= 'Please enter a frequency between 800GHz and 1100GHz.';
     const workloads = 'workloads';
-    const freq='freq';
     let userData = {};
 
     const [refreshFlag, setRefreshFlag] = useState(false);
@@ -58,19 +54,19 @@ function ExecutionView(props) {
                     <DynamicCheckbox itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler}></DynamicCheckbox>
                 </div> */}
                 <div>
-                    <AppComponent itemsURL={props.bfs_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'BFS'}/>
+                    <AppComponent refresh={refreshFlag} itemsURL={props.bfs_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'BFS'}/>
                 </div>
 
                 <div>
-                    <AppComponent itemsURL={props.cfd_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'CFD'}/>
+                    <AppComponent refresh={refreshFlag} itemsURL={props.cfd_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'CFD'}/>
                 </div>
 
                 <div>
-                    <AppComponent itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Srad'}/>
+                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Srad'}/>
                 </div>
 
                 <div>
-                    <AppComponent itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Particle Filter'}/>
+                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Particle Filter'}/>
                 </div>
 
                
@@ -79,28 +75,28 @@ function ExecutionView(props) {
             <Card className='right-container'>
 
                  <div className='margins'>
-                    <AppComponent itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'LavaMD'}/>
+                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'LavaMD'}/>
                 </div>
 
                 <div>
-                    <AppComponent itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Lud'}/>
+                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Lud'}/>
                 </div>
 
                 <div>
                     <div>
                         <label className='label'>Select the execution mode</label>
                     </div>
-                    <StaticCheckbox onExecuteEvent = {executeHandler}></StaticCheckbox>
+                    <StaticCheckbox refresh={refreshFlag} onExecuteEvent = {executeHandler}></StaticCheckbox>
                 </div>
 
                 <div>
                  <label className='label'>Amount of executions</label>
-                 <Dropdown injected={false} onExecuteEvent = {executeHandler}></Dropdown>
+                 <Dropdown refresh={refreshFlag} injected={false} onExecuteEvent = {executeHandler}></Dropdown>
                 </div>
 
                 <div>
                  <label className='label'>Amount of executions</label>
-                 <Dropdown injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
+                 <Dropdown refresh={refreshFlag} injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                 </div>
                 
                 {/*<div>
