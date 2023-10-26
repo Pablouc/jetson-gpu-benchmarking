@@ -5,12 +5,14 @@ import Card from '../UI/Card';
 import StaticCheckbox from './StaticCheckbox';
 import Dropdown from './Dropdown';
 import AppComponent from '../Apps/AppComponent';
+import Popup from '../UI/PopUp';
 
 function ExecutionView(props) { 
     const workloads = 'workloads';
     let userData = {};
 
     const [refreshFlag, setRefreshFlag] = useState(false);
+    const [isPopupOpen, setPopupOpen] = useState(false);
 
     const executeHandler = ( enteredUserData ) => {
         userData = {
@@ -38,74 +40,87 @@ function ExecutionView(props) {
 
         setRefreshFlag(false);
         console.log(data);
+        setPopupOpen(true);
         
     }
 
+
+    const closePopup = () => {
+        setPopupOpen(false);
+      };
+
+
+
     return(
-        <div className='container'>
-            <Card className='left-container'>
-                <label className='label'>Select the applications</label>
-                {/* <div>
-                    
-                    <DynamicCheckbox itemsURL={props.appsURL} field={apps} onExecuteEvent = {executeHandler} ></DynamicCheckbox>
-                </div>
-                <div>
-                    <label className='label'>Select the workloads</label>
-                    <DynamicCheckbox itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler}></DynamicCheckbox>
-                </div> */}
-                <div>
-                    <AppComponent refresh={refreshFlag} itemsURL={props.bfs_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'BFS'}/>
-                </div>
-
-                <div>
-                    <AppComponent refresh={refreshFlag} itemsURL={props.cfd_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'CFD'}/>
-                </div>
-
-                <div>
-                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Srad'}/>
-                </div>
-
-                <div>
-                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Particle Filter'}/>
-                </div>
-
-               
-                
-            </Card>
-            <Card className='right-container'>
-
-                 <div className='margins'>
-                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'LavaMD'}/>
-                </div>
-
-                <div>
-                    <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Lud'}/>
-                </div>
-
-                <div>
-                    <div>
-                        <label className='label'>Select the execution mode</label>
+        <div >
+            <div className='popup'>
+                <Popup isOpen={isPopupOpen} onClose={closePopup} />
+            </div>
+            <div className='container'>
+                <Card className='left-container'>
+                    <label className='label'>Select the applications</label>
+                    {/* <div>
+                        
+                        <DynamicCheckbox itemsURL={props.appsURL} field={apps} onExecuteEvent = {executeHandler} ></DynamicCheckbox>
                     </div>
-                    <StaticCheckbox refresh={refreshFlag} onExecuteEvent = {executeHandler}></StaticCheckbox>
-                </div>
+                    <div>
+                        <label className='label'>Select the workloads</label>
+                        <DynamicCheckbox itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler}></DynamicCheckbox>
+                    </div> */}
+                    <div>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.bfs_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'BFS'}/>
+                    </div>
 
-                <div>
-                 <label className='label'>Amount of executions</label>
-                 <Dropdown refresh={refreshFlag} injected={false} onExecuteEvent = {executeHandler}></Dropdown>
-                </div>
+                    <div>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.cfd_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'CFD'}/>
+                    </div>
 
-                <div>
-                 <label className='label'>Amount of executions</label>
-                 <Dropdown refresh={refreshFlag} injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
-                </div>
+                    <div>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Srad'}/>
+                    </div>
+
+                    <div>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Particle Filter'}/>
+                    </div>
+
                 
-                {/*<div>
-                    <label className='label'>Select the GPU frequency</label>
-                    <TextInput field={freq} onExecuteEvent = {executeHandler} label={freqString}></TextInput>
-                </div>
-            */}
-                <button className='button' onClick={requestExecution}>Execute</button>
-            </Card>
+                    
+                </Card>
+                <Card className='right-container'>
+
+                    <div className='margins'>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'LavaMD'}/>
+                    </div>
+
+                    <div>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Lud'}/>
+                    </div>
+
+                    <div>
+                        <div>
+                            <label className='label'>Select the execution mode</label>
+                        </div>
+                        <StaticCheckbox refresh={refreshFlag} onExecuteEvent = {executeHandler}></StaticCheckbox>
+                    </div>
+
+                    <div>
+                    <label className='label'>Amount of executions</label>
+                    <Dropdown refresh={refreshFlag} injected={false} onExecuteEvent = {executeHandler}></Dropdown>
+                    </div>
+
+                    <div>
+                    <label className='label'>Amount of executions</label>
+                    <Dropdown refresh={refreshFlag} injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
+                    </div>
+                    
+                    {/*<div>
+                        <label className='label'>Select the GPU frequency</label>
+                        <TextInput field={freq} onExecuteEvent = {executeHandler} label={freqString}></TextInput>
+                    </div>
+                */}
+                    <button className='button' onClick={requestExecution}>Execute</button>
+                </Card>
+            </div>
         </div>
     );
 }

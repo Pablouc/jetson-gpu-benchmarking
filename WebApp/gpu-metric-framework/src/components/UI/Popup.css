@@ -1,0 +1,12 @@
+.popup-button{
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #628fca;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.label-style{
+    font-size: 20px;
+}
