@@ -152,23 +152,19 @@ def sequentialExecution(apps, iterations, frequency):
         tempPath = ''
         for app in apps:
             if app.name == "BFS":
-                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
-                run_script(tempPath)
+                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads + ' && '
             
 
             elif app.name == "LavaMD":
-                tempPath += appsPath + 'lavaMD ' +  app.workloads
-                run_script(tempPath)
+                tempPath += appsPath + 'lavaMD ' +  app.workloads + ' && '
              
 
             elif app.name == "Particle Filter":
-                tempPath += appsPath + 'particlefilter_float ' + app.workloads
-                run_script(tempPath)
+                tempPath += appsPath + 'particlefilter_float ' + app.workloads + ' && '
               
 
             elif app.name == "Srad":
-                tempPath += appsPath + 'srad_v1 ' +  app.workloads 
-                run_script(tempPath)
+                tempPath += appsPath + 'srad_v1 ' +  app.workloads + ' && '
                
 
             elif app.name == "Lud":
@@ -178,8 +174,7 @@ def sequentialExecution(apps, iterations, frequency):
                     modify_makefile(f"cd {make_path} && make clean")
                     modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
                     modify_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
-                tempPath += appsPath + 'lud_cuda '  + app.workloads
-                run_script(tempPath)
+                tempPath += appsPath + 'lud_cuda '  + app.workloads + ' && '
                 
 
             elif app.name == "CFD":
@@ -188,13 +183,12 @@ def sequentialExecution(apps, iterations, frequency):
                     modify_makefile(f"cd {make_path} && make clean") 
                     modify_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
                     modify_makefile(f"cd {make_path} && cp euler3d {appsPath}")
-                tempPath += appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
-                run_script(tempPath)
+                tempPath += appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' && '
                            
             else:
                 print("No app selected")
         
-         
+        run_script(tempPath) 
             
 
         
