@@ -31,7 +31,7 @@ function MainView(props) {
         {
             showMonitoring == true && (
                 <> 
-                <MonitoringView resultsFileURL={props.resultsFileURL}/>
+                <MonitoringView resultsFileURL={props.resultsFileURL} setView={handleView}/>
                 </>
             )
         }

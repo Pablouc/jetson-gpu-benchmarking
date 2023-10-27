@@ -1,7 +1,8 @@
 import os
 import re
+import csv
 
-script_directory = os.path.dirname(os.path.abspath(__file__))
+script_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Server'))
 
 class Lud:
     def __init__(self, filename):
@@ -230,50 +231,183 @@ class Srad:
         except FileNotFoundError:
             print(f"File '{filename}' not found.")
 
+def writeCSV(csv_filename,filename ,apps):
+        # Define the CSV file name
+        
+        full_path = os.path.join(script_directory, csv_filename)
+        print(f"CSV will be saved to: {full_path}")
+        # Write the data to a CSV file
+        with open(full_path, mode='w', newline='') as csv_file:
+            csvwriter = csv.writer(csv_file)
+            
+            if 'LavaMD' in apps:
+
+                lava_md = LavaMD(filename)
+
+                # Write headers
+                headers = ["App", "SET DEVICE", "MEM COPY IN", "KERNEL", "MEM COPY OUT", "MEM FREE", "TOTAL"]
+                csvwriter.writerow(headers)
+
+                # Write data for LavaMD
+                for i in range(len(lava_md.set_device)):
+                    row = ["LavaMD" if i == 0 else ""]
+                    row.append(lava_md.set_device[i])
+                    row.append(lava_md.mem_copy_in[i])
+                    row.append(lava_md.kernel[i])
+                    row.append(lava_md.mem_copy_out[i])
+                    row.append(lava_md.mem_free[i])
+                    row.append(float(lava_md.total[i].strip()))
+                    csvwriter.writerow(row)
+
+                # Calculate averages
+                avg_set_device = sum(lava_md.set_device) / len(lava_md.set_device)
+                avg_mem_copy_in = sum(lava_md.mem_copy_in) / len(lava_md.mem_copy_in)
+                avg_kernel = sum(lava_md.kernel) / len(lava_md.kernel)
+                avg_mem_copy_out = sum(lava_md.mem_copy_out) / len(lava_md.mem_copy_out)
+                avg_mem_free = sum(lava_md.mem_free) / len(lava_md.mem_free)
+                avg_total = sum([float(x.strip()) for x in lava_md.total]) / len(lava_md.total)
+
+                # Write averages
+                csvwriter.writerow(["Average", avg_set_device, avg_mem_copy_in, avg_kernel, avg_mem_copy_out, avg_mem_free, avg_total])
+                csvwriter.writerow([])
+
+            if 'LUD' in apps:
+                
+                lud = Lud(filename)
+
+                headers = ["App", "Time Consumed Values"]
+                csvwriter.writerow(headers)
+
+                # Write data for LUD
+                for i, value in enumerate(lud.time_consumed):
+                    if i == 0:
+                        csvwriter.writerow(["LUD", value])
+                    else:
+                        csvwriter.writerow(["", value])
+
+                # Calculate average
+
+                avg_time_consumed = sum([float(x.strip()) for x in lud.time_consumed]) / len(lud.time_consumed)
+
+                # Write average
+                csvwriter.writerow(["Average", avg_time_consumed])
+                csvwriter.writerow([])
+
+
+            if 'Particle Filter' in apps:
+                
+                particle = Particle(filename)
+
+                headers = ["App", "VIDEO SEQUENCE TOOK", "TIME TO SEND TO GPU", "GPU Execution", "FREE TIME", "PARTICLE FILTER TOOK", "ENTIRE PROGRAM TOOK"]
+                csvwriter.writerow(headers)
+
+                # Write data for Particle
+                for i in range(len(particle.video_sequence)):
+                    row = ["Particle Filter" if i == 0 else ""]
+                    row.append(particle.video_sequence[i])
+                    row.append(particle.timeToSend_to_gpu[i])
+                    row.append(particle.gpu_execution[i])
+                    row.append(particle.free_time[i])
+                    row.append(particle.particle_filter[i])
+                    row.append(particle.entire_program[i])
+                    csvwriter.writerow(row)
+                    
+
+                # Calculate averages
+                avg_video_sequence = sum(particle.video_sequence) / len(particle.video_sequence)
+                avg_timeToSend_to_gpu = sum(particle.timeToSend_to_gpu) / len(particle.timeToSend_to_gpu)
+                avg_gpu_execution = sum(particle.gpu_execution) / len(particle.gpu_execution)
+                avg_free_time = sum(particle.free_time) / len(particle.free_time)
+                avg_particle_filter = sum(particle.particle_filter) / len(particle.particle_filter)
+                avg_entire_program = sum(particle.entire_program) / len(particle.entire_program)
+
+                 # Write averages
+                csvwriter.writerow(["Average", avg_video_sequence, avg_timeToSend_to_gpu, avg_gpu_execution, avg_free_time, avg_particle_filter, avg_entire_program])
+                csvwriter.writerow([])
+
+            if 'CFD' in apps:
+
+                cfd = Cfd(filename)
+
+                headers = ["App", "Seconds per Iteration"]
+                csvwriter.writerow(headers)
+
+                # Write data for Cfd
+                for i in range(len(cfd.seconds_per_iteration)):
+                    row = ["CFD" if i == 0 else ""]
+                    row.append(cfd.seconds_per_iteration[i])
+                    csvwriter.writerow(row)
+
+                # Calculate average
+                avg_seconds_per_iteration = sum(cfd.seconds_per_iteration) / len(cfd.seconds_per_iteration)
+
+                # Write average
+                csvwriter.writerow(["Average", avg_seconds_per_iteration])
+                csvwriter.writerow([])
+
+            if 'BFS' in apps:
+
+                bfs = BFS(filename)
+
+                # Write headers
+                headers = ["App", "HtoD", "DtoH", "Exec", "Total"]
+                csvwriter.writerow(headers)
+
+                # Write data for BFS
+                for i in range(len(bfs.host_to_dev)):
+                    row = ["BFS" if i == 0 else ""]
+                    row.append(bfs.host_to_dev[i])
+                    row.append(bfs.dev_to_host[i])
+                    row.append(bfs.execution[i])
+                    row.append(bfs.total[i])
+                    csvwriter.writerow(row)
+
+                # Calculate averages
+                avg_host_to_dev = sum(bfs.host_to_dev) / len(bfs.host_to_dev)
+                avg_dev_to_host = sum(bfs.dev_to_host) / len(bfs.dev_to_host)
+                avg_execution = sum(bfs.execution) / len(bfs.execution)
+                avg_total = sum(bfs.total) / len(bfs.total)
+
+                # Write averages
+                csvwriter.writerow(["Average", avg_host_to_dev, avg_dev_to_host, avg_execution, avg_total])
+                csvwriter.writerow([])
+            
+            if 'Srad' in apps:
+                
+                srad = Srad(filename)
+
+                headers = ["App", "RESIZE IMAGE", "COPY DATA TO CPU->GPU", "EXTRACT IMAGE", "COMPRESS IMAGE", 
+                   "COMPUTE", "COPY DATA TO GPU->CPU", "GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION", "TOTAL"]
+                csvwriter.writerow(headers)
+
+                # Write data for Srad
+                for i in range(len(srad.resize_image)):
+                    row = ["Srad" if i == 0 else ""]
+                    row.extend([
+                        srad.resize_image[i], srad.host_to_dev[i], srad.extract_image[i], 
+                        srad.compress_image[i], srad.compute[i], srad.dev_to_host[i], 
+                        srad.gpu_cpu_mem_setup[i], srad.total[i]
+                    ])
+                    csvwriter.writerow(row)
+
+                # Calculate averages
+                attributes = [srad.resize_image, srad.host_to_dev, srad.extract_image, srad.compress_image, 
+                            srad.compute, srad.dev_to_host, srad.gpu_cpu_mem_setup, srad.total]
+                averages = ["Average"]
+                for attribute in attributes:
+                    
+                    averages.append(sum([float(x) for x in attribute]) / len(attribute))
+
+                # Write averages
+                csvwriter.writerow(averages)
+                csvwriter.writerow([])
+
+
 # Example usage:
 if __name__ == "__main__":
-    filename = "execution_results.txt"  # Replace with the path to your text file
+    input_filename = "execution_results.txt"  # Replace with the path to your text file
 
-    lud = Lud(filename)
-    print("LUD")
-    print("Time Consumed Values:", lud.time_consumed , '\n')
-
-    particle = Particle(filename)
-    print('Particle Filter')
-    print("VIDEO SEQUENCE TOOK:", particle.video_sequence)
-    print("TIME TO SEND TO GPU:", particle.timeToSend_to_gpu)
-    print("GPU Execution:", particle.gpu_execution)
-    print("FREE TIME:", particle.free_time)
-    print("PARTICLE FILTER TOOK:", particle.particle_filter)
-    print("ENTIRE PROGRAM TOOK:", particle.entire_program , '\n')
-
-    cfd = Cfd(filename)
-    print('CFD')
-    print("Seconds per Iteration:", cfd.seconds_per_iteration, '\n')
-
-    lava_md = LavaMD(filename)
-    print('LavaMD')
-    print("SET DEVICE:", lava_md.set_device)
-    print("MEM COPY IN:", lava_md.mem_copy_in)
-    print("KERNEL:", lava_md.kernel)
-    print("MEM COPY OUT:", lava_md.mem_copy_out)
-    print("MEM FREE:", lava_md.mem_free)
-    print("TOTAL:", lava_md.total, '\n')
-
-    bfs = BFS(filename)
-    print('BFS')
-    print("HtoD:", bfs.host_to_dev)
-    print("DtoH:", bfs.dev_to_host)
-    print("Exec:", bfs.execution)
-    print("Total:", bfs.total, '\n')
-
-    srad = Srad(filename)
-    print('Srad')
-    print("RESIZE IMAGE:", srad.resize_image)
-    print("COPY DATA TO CPU->GPU:", srad.host_to_dev)
-    print("EXTRACT IMAGE:", srad.extract_image)
-    print("COMPRESS IMAGE:", srad.compress_image)
-    print("COMPUTE:", srad.compute)
-    print("COPY DATA TO GPU->CPU:", srad.dev_to_host)
-    print("GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION:", srad.gpu_cpu_mem_setup)
-    print("TOTAL:", srad.total, '\n ')
+    apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
+    csv_filename = 'execution_results.csv'
+    writeCSV(csv_filename,input_filename, apps)
+    

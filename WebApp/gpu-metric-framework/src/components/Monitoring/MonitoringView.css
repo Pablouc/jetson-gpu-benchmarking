@@ -11,15 +11,14 @@
 .cell {
     background-color:  white;
     border: 2px solid rgb(0, 0, 0);
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
     margin-top: 20px;
-    margin-right: 20px;
+    margin-right: 30px;
     
 }
 
 
-.download-button{
+.monitoring-button{
     font-size: 20px;
     border-radius: 5px;
     background-color: #628fca;
@@ -28,7 +27,7 @@
     margin-bottom: 20px;
 }
 
-.download-button:hover{
+.monitoring-button:hover{
     color: white;
   }
 

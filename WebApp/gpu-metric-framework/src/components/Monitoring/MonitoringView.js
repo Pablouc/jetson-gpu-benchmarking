@@ -23,7 +23,7 @@ function MonitoringView (props) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'execution_results.txt'; // Or whatever you want the filename to be
+            a.download = 'execution_results.csv'; // Or whatever you want the filename to be
             a.click();
             window.URL.revokeObjectURL(url);
         })
@@ -32,12 +32,17 @@ function MonitoringView (props) {
         });
     }
 
+    const changeView=()=>{
+        props.setView(false);
+    }
+
 
     return(
         <div>
         
             <div>
-                <button className="download-button" onClick={downloadResults}>Download results</button>
+                <button className="monitoring-button" onClick={downloadResults}>Download results</button>
+                <button className="monitoring-button" onClick={changeView}>Request Execution</button>
             </div>
             <div className="container">
                 <div className="cell"> 
