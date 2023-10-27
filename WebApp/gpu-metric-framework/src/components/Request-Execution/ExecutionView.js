@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect } from 'react';
 
 import './ExecutionView.css';
 import Card from '../UI/Card';
@@ -13,6 +13,7 @@ function ExecutionView(props) {
 
     const [refreshFlag, setRefreshFlag] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
+    const [MonitoringFlag, setMonitoringFlag] = useState(false);
 
     const executeHandler = ( enteredUserData ) => {
         userData = {
@@ -22,7 +23,6 @@ function ExecutionView(props) {
         
              
     }
-
 
 
 
@@ -47,14 +47,20 @@ function ExecutionView(props) {
 
     const closePopup = () => {
         setPopupOpen(false);
+        setMonitoringFlag(true);
       };
+
+      useEffect(() => {
+        props.setView(MonitoringFlag);
+        console.log(MonitoringFlag);
+    }, [MonitoringFlag]);
 
 
 
     return(
         <div >
             <div className='popup'>
-                <Popup isOpen={isPopupOpen} onClose={closePopup} />
+                <Popup isOpen={isPopupOpen} onClose={closePopup}/>
             </div>
             <div className='container'>
                 <Card className='left-container'>

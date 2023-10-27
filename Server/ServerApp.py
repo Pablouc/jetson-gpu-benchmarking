@@ -6,7 +6,7 @@ json_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 sys.path.append(json_folder_path)
 
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 import threading
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
@@ -39,6 +39,18 @@ def run_monitoring():
 
 
 #GET METHODS
+
+@app.route('/get-csv', methods=['GET'])
+def get_csv():
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path_to_file = os.path.join(current_directory, 'execution_results.txt')
+    
+    response = send_file(path_to_file, as_attachment=True, download_name='execution_results.txt')
+
+    # Add your custom header here
+    response.headers['ngrok-skip-browser-warning'] = '1'
+
+    return response
 
 # Define a route to return the app names as JSON
 @app.route('/frequencies', methods=['GET'])
