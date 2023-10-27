@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './MonitoringView.css';
 
 function MonitoringView (props) {
 
@@ -34,8 +35,37 @@ function MonitoringView (props) {
 
     return(
         <div>
-            <button onClick={downloadResults}>Download results</button>
+        
+            <div>
+                <button className="download-button" onClick={downloadResults}>Download results</button>
+            </div>
+            <div className="container">
+                <div className="cell"> 
+                
+                </div>
+                
+                <div className="cell ">
+                    
+                </div>
+                
+                <div className="cell">
+                    
+                </div>
+                
+                <div className="cell">
+                    
+                </div>
+                
+                <div className="cell">
+                    
+                </div>
+
+                <div className="cell">
+                    
+                </div>
+            </div>
         </div>
+
     );
 }
 

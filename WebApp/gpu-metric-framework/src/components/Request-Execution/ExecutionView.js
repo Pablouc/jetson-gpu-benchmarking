@@ -62,7 +62,7 @@ function ExecutionView(props) {
             <div className='popup'>
                 <Popup isOpen={isPopupOpen} onClose={closePopup}/>
             </div>
-            <div className='container'>
+            <div className='execution-container'>
                 <Card className='left-container'>
                     <label className='label'>Select the applications</label>
                     {/* <div>

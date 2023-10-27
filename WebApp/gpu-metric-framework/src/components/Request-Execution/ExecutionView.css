@@ -1,7 +1,7 @@
-.container {
+.execution-container {
     display: flex;
     justify-content: space-between; /* Alinea los contenedores al principio y al final del espacio disponible */
-    height:900px;
+    height:100vh;
   }
 
   .left-container {

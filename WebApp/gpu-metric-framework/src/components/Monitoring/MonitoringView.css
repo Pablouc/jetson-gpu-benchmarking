@@ -1,0 +1,34 @@
+.container {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+    background-color: #e0e0e0;
+}
+
+.cell {
+    background-color:  white;
+    border: 2px solid rgb(0, 0, 0);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    
+}
+
+
+.download-button{
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #628fca;
+    padding: 5px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.download-button:hover{
+    color: white;
+  }
+
