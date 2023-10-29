@@ -12,6 +12,8 @@ import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
 from manageExecution import manageExecution
+from manageMetrics import writeCSV
+
 
 # Create a Flask web application
 app = Flask('evaluatorServer')
@@ -114,8 +116,11 @@ def execution_request():
 
     #Executing apps
     manageExecution(executionJson)
-   
-
+    
+    input_filename = "execution_results.txt"
+    apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
+    csv_filename = 'execution_results.csv'
+    writeCSV(csv_filename,input_filename, apps)
     #thread1 = threading.Thread(target=run_managerApp)  # This thread will run the executable
     #thread2 = threading.Thread(target=run_monitoring)      # This thread will run the script
 
