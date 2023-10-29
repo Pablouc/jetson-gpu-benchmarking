@@ -43,9 +43,9 @@ def run_monitoring():
 @app.route('/get-csv', methods=['GET'])
 def get_csv():
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_file = os.path.join(current_directory, 'execution_results.csv')
+    path_to_file = os.path.join(json_folder_path, 'execution_results.csv')
     
-    response = send_file(path_to_file, as_attachment=True, download_name='execution_results.txt')
+    response = send_file(path_to_file, as_attachment=True, download_name='execution_results.csv')
 
     # Add your custom header here
     response.headers['ngrok-skip-browser-warning'] = '1'

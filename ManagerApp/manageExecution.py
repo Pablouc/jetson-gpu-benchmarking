@@ -152,19 +152,19 @@ def sequentialExecution(apps, iterations, frequency):
         tempPath = ''
         for app in apps:
             if app.name == "BFS":
-                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads + ' && '
+                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads + ' & '
             
 
             elif app.name == "LavaMD":
-                tempPath += appsPath + 'lavaMD ' +  app.workloads + ' && '
+                tempPath += appsPath + 'lavaMD ' +  app.workloads + ' & '
              
 
             elif app.name == "Particle Filter":
-                tempPath += appsPath + 'particlefilter_float ' + app.workloads + ' && '
+                tempPath += appsPath + 'particlefilter_float ' + app.workloads + ' & '
               
 
             elif app.name == "Srad":
-                tempPath += appsPath + 'srad_v1 ' +  app.workloads + ' && '
+                tempPath += appsPath + 'srad_v1 ' +  app.workloads + ' & '
                
 
             elif app.name == "Lud":
@@ -217,19 +217,21 @@ jsonStruct = {
         {
             'name': 'Srad',
             'workloads': '100 0.5 502 458'                           
-        },
-        {
-            'name': 'CFD',
-            'workloads': 'fvcorr.domn.097K',               
-            'threads': '16'   
-        },
-        {
-            'name': 'Lud',
-            'workloads': '-s 256',
-            'threads': '24'
-        }
+        }#,
+       # {
+       #     'name': 'CFD',
+       #     'workloads': 'fvcorr.domn.097K',               
+       #     'threads': '16'   
+       # },
+    
+    #    {
+     #       'name': 'Lud',
+      #      'workloads': '-s 256',
+       #     'threads': '24'
+        #}
+      
     ],
-    'execType': 'simult',
+    'execType': 'not-simult',
     'execNum': '3',
     'freq': '1007250000'
 }
@@ -245,5 +247,8 @@ def manageExecution(jsonObject):
     elif exec_type == 'not-simult':
         sequentialExecution(apps, exec_num, freq)
 
+if __name__ == "__main__":
+    manageExecution(jsonStruct)
 
-manageExecution(jsonStruct)
+
+
