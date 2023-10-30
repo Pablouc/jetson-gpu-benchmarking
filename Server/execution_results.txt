@@ -1,0 +1,332 @@
+WG size of kernel = 64 X 64
+Generate input matrix internally, size =256
+Creating matrix internally size=256
+Time consumed(ms): 13.998000
+
+
+
+VIDEO SEQUENCE TOOK 0.036498
+TIME TO SEND TO GPU: 0.008258
+GPU Execution: 0.090975
+FREE TIME: 0.000211
+TIME TO SEND BACK: 0.004360
+SEND ARRAY X BACK: 0.001241
+SEND ARRAY Y BACK: 0.001467
+SEND WEIGHTS BACK: 0.001441
+XE: 48.476650
+YE: 72.440448
+17.669623
+PARTICLE FILTER TOOK 0.343546
+ENTIRE PROGRAM TOOK 0.380044
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000024999999 s,  0.003991059959 % : READ COMMAND LINE PARAMETERS
+ 0.000099999997 s,  0.015964239836 % : READ IMAGE FROM FILE
+ 0.000019999999 s,  0.003192848060 % : RESIZE IMAGE
+ 0.220696002245 s, 35.232440948486 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000326999987 s,  0.052203062922 % : COPY DATA TO CPU->GPU
+ 0.000051999999 s,  0.008301405236 % : EXTRACT IMAGE
+ 0.401439994574 s, 64.086845397949 % : COMPUTE
+ 0.000014000000 s,  0.002234993502 % : COMPRESS IMAGE
+ 0.002572000027 s,  0.410600244999 % : COPY DATA TO GPU->CPU
+ 0.000581000000 s,  0.092752240598 % : SAVE IMAGE INTO FILE
+ 0.000572999998 s,  0.091475099325 % : FREE MEMORY
+Total time:
+0.626399993896 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 10
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.216491997242 s, 12.423939704895 % : GPU: SET DEVICE / DRIVER INIT
+ 0.007550000213 s,  0.433275789022 % : GPU MEM: ALO
+ 0.002736999886 s,  0.157069653273 % : GPU MEM: COPY IN
+ 1.509181022644 s, 86.608161926270 % : GPU: KERNEL
+ 0.005801000167 s,  0.332905024290 % : GPU MEM: COPY OUT
+ 0.000777999987 s,  0.044647492468 % : GPU MEM: FRE
+Total time:
+1.742539048195 s
+
+
+
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 147.600006
+Exec: 47.813999
+DtoH: 21.336000
+Close: 2.153000
+Total: 505.045013
+
+
+
+WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
+Name:                     Xavier
+Starting...
+0.00194266 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
+
+
+WG size of kernel = 64 X 64
+Generate input matrix internally, size =256
+Creating matrix internally size=256
+Time consumed(ms): 4.622000
+
+
+
+VIDEO SEQUENCE TOOK 0.032169
+TIME TO SEND TO GPU: 0.006720
+GPU Execution: 0.093993
+FREE TIME: 0.000213
+TIME TO SEND BACK: 0.005784
+SEND ARRAY X BACK: 0.001286
+SEND ARRAY Y BACK: 0.003013
+SEND WEIGHTS BACK: 0.001272
+XE: 48.562220
+YE: 72.445800
+17.597062
+PARTICLE FILTER TOOK 0.283601
+ENTIRE PROGRAM TOOK 0.315770
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000145606187 % : SETUP VARIABLES
+ 0.000024000001 s,  0.003494548611 % : READ COMMAND LINE PARAMETERS
+ 0.000102999998 s,  0.014997436665 % : READ IMAGE FROM FILE
+ 0.000021000000 s,  0.003057729919 % : RESIZE IMAGE
+ 0.246903002262 s, 35.950603485107 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.002667000052 s,  0.388331711292 % : COPY DATA TO CPU->GPU
+ 0.000067000001 s,  0.009755615145 % : EXTRACT IMAGE
+ 0.433252006769 s, 63.084175109863 % : COMPUTE
+ 0.000014000000 s,  0.002038486768 % : COMPRESS IMAGE
+ 0.002610000083 s,  0.380032151937 % : COPY DATA TO GPU->CPU
+ 0.000627000001 s,  0.091295078397 % : SAVE IMAGE INTO FILE
+ 0.000494999986 s,  0.072075068951 % : FREE MEMORY
+Total time:
+0.686784029007 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 10
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.140318006277 s,  7.989391803741 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001273000031 s,  0.072481758893 % : GPU MEM: ALO
+ 0.006455999799 s,  0.367590099573 % : GPU MEM: COPY IN
+ 1.602064967155 s, 91.217979431152 % : GPU: KERNEL
+ 0.005408000201 s,  0.307919353247 % : GPU MEM: COPY OUT
+ 0.000783999974 s,  0.044639196247 % : GPU MEM: FRE
+Total time:
+1.756304025650 s
+
+
+
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 145.442017
+Exec: 47.702000
+DtoH: 20.130001
+Close: 2.288000
+Total: 504.998993
+
+
+
+WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
+Name:                     Xavier
+Starting...
+0.00196944 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
+
+
+WG size of kernel = 64 X 64
+Generate input matrix internally, size =256
+Creating matrix internally size=256
+Time consumed(ms): 0.727000
+
+
+
+VIDEO SEQUENCE TOOK 0.023181
+TIME TO SEND TO GPU: 0.005701
+GPU Execution: 0.091715
+FREE TIME: 0.000250
+TIME TO SEND BACK: 0.004386
+SEND ARRAY X BACK: 0.001221
+SEND ARRAY Y BACK: 0.001469
+SEND WEIGHTS BACK: 0.001446
+XE: 48.540758
+YE: 72.318807
+17.555362
+PARTICLE FILTER TOOK 0.288168
+ENTIRE PROGRAM TOOK 0.311349
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000153972418 % : SETUP VARIABLES
+ 0.000022000000 s,  0.003387392964 % : READ COMMAND LINE PARAMETERS
+ 0.000110000001 s,  0.016936965287 % : READ IMAGE FROM FILE
+ 0.000019999999 s,  0.003079448361 % : RESIZE IMAGE
+ 0.224922999740 s, 34.631938934326 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.002411999973 s,  0.371381461620 % : COPY DATA TO CPU->GPU
+ 0.000064000000 s,  0.009854234755 % : EXTRACT IMAGE
+ 0.418247014284 s, 64.398498535156 % : COMPUTE
+ 0.000076999997 s,  0.011855875142 % : COMPRESS IMAGE
+ 0.002325000009 s,  0.357985854149 % : COPY DATA TO GPU->CPU
+ 0.000623000029 s,  0.095924809575 % : SAVE IMAGE INTO FILE
+ 0.000643000007 s,  0.099004261196 % : FREE MEMORY
+Total time:
+0.649466991425 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 10
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.195822998881 s, 10.924062728882 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001247999957 s,  0.069620169699 % : GPU MEM: ALO
+ 0.002086000051 s,  0.116368323565 % : GPU MEM: COPY IN
+ 1.587335944176 s, 88.550163269043 % : GPU: KERNEL
+ 0.005324999802 s,  0.297057211399 % : GPU MEM: COPY OUT
+ 0.000766000012 s,  0.042731609195 % : GPU MEM: FRE
+Total time:
+1.792583942413 s
+
+
+
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 149.644028
+Exec: 47.796001
+DtoH: 21.370998
+Close: 2.171000
+Total: 509.661987
+
+
+
+WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
+Name:                     Xavier
+Starting...
+0.001977 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000037999998 s,  0.018985951319 % : READ COMMAND LINE PARAMETERS
+ 0.000091000002 s,  0.045466355979 % : READ IMAGE FROM FILE
+ 0.000019999999 s,  0.009992605075 % : RESIZE IMAGE
+ 0.176079005003 s, 87.974395751953 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000040999999 s,  0.020484842360 % : COPY DATA TO CPU->GPU
+ 0.000060999999 s,  0.030477447435 % : EXTRACT IMAGE
+ 0.022788999602 s, 11.386074066162 % : COMPUTE
+ 0.000024000001 s,  0.011991126463 % : COMPRESS IMAGE
+ 0.000059999998 s,  0.029977815226 % : COPY DATA TO GPU->CPU
+ 0.000538000022 s,  0.268801093102 % : SAVE IMAGE INTO FILE
+ 0.000407000014 s,  0.203349515796 % : FREE MEMORY
+Total time:
+0.200148001313 s
+
+
+
+WG size of kernel = 64 X 64
+Generate input matrix internally, size =256
+Creating matrix internally size=256
+Time consumed(ms): 6.693000
+
+
+
+VIDEO SEQUENCE TOOK 0.031834
+TIME TO SEND TO GPU: 0.000774
+GPU Execution: 0.055732
+FREE TIME: 0.000207
+TIME TO SEND BACK: 0.003972
+SEND ARRAY X BACK: 0.001124
+SEND ARRAY Y BACK: 0.001311
+SEND WEIGHTS BACK: 0.001330
+XE: 48.501046
+YE: 72.294290
+17.578761
+PARTICLE FILTER TOOK 0.254464
+ENTIRE PROGRAM TOOK 0.286298
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 10
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.189087003469 s, 13.315601348877 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001457000035 s,  0.102602668107 % : GPU MEM: ALO
+ 0.006579000037 s,  0.463296473026 % : GPU MEM: COPY IN
+ 1.214184999466 s, 85.503517150879 % : GPU: KERNEL
+ 0.007635000162 s,  0.537660539150 % : GPU MEM: COPY OUT
+ 0.001097999979 s,  0.077321715653 % : GPU MEM: FRE
+Total time:
+1.420040965080 s
+
+
+
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 141.418060
+Exec: 47.950001
+DtoH: 21.450001
+Close: 2.156000
+Total: 498.125000
+
+
+
+WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
+Name:                     Xavier
+Starting...
+0.00189542 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
+
+

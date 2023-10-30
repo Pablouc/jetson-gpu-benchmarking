@@ -3,10 +3,10 @@ import os
 
 # Add the path to the json_folder directory to sys.path
 ManagerApp_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ManagerApp'))
-Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Monitoring'))
+#Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Monitoring'))
 
 sys.path.append(ManagerApp_folder_path)
-sys.path.append(Monitor_folder_path)
+#sys.path.append(Monitor_folder_path)
 
 
 from flask import Flask, jsonify, request, send_file
@@ -16,7 +16,7 @@ from flask_cors import CORS #allow the server and front-end to run on different 
 from jsonParsing import transform_input_json 
 from manageExecution import manageExecution, current_apps
 from manageMetrics import writeCSV
-from monitoring import monitor_current_apps
+#from monitoring import monitor_current_apps
 
 
 # Create a Flask web application
@@ -48,7 +48,13 @@ def run_monitoring():
 
 @app.route('/getCurrentApps', methods=['GET'])
 def get_current_apps():
-    response = jsonify({"current_apps": list(current_apps)})
+    if current_apps == []:        
+        response = jsonify("")
+                    
+    else:
+        response = jsonify(list(current_apps))
+    
+
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
