@@ -7,8 +7,8 @@ import queue
 
 # Define a global variable to store the total execution time
 total_execution_time = 0
-
-current_app = ''
+executing = False
+current_apps = set()
 
 # Create a lock to ensure that only one thread updates the total_execution_time at a time
 lock = threading.Lock()
@@ -59,7 +59,6 @@ def customize_makefile(command):
         print(command_res.stderr)
 
 
-# This function will run your executable.
 def run_script(path):
     command_result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
@@ -81,29 +80,52 @@ def run_script(path):
         print(command_result.stderr)
 
 
-def run_application(script, appName, result_queue):
-    global total_execution_time
+def run_application(script, appName, simultFlag):
     global current_app
-    
 
-    start_time = time.time()
-    run_script(script)
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f"Application: {appName} took {execution_time} seconds to execute")
-
-    # Update the total execution time using a lock
-    with lock:
-        current_app = appName
-        total_execution_time += execution_time
+    if simultFlag == 0:
+        with lock:
+            current_apps.add(appName)
+            run_script(script)
+            current_apps.remove(appName)
+    else:
+        with lock:
+            current_apps.add(appName)
     
-    # Put the result into the queue instead of returning it
-    result_queue.put([appName, execution_time])
+        run_script(script)
+
+        with lock:
+            current_apps.remove(appName)
+
+def monitor_current_apps(interval=1):
+    global current_apps
+
+    while executing:
+        with lock:
+            print(f"Currently executing apps: {', '.join(current_apps)}")
+        time.sleep(interval)
+        
+
+def create_makefiles(apps,appsPath):
+    for app in apps:
+        if app.name == "Lud":
+            make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
+            customize_makefile(f"cd {make_path} && make clean")
+            customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+            customize_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
+            
+
+        elif app.name == "CFD":
+            make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
+            customize_makefile(f"cd {make_path} && make clean") 
+            customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+            customize_makefile(f"cd {make_path} && cp euler3d {appsPath}")
 
 
 
 def simultExecution(apps, iterations, frequency):
-    
+    global executing
+
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
     run_script(frequencyScript)
@@ -117,55 +139,65 @@ def simultExecution(apps, iterations, frequency):
     appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
     workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
 
+    create_makefiles(apps, appsPath)
+
+    executing = True
+    # Start a monitoring thread
+    monitor_thread = threading.Thread(target=monitor_current_apps)
+    monitor_thread.start()
 
     #Executing Applications
     for i in range( int(iterations) ):
+        iterations_timeStats=[]
+        threads = []
         tempPath = ''
         for app in apps:
             if app.name == "BFS":
-                tempPath += appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads + ' & '
-            
+                tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
 
             elif app.name == "LavaMD":
-                tempPath += appsPath + 'lavaMD ' +  app.workloads + ' & '
-             
-
+                tempPath = appsPath + 'lavaMD ' +  app.workloads 
+            
             elif app.name == "Particle Filter":
-                tempPath += appsPath + 'particlefilter_float ' + app.workloads + ' & '
+                tempPath = appsPath + 'particlefilter_float ' + app.workloads 
               
-
             elif app.name == "Srad":
-                tempPath += appsPath + 'srad_v1 ' +  app.workloads + ' & '
+                tempPath = appsPath + 'srad_v1 ' +  app.workloads
                
-
             elif app.name == "Lud":
-                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
-                
-                if i == 0 :
-                    customize_makefile(f"cd {make_path} && make clean")
-                    customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
-                    customize_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
-                tempPath += appsPath + 'lud_cuda '  + app.workloads + ' & '
-                
+                tempPath = appsPath + 'lud_cuda '  + app.workloads  
 
             elif app.name == "CFD":
-                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
-                if i == 0 :
-                    customize_makefile(f"cd {make_path} && make clean") 
-                    customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
-                    customize_makefile(f"cd {make_path} && cp euler3d {appsPath}")
-                tempPath += appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
+                tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
                            
             else:
                 print("No app selected")
+            
+            if tempPath:
+                thread = threading.Thread(target=run_application, args=(tempPath,app.name, 1))
+                threads.append(thread)
+                thread.start()
         
-        run_script(tempPath) 
+        start_time = time.time()
+
+        # Wait for all threads to finish
+        for t in threads:
+            t.join()
+
+        end_time = time.time()
+
+        iteration_execTime = end_time - start_time
+        iterations_timeStats.append(iteration_execTime)
+        print("Simultaneous iteration time: ", iterations_timeStats[i]) 
+    
+    executing = False
+    monitor_thread.join()
 
 
 
 
 def sequentialExecution(apps, iterations, frequency):
-    
+    global executing
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
     run_script(frequencyScript)
@@ -179,10 +211,18 @@ def sequentialExecution(apps, iterations, frequency):
     appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
     workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
 
+    create_makefiles(apps, appsPath)
+    executing = True
+    # Start a monitoring thread
+    monitor_thread = threading.Thread(target=monitor_current_apps)
+    monitor_thread.start()
 
     #Executing Applications
     for i in range( int(iterations) ):
+        iterations_timeStats=[]
         tempPath = ''
+        start_time_loop = time.time()
+        
         for app in apps:
             if app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads
@@ -192,47 +232,38 @@ def sequentialExecution(apps, iterations, frequency):
 
             elif app.name == "Particle Filter":
                 tempPath = appsPath + 'particlefilter_float ' + app.workloads
-              
 
             elif app.name == "Srad":
                 tempPath = appsPath + 'srad_v1 ' +  app.workloads
 
             elif app.name == "Lud":
-                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
-                
-                if i == 0 :
-                    customize_makefile(f"cd {make_path} && make clean")
-                    customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
-                    customize_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
                 tempPath = appsPath + 'lud_cuda '  + app.workloads 
-                
 
             elif app.name == "CFD":
-                make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
-                if i == 0 :
-                    customize_makefile(f"cd {make_path} && make clean") 
-                    customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
-                    customize_makefile(f"cd {make_path} && cp euler3d {appsPath}")
                 tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
                            
             else:
                 print("No app selected")
         
             if tempPath:
-                    result_queue = queue.Queue()  
-                    # Create a thread to execute the script and measure time
-                    thread = threading.Thread(target=run_application, args=(tempPath,app.name, result_queue))
-                    thread.start()
-                    # Wait for the thread to finish
-                    thread.join() 
+                result_queue = queue.Queue()  
+                # Create a thread to execute the script and measure time
+                thread = threading.Thread(target=run_application, args=(tempPath,app.name, 0))
+                thread.start()
+                # Wait for the thread to finish
+                thread.join()
+                
 
-                    appName, execution_time = result_queue.get()
-                    print("Execution per application: " , execution_time, "     App:", appName)
+                appName, execution_time = result_queue.get()
+                print("Execution per application: " , execution_time, "     App:", appName)
         
-        iteration_execTime = total_execution_time
-        print("Execution_Time per iteration", iteration_execTime)
-            
-
+        end_time_loop = time.time()  # Record end time of the loop
+        iteration_execTime = end_time_loop - start_time_loop
+        iterations_timeStats.append(iteration_execTime)
+        print("Execution_Time per iteration", iterations_timeStats[i])
+    
+    executing = False      
+    monitor_thread.join()
         
             
 
@@ -272,7 +303,7 @@ jsonStruct = {
         }
     ],
     'execType': 'not-simult',
-    'execNum': '1',
+    'execNum': '3',
     'freq': '1007250000'
 }
 
