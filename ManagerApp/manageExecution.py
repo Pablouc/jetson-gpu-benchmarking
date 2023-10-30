@@ -83,19 +83,23 @@ def run_script(path):
 def run_application(script, appName, simultFlag):
     global current_app
 
+    # Start of application execution; add to the current_apps set
+    with lock:
+        current_apps.add(appName)
+
+    # If simultFlag is 0, acquire the lock to ensure sequential execution
     if simultFlag == 0:
-        with lock:
-            current_apps.add(appName)
-            run_script(script)
-            current_apps.remove(appName)
+        with lock:           
+            pass
+        run_script(script)              
     else:
-        with lock:
-            current_apps.add(appName)
-    
+                              
         run_script(script)
 
-        with lock:
-            current_apps.remove(appName)
+    # End of application execution; remove from the current_apps set
+    
+    with lock:
+        current_apps.remove(appName)
 
 def monitor_current_apps(interval=1):
     global current_apps
@@ -145,10 +149,9 @@ def simultExecution(apps, iterations, frequency):
     # Start a monitoring thread
     monitor_thread = threading.Thread(target=monitor_current_apps)
     monitor_thread.start()
-
+    iterations_timeStats=[]
     #Executing Applications
     for i in range( int(iterations) ):
-        iterations_timeStats=[]
         threads = []
         tempPath = ''
         for app in apps:
@@ -174,7 +177,7 @@ def simultExecution(apps, iterations, frequency):
                 print("No app selected")
             
             if tempPath:
-                thread = threading.Thread(target=run_application, args=(tempPath,app.name, 1))
+                thread = threading.Thread(target=run_application, args=(tempPath,app.name, 100))
                 threads.append(thread)
                 thread.start()
         
@@ -216,10 +219,10 @@ def sequentialExecution(apps, iterations, frequency):
     # Start a monitoring thread
     monitor_thread = threading.Thread(target=monitor_current_apps)
     monitor_thread.start()
-
+    
+    iterations_timeStats=[]
     #Executing Applications
     for i in range( int(iterations) ):
-        iterations_timeStats=[]
         tempPath = ''
         start_time_loop = time.time()
         
@@ -253,9 +256,6 @@ def sequentialExecution(apps, iterations, frequency):
                 # Wait for the thread to finish
                 thread.join()
                 
-
-                appName, execution_time = result_queue.get()
-                print("Execution per application: " , execution_time, "     App:", appName)
         
         end_time_loop = time.time()  # Record end time of the loop
         iteration_execTime = end_time_loop - start_time_loop
@@ -302,8 +302,8 @@ jsonStruct = {
             'threads': '24'
         }
     ],
-    'execType': 'not-simult',
-    'execNum': '3',
+    'execType': 'simult',
+    'execNum': '2',
     'freq': '1007250000'
 }
 
