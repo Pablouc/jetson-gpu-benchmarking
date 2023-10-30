@@ -101,13 +101,6 @@ def run_application(script, appName, simultFlag):
     with lock:
         current_apps.remove(appName)
 
-def monitor_current_apps(interval=1):
-    global current_apps
-
-    while executing:
-        with lock:
-            print(f"Currently executing apps: {', '.join(current_apps)}")
-        time.sleep(interval)
         
 
 def create_makefiles(apps,appsPath):
@@ -145,10 +138,7 @@ def simultExecution(apps, iterations, frequency):
 
     create_makefiles(apps, appsPath)
 
-    executing = True
-    # Start a monitoring thread
-    monitor_thread = threading.Thread(target=monitor_current_apps)
-    monitor_thread.start()
+    
     iterations_timeStats=[]
     #Executing Applications
     for i in range( int(iterations) ):
@@ -193,8 +183,7 @@ def simultExecution(apps, iterations, frequency):
         iterations_timeStats.append(iteration_execTime)
         print("Simultaneous iteration time: ", iterations_timeStats[i]) 
     
-    executing = False
-    monitor_thread.join()
+    
 
 
 
@@ -215,10 +204,6 @@ def sequentialExecution(apps, iterations, frequency):
     workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
 
     create_makefiles(apps, appsPath)
-    executing = True
-    # Start a monitoring thread
-    monitor_thread = threading.Thread(target=monitor_current_apps)
-    monitor_thread.start()
     
     iterations_timeStats=[]
     #Executing Applications
@@ -260,15 +245,8 @@ def sequentialExecution(apps, iterations, frequency):
         end_time_loop = time.time()  # Record end time of the loop
         iteration_execTime = end_time_loop - start_time_loop
         iterations_timeStats.append(iteration_execTime)
-        print("Execution_Time per iteration", iterations_timeStats[i])
-    
-    executing = False      
-    monitor_thread.join()
-        
+        print("Execution_Time per iteration", iterations_timeStats[i])     
             
-
-
-
         
 
 

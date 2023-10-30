@@ -7,6 +7,7 @@ const bfs_workloadsNamesURL = ngrokURL + 'bfs_workloads';
 const requestExecutionURL = ngrokURL + 'setExecutionRequest';
 const frequenciesOptionsURL = ngrokURL + 'frequencies';
 const resultsFileDataURL = ngrokURL + 'get-csv';
+const currentAppsExcURL = ngrokURL + 'getCurrentApps';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     <div>
       <MainView cfd_workloadsURL={cfd_workloadsNamesURL} bfs_workloadsURL={bfs_workloadsNamesURL} 
                       executionURL={requestExecutionURL} frequenciesURL={frequenciesOptionsURL} 
-                      resultsFileURL={resultsFileDataURL}/>
+                      resultsFileURL={resultsFileDataURL} currentAppsURL={currentAppsExcURL}/>
     </div>
   );
 }
