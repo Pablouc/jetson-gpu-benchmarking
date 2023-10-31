@@ -31,3 +31,10 @@
     color: white;
   }
 
+.boldText {
+    font-weight: bold;
+}
+
+.cell-Title{
+    text-align: center;
+}

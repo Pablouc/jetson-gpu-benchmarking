@@ -26,23 +26,38 @@ function ExecutionView(props) {
 
 
 
-    async function requestExecution(){
+    async function requestExecution() {
         setRefreshFlag(true);
-        const response = await fetch(props.executionURL, {
+        setRefreshFlag(false);
+        setPopupOpen(true);
+        props.setExecState('InProgress');
+      
+        try {
+          const response = await fetch(props.executionURL, {
             method: 'POST',
             body: JSON.stringify(userData),
-            headers:{
-                "Content-Type": "application/json"
-            }
-           
-        });
-        const data = await response.json();
-
-        setRefreshFlag(false);
-        console.log(data);
-        setPopupOpen(true);
-        
-    }
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          if (!response.ok) {
+            // Handle HTTP errors
+            props.setExecState('Failed');
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+      
+          const data = await response.json();
+          props.setExecState('Succed');
+      
+          console.log(data);
+      
+        } catch (error) {
+          console.error('Error:', error.message);
+      
+        }
+      }
+      
 
 
     const closePopup = () => {
@@ -52,7 +67,6 @@ function ExecutionView(props) {
 
       useEffect(() => {
         props.setView(MonitoringFlag);
-        console.log(MonitoringFlag);
     }, [MonitoringFlag]);
 
 

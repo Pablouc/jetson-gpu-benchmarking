@@ -1,14 +1,13 @@
-import sys
-import os
 
 # Add the path to the json_folder directory to sys.path
 ManagerApp_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ManagerApp'))
-#Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Monitoring'))
+Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Monitoring'))
 
 sys.path.append(ManagerApp_folder_path)
-#sys.path.append(Monitor_folder_path)
+sys.path.append(Monitor_folder_path)
 
-
+import sys
+import os
 from flask import Flask, jsonify, request, send_file
 import threading
 import subprocess
@@ -16,7 +15,7 @@ from flask_cors import CORS #allow the server and front-end to run on different 
 from jsonParsing import transform_input_json 
 from manageExecution import manageExecution, current_apps
 from manageMetrics import writeCSV
-#from monitoring import monitor_current_apps
+from monitoring import monitor_gpu
 
 
 # Create a Flask web application
@@ -35,26 +34,44 @@ cfd_workloads= {
     "itemNames" : ['fvcorr.domn.097K', 'fvcorr.domn.193K', 'missile.domn.0.2M']
 }
 
-# This function will run your executable.
-def run_managerApp():
-    subprocess.run(["../../ManagerApp/managerApp"])
+execution_complete = threading.Event()
 
-# This function will run your script.
-def run_monitoring():
-    subprocess.run(["python", "../../ManagerApp/managerApp"])
+gpu_iterations_data = {
+    "temperature" : [],
+    "frequency": []
+}
 
+global_gpu_data = {
+    "temperature": None,
+    "frequency": None
+}
+
+def gpu_monitor_thread():
+    while not execution_complete.is_set():  # Continue monitoring until execution_complete flag is set
+        gpu_data = monitor_gpu()
+
+        global_gpu_data["temperature"] = gpu_data[0]
+        gpu_iterations_data['temperature'].append(gpu_data[0])
+
+        global_gpu_data["frequency"] = gpu_data[1]
+        gpu_iterations_data['frequency'].append(gpu_data[1])
 
 #GET METHODS
+
+@app.route('/gpu_data', methods=['GET'])
+def get_BFSworkloads():
+    response = jsonify(global_gpu_data)
+    response.headers['ngrok-skip-browser-warning'] = '1'
+    
+    return response
 
 @app.route('/getCurrentApps', methods=['GET'])
 def get_current_apps():
     if current_apps == []:        
-        response = jsonify("")
-                    
+        response = jsonify("")             
     else:
         response = jsonify(list(current_apps))
     
-
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
@@ -71,33 +88,24 @@ def get_csv():
 
     return response
 
-# Define a route to return the app names as JSON
 @app.route('/frequencies', methods=['GET'])
 def get_frequencies():
-    # Convert the array to JSON
     response = jsonify(frequencies)
-    # Add the 'ngrok-skip-browser-warning' header to the response
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
 
 
-# Define a route to return the app names as JSON
 @app.route('/bfs_workloads', methods=['GET'])
 def get_BFSworkloads():
-    # Convert the array to JSON
     response = jsonify(bfs_workloads)
-    # Add the 'ngrok-skip-browser-warning' header to the response
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
 
-# Define a route to return the app names as JSON
 @app.route('/cfd_workloads', methods=['GET'])
 def get_CFDworkloads():
-    # Convert the array to JSON
     response = jsonify(cfd_workloads)
-    # Add the 'ngrok-skip-browser-warning' header to the response
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
@@ -108,7 +116,6 @@ def get_CFDworkloads():
 # Define a route to receive POST requests and store data in executionRequest
 @app.route('/setExecutionRequest', methods=['POST', 'OPTIONS'])
 def execution_request():
-    global executing
     global executionRequest
 
     if request.method == 'OPTIONS':
@@ -130,7 +137,17 @@ def execution_request():
     executionJson =  transform_input_json(executionRequest)
     print(executionJson)
     
+    # Start the GPU monitoring thread
+    gpu_monitor_thread_instance = threading.Thread(target=gpu_monitor_thread)
+    gpu_monitor_thread_instance.start()
+
     manageExecution(executionJson)
+
+    # Signal that execution is complete
+    execution_complete.set()
+
+    # Wait for the GPU monitoring thread to finish
+    gpu_monitor_thread_instance.join()
     
     
     input_filename = "execution_results.txt"
