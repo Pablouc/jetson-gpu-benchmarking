@@ -5,10 +5,20 @@ import os
 def monitor_gpu():
     gpu_temperature=None
     gpu_frequency=None
+    gpu_power = None
     
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         tegrastats_script = os.path.join(script_dir, "tegrastats.sh")
+
+        gpu_power_script = os.path.join(script_dir, "gpu_power.sh")
+        gpu_power_output = subprocess.check_output(gpu_power_script, shell=True, text=True, stderr=subprocess.STDOUT).splitlines()
+        
+        for line in gpu_power_output:
+            if "Power:" in line:
+                gpu_power = line.split("Power:")[1].split("W")[0].strip()  # This will get the power value
+                print("GPU Power:", gpu_power, "W")
+                break
 
         tegrastats_output = subprocess.check_output(tegrastats_script, shell=True, text=True, stderr=subprocess.STDOUT)
         
@@ -30,7 +40,7 @@ def monitor_gpu():
 
     
 
-    return [gpu_temperature,gpu_frequency]
+    return [gpu_temperature,gpu_frequency, gpu_power]
 
 
 if __name__ == '__main__':
