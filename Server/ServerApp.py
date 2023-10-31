@@ -1,4 +1,5 @@
-
+import sys
+import os 
 # Add the path to the json_folder directory to sys.path
 ManagerApp_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ManagerApp'))
 Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Monitoring'))
@@ -6,8 +7,6 @@ Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.
 sys.path.append(ManagerApp_folder_path)
 sys.path.append(Monitor_folder_path)
 
-import sys
-import os
 from flask import Flask, jsonify, request, send_file
 import threading
 import subprocess
@@ -47,9 +46,11 @@ global_gpu_data = {
 }
 
 def gpu_monitor_thread():
+    print("before while")
     while not execution_complete.is_set():  # Continue monitoring until execution_complete flag is set
+        print("before calling script")
         gpu_data = monitor_gpu()
-
+        print("Monitoring: ",gpu_data[0], gpu_data[1])
         global_gpu_data["temperature"] = gpu_data[0]
         gpu_iterations_data['temperature'].append(gpu_data[0])
 
@@ -59,7 +60,8 @@ def gpu_monitor_thread():
 #GET METHODS
 
 @app.route('/gpu_data', methods=['GET'])
-def get_BFSworkloads():
+def get_gpuData():
+    print("Server data: ", global_gpu_data)
     response = jsonify(global_gpu_data)
     response.headers['ngrok-skip-browser-warning'] = '1'
     

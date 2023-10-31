@@ -1,11 +1,16 @@
 import subprocess
+import sys
+import os
 
 def monitor_gpu():
     gpu_temperature=None
     gpu_frequency=None
     
     try:
-        tegrastats_output = subprocess.check_output("./tegrastats.sh", shell=True, text=True, stderr=subprocess.STDOUT)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        tegrastats_script = os.path.join(script_dir, "tegrastats.sh")
+
+        tegrastats_output = subprocess.check_output(tegrastats_script, shell=True, text=True, stderr=subprocess.STDOUT)
         
         lines = tegrastats_output.split('\n')
 
