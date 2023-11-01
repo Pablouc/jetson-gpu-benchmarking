@@ -7,14 +7,17 @@
   .left-container {
     flex: 1; /* Ocupa todo el espacio disponible en el lado izquierdo */
     padding: 20px;
-    background-color: #e0e0e0;
-    margin-right: 10px;
+    margin-right: 20px;
+    margin-left:20px;
+    border: 2px solid rgb(0, 0, 0);
   }
 
   .right-container {
     flex: 1; /* Ocupa todo el espacio disponible en el lado derecho */
     padding: 20px;
-    background-color: #e0e0e0;
+    margin-right: 20px;
+    margin-left:20px;
+    border: 2px solid rgb(0, 0, 0);
   }
 
 .label {

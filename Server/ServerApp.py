@@ -37,7 +37,6 @@ execution_complete = threading.Event()
 
 gpu_iterations_data = {
     "temperature" : [],
-    "frequency": [],
     "power":[]
 }
 
@@ -57,12 +56,18 @@ def gpu_monitor_thread():
         gpu_iterations_data['temperature'].append(gpu_data[0])
 
         global_gpu_data["frequency"] = gpu_data[1]
-        gpu_iterations_data['frequency'].append(gpu_data[1])
 
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
 
 #GET METHODS
+
+@app.route('/gpu_iterations_data', methods=['GET'])
+def get_gpu_iterations_data():
+    response = jsonify(gpu_iterations_data)
+    response.headers['ngrok-skip-browser-warning'] = '1'
+    return response
+
 
 @app.route('/gpu_data', methods=['GET'])
 def get_gpuData():

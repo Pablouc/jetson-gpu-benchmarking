@@ -5,16 +5,16 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 2px;
-    background-color: #e0e0e0;
+    /* background-color: #e0e0e0; */
 }
 
 .cell {
-    background-color:  white;
+    background-color: black;
     border: 2px solid rgb(0, 0, 0);
     margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-right: 30px;
-    
+    height: 40vh;
 }
 
 
@@ -37,4 +37,21 @@
 
 .cell-Title{
     text-align: center;
+    height: 5vh;
+    background-color: black;
+    color:white
+    
+}
+
+.cell-body{
+    display: flex;            /* Turn on flexbox */
+    justify-content: center;  /* Center content horizontally */
+    align-items: center;      /* Center content vertically */
+    text-align: center;
+    height: 33.3vh;
+    background-color: white;
+}
+
+.singleData-metric{
+    font-size: 150px;
 }
