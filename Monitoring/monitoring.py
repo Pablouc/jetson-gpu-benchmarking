@@ -12,7 +12,7 @@ def monitor_gpu():
         tegrastats_script = os.path.join(script_dir, "tegrastats.sh")
 
         gpu_power_script = os.path.join(script_dir, "gpu_power.sh")
-        gpu_power_output = subprocess.check_output(gpu_power_script, shell=True, text=True, stderr=subprocess.STDOUT).splitlines()
+        gpu_power_output = subprocess.check_output("sudo " + gpu_power_script, shell=True, text=True, stderr=subprocess.STDOUT).splitlines()
         
         for line in gpu_power_output:
             if "Power:" in line:

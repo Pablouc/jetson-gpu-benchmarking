@@ -37,12 +37,14 @@ execution_complete = threading.Event()
 
 gpu_iterations_data = {
     "temperature" : [],
-    "frequency": []
+    "frequency": [],
+    "power":[]
 }
 
 global_gpu_data = {
     "temperature": None,
-    "frequency": None
+    "frequency": None,
+    "power": None
 }
 
 def gpu_monitor_thread():
@@ -56,6 +58,9 @@ def gpu_monitor_thread():
 
         global_gpu_data["frequency"] = gpu_data[1]
         gpu_iterations_data['frequency'].append(gpu_data[1])
+
+        global_gpu_data["power"] = gpu_data[2]
+        gpu_iterations_data['power'].append(gpu_data[2])
 
 #GET METHODS
 
