@@ -14,6 +14,11 @@ def monitor_gpu():
         gpu_power_script = os.path.join(script_dir, "gpu_power.sh")
         gpu_power_output = subprocess.check_output("sudo " + gpu_power_script, shell=True, text=True, stderr=subprocess.STDOUT).splitlines()
         
+
+        gpu_freq_script = "cat /sys/devices/gpu.0/devfreq/17000000.gv11b/cur_freq"
+        gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, text=True, stderr=subprocess.STDOUT)
+        print("GPU freq: " + gpu_frequency)
+
         for line in gpu_power_output:
             if "Power:" in line:
                 gpu_power = line.split("Power:")[1].split("W")[0].strip()  # This will get the power value
@@ -29,9 +34,6 @@ def monitor_gpu():
                 gpu_temperature = line.split("GPU@")[1].split('C')[0].strip()
                 print(gpu_temperature)
 
-            if "GR3D_FREQ" in line:
-                gpu_frequency = line.split("GR3D_FREQ")[1].split('%')[0].strip()
-                print(gpu_frequency)
     except subprocess.CalledProcessError as e:
         print("Error: ", e.output)
     

@@ -260,15 +260,17 @@ def writeCSV(csv_filename,filename ,apps):
                     csvwriter.writerow(row)
 
                 # Calculate averages
-                avg_set_device = sum(lava_md.set_device) / len(lava_md.set_device)
-                avg_mem_copy_in = sum(lava_md.mem_copy_in) / len(lava_md.mem_copy_in)
-                avg_kernel = sum(lava_md.kernel) / len(lava_md.kernel)
-                avg_mem_copy_out = sum(lava_md.mem_copy_out) / len(lava_md.mem_copy_out)
-                avg_mem_free = sum(lava_md.mem_free) / len(lava_md.mem_free)
-                avg_total = sum([float(x.strip()) for x in lava_md.total]) / len(lava_md.total)
+                if(len(lava_md.set_device) != 0):
+                
+                    avg_set_device = sum(lava_md.set_device) / len(lava_md.set_device)
+                    avg_mem_copy_in = sum(lava_md.mem_copy_in) / len(lava_md.mem_copy_in)
+                    avg_kernel = sum(lava_md.kernel) / len(lava_md.kernel)
+                    avg_mem_copy_out = sum(lava_md.mem_copy_out) / len(lava_md.mem_copy_out)
+                    avg_mem_free = sum(lava_md.mem_free) / len(lava_md.mem_free)
+                    avg_total = sum([float(x.strip()) for x in lava_md.total]) / len(lava_md.total)
 
-                # Write averages
-                csvwriter.writerow(["Average", avg_set_device, avg_mem_copy_in, avg_kernel, avg_mem_copy_out, avg_mem_free, avg_total])
+                    # Write averages
+                    csvwriter.writerow(["Average", avg_set_device, avg_mem_copy_in, avg_kernel, avg_mem_copy_out, avg_mem_free, avg_total])
                 csvwriter.writerow([])
 
             if 'LUD' in apps:
@@ -286,11 +288,11 @@ def writeCSV(csv_filename,filename ,apps):
                         csvwriter.writerow(["", value])
 
                 # Calculate average
+                if (len(lud.time_consumed) !=0 ):
+                    avg_time_consumed = sum([float(x.strip()) for x in lud.time_consumed]) / len(lud.time_consumed)
 
-                avg_time_consumed = sum([float(x.strip()) for x in lud.time_consumed]) / len(lud.time_consumed)
-
-                # Write average
-                csvwriter.writerow(["Average", avg_time_consumed])
+                    # Write average
+                    csvwriter.writerow(["Average", avg_time_consumed])
                 csvwriter.writerow([])
 
 
@@ -314,15 +316,16 @@ def writeCSV(csv_filename,filename ,apps):
                     
 
                 # Calculate averages
-                avg_video_sequence = sum(particle.video_sequence) / len(particle.video_sequence)
-                avg_timeToSend_to_gpu = sum(particle.timeToSend_to_gpu) / len(particle.timeToSend_to_gpu)
-                avg_gpu_execution = sum(particle.gpu_execution) / len(particle.gpu_execution)
-                avg_free_time = sum(particle.free_time) / len(particle.free_time)
-                avg_particle_filter = sum(particle.particle_filter) / len(particle.particle_filter)
-                avg_entire_program = sum(particle.entire_program) / len(particle.entire_program)
+                if (len(particle.entire_program) != 0 ):
+                    avg_video_sequence = sum(particle.video_sequence) / len(particle.video_sequence)
+                    avg_timeToSend_to_gpu = sum(particle.timeToSend_to_gpu) / len(particle.timeToSend_to_gpu)
+                    avg_gpu_execution = sum(particle.gpu_execution) / len(particle.gpu_execution)
+                    avg_free_time = sum(particle.free_time) / len(particle.free_time)
+                    avg_particle_filter = sum(particle.particle_filter) / len(particle.particle_filter)
+                    avg_entire_program = sum(particle.entire_program) / len(particle.entire_program)
 
-                 # Write averages
-                csvwriter.writerow(["Average", avg_video_sequence, avg_timeToSend_to_gpu, avg_gpu_execution, avg_free_time, avg_particle_filter, avg_entire_program])
+                    # Write averages
+                    csvwriter.writerow(["Average", avg_video_sequence, avg_timeToSend_to_gpu, avg_gpu_execution, avg_free_time, avg_particle_filter, avg_entire_program])
                 csvwriter.writerow([])
 
             if 'CFD' in apps:
@@ -338,11 +341,13 @@ def writeCSV(csv_filename,filename ,apps):
                     row.append(cfd.seconds_per_iteration[i])
                     csvwriter.writerow(row)
 
-                # Calculate average
-                avg_seconds_per_iteration = sum(cfd.seconds_per_iteration) / len(cfd.seconds_per_iteration)
+                if (len(cfd.seconds_per_iteration) !=0):
+                    # Calculate average
+                    avg_seconds_per_iteration = sum(cfd.seconds_per_iteration) / len(cfd.seconds_per_iteration)
 
-                # Write average
-                csvwriter.writerow(["Average", avg_seconds_per_iteration])
+                    # Write average
+                    csvwriter.writerow(["Average", avg_seconds_per_iteration])
+                
                 csvwriter.writerow([])
 
             if 'BFS' in apps:
@@ -363,13 +368,14 @@ def writeCSV(csv_filename,filename ,apps):
                     csvwriter.writerow(row)
 
                 # Calculate averages
-                avg_host_to_dev = sum(bfs.host_to_dev) / len(bfs.host_to_dev)
-                avg_dev_to_host = sum(bfs.dev_to_host) / len(bfs.dev_to_host)
-                avg_execution = sum(bfs.execution) / len(bfs.execution)
-                avg_total = sum(bfs.total) / len(bfs.total)
+                if ( len(bfs.total) != 0 ):
+                    avg_host_to_dev = sum(bfs.host_to_dev) / len(bfs.host_to_dev)
+                    avg_dev_to_host = sum(bfs.dev_to_host) / len(bfs.dev_to_host)
+                    avg_execution = sum(bfs.execution) / len(bfs.execution)
+                    avg_total = sum(bfs.total) / len(bfs.total)
 
-                # Write averages
-                csvwriter.writerow(["Average", avg_host_to_dev, avg_dev_to_host, avg_execution, avg_total])
+                    # Write averages
+                    csvwriter.writerow(["Average", avg_host_to_dev, avg_dev_to_host, avg_execution, avg_total])
                 csvwriter.writerow([])
             
             if 'Srad' in apps:
@@ -395,11 +401,12 @@ def writeCSV(csv_filename,filename ,apps):
                             srad.compute, srad.dev_to_host, srad.gpu_cpu_mem_setup, srad.total]
                 averages = ["Average"]
                 for attribute in attributes:
-                    
-                    averages.append(sum([float(x) for x in attribute]) / len(attribute))
-
-                # Write averages
-                csvwriter.writerow(averages)
+                    if(len(srad.resize_image)!=0):
+                        averages.append(sum([float(x) for x in attribute]) / len(attribute))
+                
+                if (len(srad.resize_image)!=0 ):
+                    # Write averages
+                    csvwriter.writerow(averages)
                 csvwriter.writerow([])
 
 

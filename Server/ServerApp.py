@@ -49,7 +49,7 @@ global_gpu_data = {
 def gpu_monitor_thread():
     print("before while")
     while not execution_complete.is_set():  # Continue monitoring until execution_complete flag is set
-        print("before calling script")
+        print("before calling script****************************************************")
         gpu_data = monitor_gpu()
         print("Monitoring: ",gpu_data[0], gpu_data[1])
         global_gpu_data["temperature"] = gpu_data[0]
@@ -59,6 +59,7 @@ def gpu_monitor_thread():
 
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
+        print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  gpu_iterations_data['temperature'])
 
 #GET METHODS
 
@@ -91,7 +92,7 @@ def get_current_apps():
 @app.route('/get-csv', methods=['GET'])
 def get_csv():
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_file = os.path.join(ManagerApp_folder_path, 'execution_results.csv')
+    path_to_file = os.path.join(current_directory, 'execution_results.csv')
     
     response = send_file(path_to_file, as_attachment=True, download_name='execution_results.csv')
 
@@ -152,8 +153,9 @@ def execution_request():
     # Start the GPU monitoring thread
     gpu_monitor_thread_instance = threading.Thread(target=gpu_monitor_thread)
     gpu_monitor_thread_instance.start()
-
+    print("entering manageExecution func")
     manageExecution(executionJson)
+    print("finished manageExecution func")
 
     # Signal that execution is complete
     execution_complete.set()
