@@ -1,23 +1,7 @@
-VIDEO SEQUENCE TOOK 0.021618
-TIME TO SEND TO GPU: 0.000439
-GPU Execution: 0.035323
-FREE TIME: 0.000156
-TIME TO SEND BACK: 0.001071
-SEND ARRAY X BACK: 0.000412
-SEND ARRAY Y BACK: 0.000082
-SEND WEIGHTS BACK: 0.000421
-XE: 48.571737
-YE: 72.433746
-17.582929
-PARTICLE FILTER TOOK 0.146033
-ENTIRE PROGRAM TOOK 0.167651
-
-
-
 WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
 Name:                     Xavier
 Starting...
-0.00339353 seconds per iteration
+0.00392819 seconds per iteration
 Saving solution...
 Saved solution...
 Cleaning up...
@@ -25,26 +9,24 @@ Done...
 
 
 
-VIDEO SEQUENCE TOOK 0.021822
-TIME TO SEND TO GPU: 0.000229
-GPU Execution: 0.035401
-FREE TIME: 0.000222
-TIME TO SEND BACK: 0.000515
-SEND ARRAY X BACK: 0.000141
-SEND ARRAY Y BACK: 0.000087
-SEND WEIGHTS BACK: 0.000065
-XE: 48.391449
-YE: 72.585567
-17.814006
-PARTICLE FILTER TOOK 0.145230
-ENTIRE PROGRAM TOOK 0.167052
+thread block size of kernel = 128 
+Configuration used: boxes1d = 20
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.131519004703 s,  1.070447087288 % : GPU: SET DEVICE / DRIVER INIT
+ 0.022502999753 s,  0.183154299855 % : GPU MEM: ALO
+ 0.011132000014 s,  0.090604528785 % : GPU MEM: COPY IN
+12.111188888550 s, 98.574249267578 % : GPU: KERNEL
+ 0.007612999994 s,  0.061963010579 % : GPU MEM: COPY OUT
+ 0.002405999927 s,  0.019582688808 % : GPU MEM: FRE
+Total time:
+12.286361694336 s
 
 
 
 WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
 Name:                     Xavier
 Starting...
-0.00341347 seconds per iteration
+0.00396468 seconds per iteration
 Saving solution...
 Saved solution...
 Cleaning up...
@@ -52,26 +34,24 @@ Done...
 
 
 
-VIDEO SEQUENCE TOOK 0.022224
-TIME TO SEND TO GPU: 0.000226
-GPU Execution: 0.035459
-FREE TIME: 0.000283
-TIME TO SEND BACK: 0.000582
-SEND ARRAY X BACK: 0.000151
-SEND ARRAY Y BACK: 0.000109
-SEND WEIGHTS BACK: 0.000039
-XE: 48.483323
-YE: 72.522951
-17.703332
-PARTICLE FILTER TOOK 0.138715
-ENTIRE PROGRAM TOOK 0.160939
+thread block size of kernel = 128 
+Configuration used: boxes1d = 20
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.120673999190 s,  0.980970442295 % : GPU: SET DEVICE / DRIVER INIT
+ 0.004315000027 s,  0.035077046603 % : GPU MEM: ALO
+ 0.011443000287 s,  0.093021236360 % : GPU MEM: COPY IN
+12.154183387756 s, 98.802513122559 % : GPU: KERNEL
+ 0.007002000231 s,  0.056919928640 % : GPU MEM: COPY OUT
+ 0.003874999937 s,  0.031500242651 % : GPU MEM: FRE
+Total time:
+12.301491737366 s
 
 
 
 WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
 Name:                     Xavier
 Starting...
-0.00343993 seconds per iteration
+0.00394621 seconds per iteration
 Saving solution...
 Saved solution...
 Cleaning up...
@@ -79,26 +59,24 @@ Done...
 
 
 
-VIDEO SEQUENCE TOOK 0.022426
-TIME TO SEND TO GPU: 0.000259
-GPU Execution: 0.035540
-FREE TIME: 0.000210
-TIME TO SEND BACK: 0.000484
-SEND ARRAY X BACK: 0.000122
-SEND ARRAY Y BACK: 0.000082
-SEND WEIGHTS BACK: 0.000070
-XE: 48.330495
-YE: 72.176358
-17.674451
-PARTICLE FILTER TOOK 0.144817
-ENTIRE PROGRAM TOOK 0.167243
+thread block size of kernel = 128 
+Configuration used: boxes1d = 20
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.099445998669 s,  0.811376869678 % : GPU: SET DEVICE / DRIVER INIT
+ 0.003772000084 s,  0.030775632709 % : GPU MEM: ALO
+ 0.010708999820 s,  0.087374404073 % : GPU MEM: COPY IN
+12.130800247192 s, 98.974822998047 % : GPU: KERNEL
+ 0.008415999822 s,  0.068665884435 % : GPU MEM: COPY OUT
+ 0.003307000035 s,  0.026981713250 % : GPU MEM: FRE
+Total time:
+12.256449699402 s
 
 
 
 WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
 Name:                     Xavier
 Starting...
-0.00345211 seconds per iteration
+0.0039442 seconds per iteration
 Saving solution...
 Saved solution...
 Cleaning up...
@@ -106,30 +84,17 @@ Done...
 
 
 
-VIDEO SEQUENCE TOOK 0.022458
-TIME TO SEND TO GPU: 0.000226
-GPU Execution: 0.035260
-FREE TIME: 0.000194
-TIME TO SEND BACK: 0.000469
-SEND ARRAY X BACK: 0.000144
-SEND ARRAY Y BACK: 0.000097
-SEND WEIGHTS BACK: 0.000034
-XE: 48.611314
-YE: 72.622855
-17.639877
-PARTICLE FILTER TOOK 0.145879
-ENTIRE PROGRAM TOOK 0.168337
-
-
-
-WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
-Name:                     Xavier
-Starting...
-0.00346139 seconds per iteration
-Saving solution...
-Saved solution...
-Cleaning up...
-Done...
+thread block size of kernel = 128 
+Configuration used: boxes1d = 20
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.104184001684 s,  0.849143028259 % : GPU: SET DEVICE / DRIVER INIT
+ 0.004133999813 s,  0.033693823963 % : GPU MEM: ALO
+ 0.011957000010 s,  0.097454540431 % : GPU MEM: COPY IN
+12.132699012756 s, 98.886558532715 % : GPU: KERNEL
+ 0.012504000217 s,  0.101912811399 % : GPU MEM: COPY OUT
+ 0.003833000083 s,  0.031240548939 % : GPU MEM: FRE
+Total time:
+12.269310951233 s
 
 
 
