@@ -32,7 +32,8 @@
   }
 
 .boldText {
-    font-weight: bold;
+    
+    font-size: 100px;
 }
 
 .cell-Title{
@@ -48,10 +49,10 @@
     justify-content: center;  /* Center content horizontally */
     align-items: center;      /* Center content vertically */
     text-align: center;
-    height: 33.3vh;
+    height: 32.7vh;
     background-color: white;
 }
 
 .singleData-metric{
-    font-size: 150px;
+    font-size: 100px;
 }

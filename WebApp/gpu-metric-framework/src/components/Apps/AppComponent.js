@@ -74,7 +74,7 @@ const AppComponent = (props) => {
         cfd_name: 'CFD',
         cfd_threads: cfd_threads
         };
-        props.onExecuteEvent(cfd); 
+        if(cfd_threads!='') props.onExecuteEvent(cfd); 
     }
 
     else if(props.appName=='LavaMD'){
@@ -82,7 +82,8 @@ const AppComponent = (props) => {
         lava_name: 'LavaMD',
         lava_workloads:' -boxes1d '+ boxes
         };
-        props.onExecuteEvent(lavaMD); 
+
+        if(boxes!='') props.onExecuteEvent(lavaMD); 
     }
 
     else if(props.appName=='Particle Filter'){
@@ -90,7 +91,7 @@ const AppComponent = (props) => {
         filter_name: 'Particle Filter',
         filter_workloads: ' -x ' + width + ' -y ' + height + ' -z ' + nfr + ' -np ' + np
         };
-        props.onExecuteEvent(particle); 
+        if((width!='') && (height!='') && (nfr!='') && (np!='')) props.onExecuteEvent(particle); 
     }
 
     else if(props.appName=='Srad'){
@@ -98,7 +99,7 @@ const AppComponent = (props) => {
         srad_name: 'Srad',
         srad_workloads: String(niter) + ' ' + String(lambda) + ' ' +  String(nr)+ ' ' + String(nc)
         };
-        props.onExecuteEvent(srad); 
+        if((niter!='') && (lambda!='') && (nr!='') && (nc!='')) props.onExecuteEvent(srad); 
     }
 
     else if(props.appName=='Lud'){
@@ -107,7 +108,7 @@ const AppComponent = (props) => {
         lud_workloads: ' -s ' + matrixSize ,
         lud_threads: lud_threads
         };
-        props.onExecuteEvent(lud); 
+        if((matrixSize!='') && (lud_threads!='')) props.onExecuteEvent(lud); 
     } 
     }, [props.refresh ,userData, cfd_threads, niter, lambda, nc, nr, width, height, nfr, np, matrixSize, lud_threads, boxes]);
     

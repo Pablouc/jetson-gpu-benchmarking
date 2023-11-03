@@ -297,6 +297,12 @@ def manageExecution(jsonObject):
         
         sequentialExecution(apps, exec_num, freq)
     
+    appNames =[]
+    for app in apps:
+        appNames.append(app.name)
+    
+    return[appNames, exec_num, exec_type, freq] 
+    
 
 if __name__ == "__main__":
 

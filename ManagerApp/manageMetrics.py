@@ -231,7 +231,7 @@ class Srad:
         except FileNotFoundError:
             print(f"File '{filename}' not found.")
 
-def writeCSV(csv_filename,filename ,apps):
+def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg , temp_avg):
         # Define the CSV file name
         
         full_path = os.path.join(script_directory, csv_filename)
@@ -239,6 +239,14 @@ def writeCSV(csv_filename,filename ,apps):
         # Write the data to a CSV file
         with open(full_path, mode='w', newline='') as csv_file:
             csvwriter = csv.writer(csv_file)
+
+            #Writing general data
+            csvwriter.writerow(["Execution Type", exec_type])
+            csvwriter.writerow(["Executions Number", exec_num] )
+            csvwriter.writerow(["Frequency", str(freq) + 'MHz'])
+            csvwriter.writerow(["Average Power consumed", str(power_avg) + 'W'])
+            csvwriter.writerow(["Average GPU Temp", str(temp_avg) + 'C'])
+            
             
             if 'LavaMD' in apps:
 
@@ -246,7 +254,8 @@ def writeCSV(csv_filename,filename ,apps):
 
                 # Write headers
                 headers = ["App", "SET DEVICE", "MEM COPY IN", "KERNEL", "MEM COPY OUT", "MEM FREE", "TOTAL"]
-                csvwriter.writerow(headers)
+                if( len(lava_md.set_device)!= 0):
+                    csvwriter.writerow(headers)
 
                 # Write data for LavaMD
                 for i in range(len(lava_md.set_device)):
@@ -278,7 +287,8 @@ def writeCSV(csv_filename,filename ,apps):
                 lud = Lud(filename)
 
                 headers = ["App", "Time Consumed Values"]
-                csvwriter.writerow(headers)
+                if( len(lud.time_consumed)!= 0):
+                    csvwriter.writerow(headers)
 
                 # Write data for LUD
                 for i, value in enumerate(lud.time_consumed):
@@ -301,7 +311,8 @@ def writeCSV(csv_filename,filename ,apps):
                 particle = Particle(filename)
 
                 headers = ["App", "VIDEO SEQUENCE TOOK", "TIME TO SEND TO GPU", "GPU Execution", "FREE TIME", "PARTICLE FILTER TOOK", "ENTIRE PROGRAM TOOK"]
-                csvwriter.writerow(headers)
+                if( len(particle.video_sequence)!= 0):
+                    csvwriter.writerow(headers)
 
                 # Write data for Particle
                 for i in range(len(particle.video_sequence)):
@@ -333,7 +344,8 @@ def writeCSV(csv_filename,filename ,apps):
                 cfd = Cfd(filename)
 
                 headers = ["App", "Seconds per Iteration"]
-                csvwriter.writerow(headers)
+                if( len(cfd.seconds_per_iteration)!= 0):
+                    csvwriter.writerow(headers)
 
                 # Write data for Cfd
                 for i in range(len(cfd.seconds_per_iteration)):
@@ -356,7 +368,8 @@ def writeCSV(csv_filename,filename ,apps):
 
                 # Write headers
                 headers = ["App", "HtoD", "DtoH", "Exec", "Total"]
-                csvwriter.writerow(headers)
+                if( len(bfs.host_to_dev)!= 0):
+                    csvwriter.writerow(headers)
 
                 # Write data for BFS
                 for i in range(len(bfs.host_to_dev)):
@@ -384,7 +397,8 @@ def writeCSV(csv_filename,filename ,apps):
 
                 headers = ["App", "RESIZE IMAGE", "COPY DATA TO CPU->GPU", "EXTRACT IMAGE", "COMPRESS IMAGE", 
                    "COMPUTE", "COPY DATA TO GPU->CPU", "GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION", "TOTAL"]
-                csvwriter.writerow(headers)
+                if( len(srad.resize_image)!= 0):
+                    csvwriter.writerow(headers)
 
                 # Write data for Srad
                 for i in range(len(srad.resize_image)):
@@ -416,5 +430,5 @@ if __name__ == "__main__":
 
     apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
     csv_filename = 'execution_results.csv'
-    writeCSV(csv_filename,input_filename, apps)
+    writeCSV(csv_filename,input_filename, apps, 2, 'simult', 1233333, 6 , 42)
     

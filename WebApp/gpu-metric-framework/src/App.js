@@ -1,6 +1,6 @@
 import MainView from "./components/MainView/MainView";
 
-const ngrokURL = 'https://4f54-141-3-72-67.ngrok-free.app/';
+const ngrokURL = 'https://7e23-141-3-72-67.ngrok-free.app/';
 
 const cfd_workloadsNamesURL = ngrokURL + 'cfd_workloads';
 const bfs_workloadsNamesURL = ngrokURL + 'bfs_workloads';
