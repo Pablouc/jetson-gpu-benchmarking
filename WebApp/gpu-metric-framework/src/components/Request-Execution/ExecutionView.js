@@ -20,8 +20,7 @@ function ExecutionView(props) {
             ...userData, // Keep the existing data in userData
             ...enteredUserData, // Add the data from enteredUserData
           };
-        
-             
+         
     }
 
 

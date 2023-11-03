@@ -37,8 +37,11 @@ execution_complete = threading.Event()
 
 gpu_iterations_data = {
     "temperature" : [],
-    "power":[]
+    "power":[],
+    "temp_avg" : 0,
+    "power_avg" : 0
 }
+
 
 global_gpu_data = {
     "temperature": None,
@@ -46,12 +49,21 @@ global_gpu_data = {
     "power": None
 }
 
+def setAvgData():
+    powerArray = gpu_iterations_data['power']
+    if len(powerArray) != 0:
+        gpu_iterations_data['power_avg'] = sum(powerArray)/len(powerArray)
+    
+    tempArray = gpu_iterations_data['temperature']
+    if len(tempArray) != 0 :
+        gpu_iterations_data['temp_avg'] = sum(tempArray)/len(tempArray)
+
 def gpu_monitor_thread():
-    print("before while")
+    
     while not execution_complete.is_set():  # Continue monitoring until execution_complete flag is set
-        print("before calling script****************************************************")
+        
         gpu_data = monitor_gpu()
-        print("Monitoring: ",gpu_data[0], gpu_data[1])
+        
         global_gpu_data["temperature"] = gpu_data[0]
         gpu_iterations_data['temperature'].append(gpu_data[0])
 
@@ -60,6 +72,7 @@ def gpu_monitor_thread():
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
         print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  gpu_iterations_data['temperature'])
+        setAvgData()
 
 #GET METHODS
 
@@ -130,6 +143,8 @@ def get_CFDworkloads():
 @app.route('/setExecutionRequest', methods=['POST', 'OPTIONS'])
 def execution_request():
     global executionRequest
+    global global_gpu_data
+    global gpu_iterations_data
 
     if request.method == 'OPTIONS':
                
@@ -154,7 +169,7 @@ def execution_request():
     gpu_monitor_thread_instance = threading.Thread(target=gpu_monitor_thread)
     gpu_monitor_thread_instance.start()
     print("entering manageExecution func")
-    manageExecution(executionJson)
+    appNames, exec_num, exec_type, freq = manageExecution(executionJson)
     print("finished manageExecution func")
 
     # Signal that execution is complete
@@ -167,7 +182,21 @@ def execution_request():
     input_filename = "execution_results.txt"
     apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
     csv_filename = 'execution_results.csv'
-    writeCSV(csv_filename,input_filename, apps)
+    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, gpu_iterations_data['power_avg'] , gpu_iterations_data['temp_avg'] )
+
+    gpu_iterations_data = {
+    "temperature" : [],
+    "power":[],
+    "temp_avg" : 0,
+    "power_avg" : 0
+    }
+
+
+    global_gpu_data = {
+        "temperature": None,
+        "frequency": None,
+        "power": None
+    }
 
     return jsonify({"message": "Execution request processed successfully."})
 

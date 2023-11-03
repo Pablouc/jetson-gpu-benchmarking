@@ -3,6 +3,7 @@ import './MonitoringView.css';
 import MyChart from "./MyChart";
 
 function MonitoringView (props) {
+  
 
     const [error, setError] = useState('');
     const [currentApps, setCurrentApps] = useState([]);
@@ -87,7 +88,7 @@ function MonitoringView (props) {
           .catch((error) => {
             setError(error.message);
           });
-      };gpu_IterDataURL
+      };
 
 
       const fetch_GPUIterationsData = () => {
@@ -117,17 +118,16 @@ function MonitoringView (props) {
 
     useEffect(() => {
         if (props.getExecState === 'InProgress') {
-          console.log('before AppsInUse')
           fetch_AppsInUse();
-          console.log('afer AppsInUse')
-           fetch_GPUData();
-           console.log('before GPUData')
+          fetch_GPUData();
+          fetch_GPUIterationsData();
       
-            // Set up a polling interval (every 5 seconds in this example) for both
-            const pollingIntervalId = setInterval(() => {
-              fetch_AppsInUse();
-              fetch_GPUData();
-            }, 1000);
+          // Set up a polling interval (every 5 seconds in this example) for both
+          const pollingIntervalId = setInterval(() => {
+            fetch_AppsInUse();
+            fetch_GPUData();
+            fetch_GPUIterationsData();
+          }, 1000);
       
             return () => clearInterval(pollingIntervalId);
         }
@@ -135,7 +135,12 @@ function MonitoringView (props) {
 
 
     const changeView=()=>{
-        props.setView(false);
+      setGpuTemp('');
+      setGpuFreq('');  
+      setPower('');  
+      setGpuPowerArray ([]);
+      setGpuTempArray([]);
+      props.setView(false);
     }
 
 
@@ -166,7 +171,7 @@ function MonitoringView (props) {
                 
                 <div className="cell ">
                   <div className="cell-Title">
-                    <h2 className="cell-Title">GPU Temperature</h2>
+                    <h2 className="cell-Title">GPU Temperature (C°)</h2>
                   </div>
                   <div className="cell-body">
                   { gpuTemp !== null  && (
@@ -179,7 +184,7 @@ function MonitoringView (props) {
                 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2>GPU Frequency</h2>
+                    <h2>GPU Frequency (MHz)</h2>
                   </div>
                   <div  className="cell-body">
                   { gpuFreq !== null  && (
@@ -190,7 +195,7 @@ function MonitoringView (props) {
                 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2 >Power Consumption</h2>
+                    <h2 >Power Consumption (W)</h2>
                   </div>
                   <div className="cell-body">
                     { gpuPower !== null  && (

@@ -11,11 +11,10 @@ function MainView(props) {
     const [showMonitoring, setShowMonitoring] = useState(false);
 
     //Options: Succed, Failed, InProgress, Paused
-    const [executingState, setExecutingState] = useState('Paused')
+    const [executingState, setExecutingState] = useState('Paused');
 
     const handleView = (viewFlag) =>{
         setShowMonitoring(viewFlag);
-        console.log(props.gpu_dataURL)
     }
 
     const handleExecState = (exec_state) =>{
