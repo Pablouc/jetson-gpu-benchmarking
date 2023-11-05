@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import './MonitoringView.css';
 import MyChart from "./MyChart";
+import ExecutionTime from "./ExecutionTime";
 
 function MonitoringView (props) {
   
@@ -84,6 +85,7 @@ function MonitoringView (props) {
             setGpuTemp(data.temperature);
             setGpuFreq(data.frequency);
             setPower(data.power);
+            console.log(data.exec_time);
           })
           .catch((error) => {
             setError(error.message);

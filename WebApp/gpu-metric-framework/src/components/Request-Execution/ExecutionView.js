@@ -28,7 +28,7 @@ function ExecutionView(props) {
     async function requestExecution() {
         setRefreshFlag(true);
         setRefreshFlag(false);
-        setPopupOpen(true);
+        setMonitoringFlag(true);
         props.setExecState('InProgress');
       
         try {

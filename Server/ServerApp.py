@@ -13,7 +13,7 @@ import time
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from manageExecution import manageExecution, current_apps, START_TIME
+from manageExecution import manageExecution, current_apps, get_current_time
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu
 
@@ -79,8 +79,9 @@ def gpu_monitor_thread():
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
         
-        if START_TIME != None:
-            global_gpu_data["exec_time"] = START_TIME - time.time()
+        current_time = get_current_time()
+        global_gpu_data["exec_time"] = current_time
+            
         print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  gpu_iterations_data['temperature'],"Execution time: ", global_gpu_data["exec_time"] )
     except Exception as e:
             print(f"Exception in gpu_monitor_thread: {e}")

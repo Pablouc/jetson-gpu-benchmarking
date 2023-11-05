@@ -10,6 +10,7 @@ const resultsFileDataURL = ngrokURL + 'get-csv';
 const currentAppsExcURL = ngrokURL + 'getCurrentApps';
 const gpuDataURL = ngrokURL + 'gpu_data';
 const gpuIterationsDataURL = ngrokURL + 'gpu_iterations_data';
+const executionTimeURL = ngrokURL + "exec_time"
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
       <MainView cfd_workloadsURL={cfd_workloadsNamesURL} bfs_workloadsURL={bfs_workloadsNamesURL} 
                       executionURL={requestExecutionURL} frequenciesURL={frequenciesOptionsURL} 
                       resultsFileURL={resultsFileDataURL} currentAppsURL={currentAppsExcURL}
-                      gpu_dataURL={gpuDataURL} gpu_IterDataURL={gpuIterationsDataURL}/>
+                      gpu_dataURL={gpuDataURL} gpu_IterDataURL={gpuIterationsDataURL}
+                      execTimeURL={executionTimeURL}/>
     </div>
   );
 }

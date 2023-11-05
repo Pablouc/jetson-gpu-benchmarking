@@ -20,6 +20,15 @@ class App:
         self.workloads = workloads
         self.threads = threads
 
+def get_current_time():
+    global START_TIME
+    
+    if START_TIME != None:
+        current_time = START_TIME - time.time()
+    else:
+        current_time = 0
+    return current_time
+
 
 def process_input(data):
    # Create App instances while iterating over the input data

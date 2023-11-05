@@ -38,7 +38,8 @@ function MainView(props) {
             showMonitoring == true && (
                 <> 
                 <MonitoringView resultsFileURL={props.resultsFileURL} setView={handleView} currentAppsURL={props.currentAppsURL} 
-                getExecState={executingState} gpu_dataURL={props.gpu_dataURL} gpu_IterDataURL= {props.gpu_IterDataURL}/>
+                getExecState={executingState} gpu_dataURL={props.gpu_dataURL} gpu_IterDataURL= {props.gpu_IterDataURL}
+                execTimeURL={props.execTimeURL}/>
                 </>
             )
         }
