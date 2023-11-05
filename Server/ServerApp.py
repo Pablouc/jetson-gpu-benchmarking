@@ -41,6 +41,7 @@ gpu_iterations_data = {
     "power":[],
     "exec_time":[],
     "iteration_time":[],
+    "iteration_time_avg":0,
     "temp_avg" : 0,
     "power_avg" : 0
 }
@@ -62,6 +63,11 @@ def setAvgData():
     if len(tempArray) != 0 :
         tempArray = [float(item) for item in tempArray]
         gpu_iterations_data['temp_avg'] = sum(tempArray)/len(tempArray)
+    
+    iterArray = gpu_iterations_data['iteration_time']
+    if len(iterArray) != 0 :
+        iterArray = [float(item) for item in iterArray]
+        gpu_iterations_data['iteration_time_avg'] = sum(iterArray)/len(iterArray)
         
 def gpu_monitor_thread():
     
@@ -80,10 +86,17 @@ def gpu_monitor_thread():
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
         
-        current_time = get_current_time()
-        global_gpu_data["exec_time"] = current_time
+        current_time, iterations_time = get_current_time()
+        if current_time !=[]:
+            gpu_iterations_data["exec_time"].append(current_time)
+        
+        if iterations_time !=[]:
+            gpu_iterations_data['iteration_time'].append(iterations_time)
             
-        print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  gpu_iterations_data['temperature'],"Execution time: ", global_gpu_data["exec_time"] )
+        print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  
+              gpu_iterations_data['temperature'],"Execution time: ", gpu_iterations_data["exec_time"],
+            "Iterations time: ", gpu_iterations_data['iteration_time'])
+        
     except Exception as e:
             print(f"Exception in gpu_monitor_thread: {e}")
            
