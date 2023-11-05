@@ -39,6 +39,8 @@ execution_complete = threading.Event()
 gpu_iterations_data = {
     "temperature" : [],
     "power":[],
+    "exec_time":[],
+    "iteration_time":[],
     "temp_avg" : 0,
     "power_avg" : 0
 }
@@ -47,8 +49,7 @@ gpu_iterations_data = {
 global_gpu_data = {
     "temperature": None,
     "frequency": None,
-    "power": None,
-    "exec_time":None
+    "power": None
 }
 
 def setAvgData():

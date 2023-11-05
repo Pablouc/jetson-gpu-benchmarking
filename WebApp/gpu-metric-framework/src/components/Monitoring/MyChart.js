@@ -1,59 +1,48 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import 'chart.js/auto';
 import './MyChart.css';
+import React from 'react';
+import { Line } from 'react-chartjs-2';
 
-function MyChart(props) {
-  const chartData = {
-    labels: props.temperatureArray,  // These are temperatures.
+const MyChart = (props) => {
+  const data = {
+    labels: props.execution_time.map(time => time.toFixed(2)), // Assuming execution_time is in seconds
     datasets: [
       {
-        label: 'Temperature (°C)',
-        data: props.powerArray, // This should match power consumption at those temperatures.
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-        fill: true,
-      }
+        label: 'Temperature (Degrees Celsius)',
+        data: props.temperatureArray,
+        fill: false,
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgba(54, 162, 235, 0.2)',
+      },
     ],
   };
 
   const options = {
     scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Power (W)', // Change to your preferred unit or label
-          font: {
-            size: 16,
-          }
-        }
-      }
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          title: function(tooltipItem, data) {
-            // This will show the correct power value as the title
-            return 'Power: ' + tooltipItem[0].formattedValue + ' W';
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
           },
-          label: function(tooltipItem, data) {
-            // This will show the correct temperature value as the label
-            return 'Temperature: ' + tooltipItem.chart.data.labels[tooltipItem.dataIndex] + ' °C';
+        },
+      ],
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: 'Time (Seconds)'
           }
         }
-      }
-    }
+      ]
+    },
+    title: {
+      display: true,
+      text: 'Temperature vs. Time-Phase Change Graph',
+    },
+    maintainAspectRatio: false,
   };
 
-  return (
-    <div className='chartWrapper'>
-      <div className='chartContainer'>
-        <Bar data={chartData} options={options} />
-      </div>
-    </div>
-  );
-}
+  return <Line data={data} options={options} />;
+};
+
 
 export default MyChart;

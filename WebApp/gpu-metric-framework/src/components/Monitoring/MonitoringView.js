@@ -13,6 +13,8 @@ function MonitoringView (props) {
     const [gpuPower, setPower] =  useState('');
     const [gpu_PowerArray, setGpuPowerArray] = useState([]);
     const [gpu_TempArray, setGpuTempArray] = useState([]);
+    const [timer, setTimer] = useState(0);
+    const [execTimeArray, setExecTimeArray] = useState([]);
 
     const downloadResults = () => {
         console.log(props.resultsFileURL);
@@ -85,7 +87,6 @@ function MonitoringView (props) {
             setGpuTemp(data.temperature);
             setGpuFreq(data.frequency);
             setPower(data.power);
-            console.log(data.exec_time);
           })
           .catch((error) => {
             setError(error.message);
@@ -112,6 +113,7 @@ function MonitoringView (props) {
             //console.log(data);
             setGpuTempArray(data.temperature);
             setGpuPowerArray(data.power);
+            setExecTimeArray(data.exec_time);
           })
           .catch((error) => {
             setError(error.message);
@@ -124,7 +126,7 @@ function MonitoringView (props) {
           fetch_GPUData();
           fetch_GPUIterationsData();
       
-          // Set up a polling interval (every 5 seconds in this example) for both
+          // Set up a polling interval (every second in this example) for both
           const pollingIntervalId = setInterval(() => {
             fetch_AppsInUse();
             fetch_GPUData();
@@ -134,6 +136,19 @@ function MonitoringView (props) {
             return () => clearInterval(pollingIntervalId);
         }
     }, [props.currentAppsURL, currentApps, props.getExecState, props.gpuData]);
+
+  
+    useEffect(() => {
+      if (props.getExecState === 'InProgress'){
+        const interval = setInterval(() => {
+          // Update the timer every second (1000 milliseconds)
+          setTimer((prevTimer) => prevTimer + 100);
+        }, 100);
+    
+        // Cleanup the interval when the component unmounts
+        return () => clearInterval(interval);
+      }
+    }, [props.getExecState]);
 
 
     const changeView=()=>{
@@ -150,8 +165,14 @@ function MonitoringView (props) {
         <div>
         
             <div>
+              <div>
                 <button className="monitoring-button" onClick={downloadResults}>Download results</button>
                 <button className="monitoring-button" onClick={changeView}>Request Execution</button>
+              </div>
+              <div>
+                <label className="execution-time">Execution time: {timer/1000} s</label>
+              </div>
+          
             </div>
             <div className="container">
 
@@ -218,7 +239,7 @@ function MonitoringView (props) {
                     <h2 >Power Vs Temperature</h2>
                   </div>
                   <div className="cell-body">
-                    <MyChart powerArray={gpu_PowerArray} temperatureArray={gpu_TempArray}/>
+                    <MyChart execution_time={execTimeArray} temperatureArray={gpu_TempArray}/>
                   </div>
                 </div>
             </div>
