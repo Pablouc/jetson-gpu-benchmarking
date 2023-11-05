@@ -7,6 +7,7 @@ import queue
 
 # Define a global variable to store the total execution time
 total_execution_time = 0
+iterations_timeStats=[]
 executing = False
 START_TIME= None
 current_apps = set()
@@ -22,12 +23,13 @@ class App:
 
 def get_current_time():
     global START_TIME
+    global iterations_timeStats
     
     if START_TIME != None:
         current_time = START_TIME - time.time()
     else:
         current_time = 0
-    return current_time
+    return [current_time, iterations_timeStats]
 
 
 def process_input(data):
@@ -132,6 +134,7 @@ def create_makefiles(apps,appsPath):
 
 def simultExecution(apps, iterations, frequency):
     global executing
+    global iterations_timeStats
 
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
@@ -149,7 +152,6 @@ def simultExecution(apps, iterations, frequency):
     create_makefiles(apps, appsPath)
 
     
-    iterations_timeStats=[]
     #Executing Applications
     for i in range( int(iterations) ):
         threads = []
