@@ -1,100 +1,150 @@
-WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
-Name:                     Xavier
-Starting...
-0.00392819 seconds per iteration
-Saving solution...
-Saved solution...
-Cleaning up...
-Done...
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 8 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 97.600006
+Exec: 0.419000
+DtoH: 0.306000
+Close: 0.061000
+Total: 107.918999
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 20
+Configuration used: boxes1d = 30
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.131519004703 s,  1.070447087288 % : GPU: SET DEVICE / DRIVER INIT
- 0.022502999753 s,  0.183154299855 % : GPU MEM: ALO
- 0.011132000014 s,  0.090604528785 % : GPU MEM: COPY IN
-12.111188888550 s, 98.574249267578 % : GPU: KERNEL
- 0.007612999994 s,  0.061963010579 % : GPU MEM: COPY OUT
- 0.002405999927 s,  0.019582688808 % : GPU MEM: FRE
+ 0.094319999218 s,  0.368287026882 % : GPU: SET DEVICE / DRIVER INIT
+ 0.012037999928 s,  0.047004230320 % : GPU MEM: ALO
+ 0.039645001292 s,  0.154800027609 % : GPU MEM: COPY IN
+25.438259124756 s, 99.327621459961 % : GPU: KERNEL
+ 0.018905999139 s,  0.073821403086 % : GPU MEM: COPY OUT
+ 0.007292999886 s,  0.028476646170 % : GPU MEM: FRE
 Total time:
-12.286361694336 s
+25.610460281372 s
 
 
 
-WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
-Name:                     Xavier
-Starting...
-0.00396468 seconds per iteration
-Saving solution...
-Saved solution...
-Cleaning up...
-Done...
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 8 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 96.345001
+Exec: 0.365000
+DtoH: 0.455000
+Close: 0.133000
+Total: 99.224998
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 20
+Configuration used: boxes1d = 30
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.120673999190 s,  0.980970442295 % : GPU: SET DEVICE / DRIVER INIT
- 0.004315000027 s,  0.035077046603 % : GPU MEM: ALO
- 0.011443000287 s,  0.093021236360 % : GPU MEM: COPY IN
-12.154183387756 s, 98.802513122559 % : GPU: KERNEL
- 0.007002000231 s,  0.056919928640 % : GPU MEM: COPY OUT
- 0.003874999937 s,  0.031500242651 % : GPU MEM: FRE
+ 0.098697997630 s,  0.385353475809 % : GPU: SET DEVICE / DRIVER INIT
+ 0.011957000010 s,  0.046684548259 % : GPU MEM: ALO
+ 0.037105999887 s,  0.144875556231 % : GPU MEM: COPY IN
+25.438919067383 s, 99.322952270508 % : GPU: KERNEL
+ 0.018280999735 s,  0.071375779808 % : GPU MEM: COPY OUT
+ 0.007366999984 s,  0.028763493523 % : GPU MEM: FRE
 Total time:
-12.301491737366 s
+25.612327575684 s
 
 
 
-WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
-Name:                     Xavier
-Starting...
-0.00394621 seconds per iteration
-Saving solution...
-Saved solution...
-Cleaning up...
-Done...
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 8 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 92.985008
+Exec: 0.421000
+DtoH: 0.385000
+Close: 0.051000
+Total: 95.547997
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 20
+Configuration used: boxes1d = 30
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.099445998669 s,  0.811376869678 % : GPU: SET DEVICE / DRIVER INIT
- 0.003772000084 s,  0.030775632709 % : GPU MEM: ALO
- 0.010708999820 s,  0.087374404073 % : GPU MEM: COPY IN
-12.130800247192 s, 98.974822998047 % : GPU: KERNEL
- 0.008415999822 s,  0.068665884435 % : GPU MEM: COPY OUT
- 0.003307000035 s,  0.026981713250 % : GPU MEM: FRE
+ 0.098567999899 s,  0.384811252356 % : GPU: SET DEVICE / DRIVER INIT
+ 0.012210999615 s,  0.047671962529 % : GPU MEM: ALO
+ 0.039425998926 s,  0.153919816017 % : GPU MEM: COPY IN
+25.439035415649 s, 99.314460754395 % : GPU: KERNEL
+ 0.018628999591 s,  0.072727948427 % : GPU MEM: COPY OUT
+ 0.006767999846 s,  0.026422392577 % : GPU MEM: FRE
 Total time:
-12.256449699402 s
+25.614635467529 s
 
 
 
-WG size of kernel:initialize = 64, WG size of kernel:compute_step_factor = 64, WG size of kernel:compute_flux = 64, WG size of kernel:time_step = 64
-Name:                     Xavier
-Starting...
-0.0039442 seconds per iteration
-Saving solution...
-Saved solution...
-Cleaning up...
-Done...
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 8 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 89.152016
+Exec: 0.450000
+DtoH: 0.440000
+Close: 0.088000
+Total: 91.866997
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 20
+Configuration used: boxes1d = 30
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.104184001684 s,  0.849143028259 % : GPU: SET DEVICE / DRIVER INIT
- 0.004133999813 s,  0.033693823963 % : GPU MEM: ALO
- 0.011957000010 s,  0.097454540431 % : GPU MEM: COPY IN
-12.132699012756 s, 98.886558532715 % : GPU: KERNEL
- 0.012504000217 s,  0.101912811399 % : GPU MEM: COPY OUT
- 0.003833000083 s,  0.031240548939 % : GPU MEM: FRE
+ 0.088514000177 s,  0.345632791519 % : GPU: SET DEVICE / DRIVER INIT
+ 0.011564999819 s,  0.045159447938 % : GPU MEM: ALO
+ 0.038933001459 s,  0.152027040720 % : GPU MEM: COPY IN
+25.440427780151 s, 99.340736389160 % : GPU: KERNEL
+ 0.021533999592 s,  0.084086768329 % : GPU MEM: COPY OUT
+ 0.008284999989 s,  0.032351579517 % : GPU MEM: FRE
 Total time:
-12.269310951233 s
+25.609260559082 s
+
+
+
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 8 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 100.494011
+Exec: 0.668000
+DtoH: 0.413000
+Close: 0.057000
+Total: 103.414001
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.101176001132 s,  0.394893825054 % : GPU: SET DEVICE / DRIVER INIT
+ 0.012996999547 s,  0.050727792084 % : GPU MEM: ALO
+ 0.038832001388 s,  0.151562795043 % : GPU MEM: COPY IN
+25.438819885254 s, 99.288696289062 % : GPU: KERNEL
+ 0.021376000717 s,  0.083431348205 % : GPU MEM: COPY OUT
+ 0.007864000276 s,  0.030693495646 % : GPU MEM: FRE
+Total time:
+25.621063232422 s
 
 
 

@@ -8,6 +8,7 @@ import queue
 # Define a global variable to store the total execution time
 total_execution_time = 0
 executing = False
+START_TIME= None
 current_apps = set()
 
 # Create a lock to ensure that only one thread updates the total_execution_time at a time
@@ -190,6 +191,7 @@ def simultExecution(apps, iterations, frequency):
 
 def sequentialExecution(apps, iterations, frequency):
     global executing
+    global START_TIME
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
     run_script(frequencyScript)
@@ -210,7 +212,8 @@ def sequentialExecution(apps, iterations, frequency):
     for i in range( int(iterations) ):
         tempPath = ''
         start_time_loop = time.time()
-        
+        if i == 0:
+            START_TIME = start_time_loop
         for app in apps:
             if app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads

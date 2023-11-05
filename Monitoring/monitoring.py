@@ -16,7 +16,7 @@ def monitor_gpu():
         
 
         gpu_freq_script = "cat /sys/devices/gpu.0/devfreq/17000000.gv11b/cur_freq"
-        gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, text=True, stderr=subprocess.STDOUT)
+        gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, text=True, stderr=subprocess.STDOUT).strip()
         print("GPU freq: " + gpu_frequency)
 
         for line in gpu_power_output:

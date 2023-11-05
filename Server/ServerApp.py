@@ -7,12 +7,13 @@ Monitor_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.
 sys.path.append(ManagerApp_folder_path)
 sys.path.append(Monitor_folder_path)
 
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, Response
 import threading
+import time
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from manageExecution import manageExecution, current_apps
+from manageExecution import manageExecution, current_apps, START_TIME
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu
 
@@ -46,24 +47,30 @@ gpu_iterations_data = {
 global_gpu_data = {
     "temperature": None,
     "frequency": None,
-    "power": None
+    "power": None,
+    "exec_time":None
 }
 
 def setAvgData():
     powerArray = gpu_iterations_data['power']
     if len(powerArray) != 0:
+        powerArray = [float(item) for item in powerArray]
         gpu_iterations_data['power_avg'] = sum(powerArray)/len(powerArray)
-    
+        
     tempArray = gpu_iterations_data['temperature']
     if len(tempArray) != 0 :
+        tempArray = [float(item) for item in tempArray]
         gpu_iterations_data['temp_avg'] = sum(tempArray)/len(tempArray)
-
+        
 def gpu_monitor_thread():
     
-    while not execution_complete.is_set():  # Continue monitoring until execution_complete flag is set
+    global global_gpu_data
+    global gpu_iterations_data
+
+    try:
         
-        gpu_data = monitor_gpu()
-        
+        gpu_data = monitor_gpu() 
+        print("monitor output:" , gpu_data) 
         global_gpu_data["temperature"] = gpu_data[0]
         gpu_iterations_data['temperature'].append(gpu_data[0])
 
@@ -71,8 +78,15 @@ def gpu_monitor_thread():
 
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
-        print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  gpu_iterations_data['temperature'])
-        setAvgData()
+        
+        if START_TIME != None:
+            global_gpu_data["exec_time"] = START_TIME - time.time()
+        print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  gpu_iterations_data['temperature'],"Execution time: ", global_gpu_data["exec_time"] )
+    except Exception as e:
+            print(f"Exception in gpu_monitor_thread: {e}")
+           
+
+
 
 #GET METHODS
 
@@ -85,6 +99,7 @@ def get_gpu_iterations_data():
 
 @app.route('/gpu_data', methods=['GET'])
 def get_gpuData():
+    gpu_monitor_thread()
     print("Server data: ", global_gpu_data)
     response = jsonify(global_gpu_data)
     response.headers['ngrok-skip-browser-warning'] = '1'
@@ -165,42 +180,38 @@ def execution_request():
     executionJson =  transform_input_json(executionRequest)
     print(executionJson)
     
-    # Start the GPU monitoring thread
-    gpu_monitor_thread_instance = threading.Thread(target=gpu_monitor_thread)
-    gpu_monitor_thread_instance.start()
-    print("entering manageExecution func")
-    appNames, exec_num, exec_type, freq = manageExecution(executionJson)
-    print("finished manageExecution func")
-
-    # Signal that execution is complete
-    execution_complete.set()
-
-    # Wait for the GPU monitoring thread to finish
-    gpu_monitor_thread_instance.join()
-    
-    
-    input_filename = "execution_results.txt"
-    apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
-    csv_filename = 'execution_results.csv'
-    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, gpu_iterations_data['power_avg'] , gpu_iterations_data['temp_avg'] )
-
     gpu_iterations_data = {
-    "temperature" : [],
-    "power":[],
-    "temp_avg" : 0,
-    "power_avg" : 0
+        "temperature" : [],
+        "power":[],
+        "temp_avg" : 0,
+        "power_avg" : 0
     }
 
 
     global_gpu_data = {
-        "temperature": None,
+        "temperature": None,           
         "frequency": None,
-        "power": None
+        "power": None                                
     }
+    
+    appNames, exec_num, exec_type, freq = manageExecution(executionJson)
+    
+
+    # Signal that execution is complete
+    #execution_complete.set()
+
+    # Wait for the GPU monitoring thread to finish
+    #gpu_monitor_thread_instance.join()
+    
+    setAvgData()
+    input_filename = "execution_results.txt"    
+    csv_filename = 'execution_results.csv'
+    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, gpu_iterations_data['power_avg'] , gpu_iterations_data['temp_avg'] )
+  
 
     return jsonify({"message": "Execution request processed successfully."})
 
 
 # Run the Flask application on a local development server
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(threaded=True, host='0.0.0.0', port=5000)
