@@ -110,10 +110,9 @@ function MonitoringView (props) {
             return response.json();
           })
           .then((data) => {
-            //console.log(data);
-            setGpuTempArray(data.temperature);
-            setGpuPowerArray(data.power);
-            setExecTimeArray(data.exec_time);
+            setGpuTempArray(data.temperature.map((temp) => parseFloat(temp)));
+            setGpuPowerArray(data.power.map((temp) => parseFloat(temp)));
+            setExecTimeArray(data.current_time);
           })
           .catch((error) => {
             setError(error.message);
@@ -157,6 +156,7 @@ function MonitoringView (props) {
       setPower('');  
       setGpuPowerArray ([]);
       setGpuTempArray([]);
+      setExecTimeArray([]);
       props.setView(false);
     }
 
@@ -197,9 +197,13 @@ function MonitoringView (props) {
                     <h2 className="cell-Title">GPU Temperature (C°)</h2>
                   </div>
                   <div className="cell-body">
-                  { gpuTemp !== null  && (
-                      <label className="singleData-metric">{gpuTemp}</label>
-                  )}
+                    {execTimeArray && gpu_TempArray && execTimeArray.length > 0 && gpu_TempArray.length > 0 ? (
+                        <div>
+                          <MyChart label={['Temperature','Temperature (°C)']} execution_time={execTimeArray} temperatureArray={gpu_TempArray} />
+                        </div>
+                      ) : (
+                        <p>No data available for the chart.</p>
+                    )}
                   </div>
                     
                     
@@ -221,8 +225,12 @@ function MonitoringView (props) {
                     <h2 >Power Consumption (W)</h2>
                   </div>
                   <div className="cell-body">
-                    { gpuPower !== null  && (
-                        <label className="singleData-metric">{gpuPower}</label>
+                    {execTimeArray && gpu_PowerArray && execTimeArray.length > 0 && gpu_PowerArray.length > 0 ? (
+                        <div>
+                          <MyChart label={['Power','Power (W)']} execution_time={execTimeArray} powerArray={gpu_PowerArray} />
+                        </div>
+                      ) : (
+                        <p>No data available for the chart.</p>
                     )}
                   </div>
                 </div>
@@ -236,10 +244,10 @@ function MonitoringView (props) {
 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2 >Power Vs Temperature</h2>
+                    <h2 >General Metrics</h2>
                   </div>
                   <div className="cell-body">
-                    <MyChart execution_time={execTimeArray} temperatureArray={gpu_TempArray}/>
+
                   </div>
                 </div>
             </div>
