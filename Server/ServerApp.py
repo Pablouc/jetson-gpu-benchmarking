@@ -39,8 +39,9 @@ execution_complete = threading.Event()
 gpu_iterations_data = {
     "temperature" : [],
     "power":[],
-    "exec_time":[],
+    "current_time":[],
     "iteration_time":[],
+    "execution_time" : [],
     "iteration_time_avg":0,
     "temp_avg" : 0,
     "power_avg" : 0
@@ -65,8 +66,7 @@ def setAvgData():
         gpu_iterations_data['temp_avg'] = sum(tempArray)/len(tempArray)
     
     iterArray = gpu_iterations_data['iteration_time']
-    if len(iterArray) != 0 :
-        iterArray = [float(item) for item in iterArray]
+    if len(iterArray) != 0: 
         gpu_iterations_data['iteration_time_avg'] = sum(iterArray)/len(iterArray)
         
 def gpu_monitor_thread():
@@ -87,18 +87,23 @@ def gpu_monitor_thread():
         gpu_iterations_data['power'].append(gpu_data[2])
         
         current_time, iterations_time = get_current_time()
-        if current_time !=[]:
-            gpu_iterations_data["exec_time"].append(current_time)
-        
+        print("get_current_time: " , current_time , iterations_time)
+        print("gpu_iterations_data:", gpu_iterations_data)
+        if current_time != 0 :
+            print("Inside current_timeeeeeeeeeeee:", current_time)
+            gpu_iterations_data["current_time"].append(current_time)
+            print("Execution time: ", gpu_iterations_data["current_time"])
+
         if iterations_time !=[]:
-            gpu_iterations_data['iteration_time'].append(iterations_time)
-            
-        print("Power Array",gpu_iterations_data['power'], "Temperature Aray",  
-              gpu_iterations_data['temperature'],"Execution time: ", gpu_iterations_data["exec_time"],
-            "Iterations time: ", gpu_iterations_data['iteration_time'])
+            gpu_iterations_data['iteration_time'] = iterations_time
+            print("Iterations time: ", gpu_iterations_data['iteration_time'])
+
+        print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'])
         
     except Exception as e:
-            print(f"Exception in gpu_monitor_thread: {e}")
+        print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
+        import traceback
+        traceback.print_exc()
            
 
 
@@ -198,6 +203,9 @@ def execution_request():
     gpu_iterations_data = {
         "temperature" : [],
         "power":[],
+        "iteration_time": [],
+        "current_time":[],
+        "iteration_time_avg": 0,
         "temp_avg" : 0,
         "power_avg" : 0
     }

@@ -26,7 +26,7 @@ def get_current_time():
     global iterations_timeStats
     
     if START_TIME != None:
-        current_time = START_TIME - time.time()
+        current_time = time.time() - START_TIME
     else:
         current_time = 0
     return [current_time, iterations_timeStats]
@@ -203,6 +203,7 @@ def simultExecution(apps, iterations, frequency):
 def sequentialExecution(apps, iterations, frequency):
     global executing
     global START_TIME
+    global iterations_timeStats
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
     run_script(frequencyScript)
@@ -218,13 +219,15 @@ def sequentialExecution(apps, iterations, frequency):
 
     create_makefiles(apps, appsPath)
     
-    iterations_timeStats=[]
     #Executing Applications
     for i in range( int(iterations) ):
         tempPath = ''
         start_time_loop = time.time()
+        print("Checking iteration number:", i)
         if i == 0:
+            print("In the first itertion")
             START_TIME = start_time_loop
+            print(START_TIME)
         for app in apps:
             if app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads
