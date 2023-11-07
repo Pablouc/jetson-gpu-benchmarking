@@ -10,6 +10,7 @@ def transform_input_json(input_json):
 
     jsonStruct = {
         'apps': [],
+        'external_app':[],
         'execType': input_json['execType'],
         'execNum': input_json['execNum'],
         'freq': input_json['freq']
@@ -26,5 +27,11 @@ def transform_input_json(input_json):
                 threads_key = app_name + '_threads'
                 app_entry['threads'] = input_json.get(threads_key, 'None')
             jsonStruct['apps'].append(app_entry)
-
+    
+    external_app = {'appName': input_json['appName']}
+    external_app['workload_input'] = input_json.get('workload_input', '')
+    external_app['makefile_flag'] = input_json.get('makefile_flag', False)
+    external_app['makefile_flag'] = input_json.get('makefile_flag', '')
+    jsonStruct['external_app'].append(external_app)
+    
     return jsonStruct

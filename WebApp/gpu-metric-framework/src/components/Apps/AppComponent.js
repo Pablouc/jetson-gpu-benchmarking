@@ -21,6 +21,10 @@ const AppComponent = (props) => {
     const [matrixSize, setMatrixSize] = useState('');
     const [lud_threads, set_lud_threads] = useState('');
     const [boxes, setBoxes] = useState('');
+    const [externalName, setExternalName] = useState('');
+    const [externalWorkload, setExternalWorkload] = useState('');
+    const [make_isChecked, setMakeIsChecked] = useState(false);
+    const [make_input, setMakeInput] = useState('');
 
     const executeHandler = ( enteredUserData ) => {
         userData = {
@@ -42,12 +46,12 @@ const AppComponent = (props) => {
         }
     }
 
-    const handleChange = (event) => {
-        props.updateData(event.target.value);
-    }
+    const handle_makeCheckbox = () => {
+        setMakeIsChecked(prevState => !prevState); 
+    };
 
     const handleCheckboxChange = () => {
-        setIsChecked(prevState => !prevState); // Invierte el valor de isChecked
+        setIsChecked(prevState => !prevState); 
     };
 
     //Sending data the the parent
@@ -67,6 +71,10 @@ const AppComponent = (props) => {
         setMatrixSize('');
         set_lud_threads('');
         setBoxes('');
+        setExternalName('');
+        setExternalWorkload('');
+        setMakeIsChecked(false);
+        setMakeInput('');
     }
 
     if(props.appName=='CFD'){
@@ -109,14 +117,25 @@ const AppComponent = (props) => {
         lud_threads: lud_threads
         };
         if((matrixSize!='') && (lud_threads!='')) props.onExecuteEvent(lud); 
+    }
+    
+    else if(props.appName=='External'){
+        const external_app={ 
+        appName: externalName,
+        workload_input: externalWorkload,
+        makefile_flag: make_isChecked,
+        makefile_input : make_input
+        };
+        if((externalName!='') && (externalWorkload!='')) props.onExecuteEvent(external_app); 
     } 
-    }, [props.refresh ,userData, cfd_threads, niter, lambda, nc, nr, width, height, nfr, np, matrixSize, lud_threads, boxes]);
+    }, [props.refresh ,userData, cfd_threads, niter, lambda, nc, nr, width, height, nfr, np,
+         matrixSize, lud_threads, boxes, externalName, externalWorkload]);
     
 
 
   return (
     <div className='app-style'>
-        <label>
+      <label>
       <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>{props.appName}
       </label>
       <div className='text-style'>
@@ -197,6 +216,8 @@ const AppComponent = (props) => {
         )}
 
 
+
+
         {isChecked && (props.appName == 'Lud') && (
             <>
                 <div>
@@ -210,6 +231,35 @@ const AppComponent = (props) => {
                 </div>
             </>
         )}
+
+        {isChecked && (props.appName == 'External') && (
+            <>
+                <div>
+                    <label>Application name</label>
+                    <input type='text' className='input-style' value={externalName} onChange={e => setExternalName(e.target.value)}></input>
+                </div>
+
+                <div>
+                    <label>Workload input</label>
+                    <input type='text' className='input-style' value={externalWorkload} onChange={e => setExternalWorkload(e.target.value)}></input>
+                </div>
+
+                <div className='input-style'>
+                    <label>
+                    <input type="checkbox" checked={make_isChecked} onChange={handle_makeCheckbox}/>Does it require execution of the makefile?
+                    </label>
+                </div>
+
+                <div>
+                    {make_isChecked && (
+                    <>
+                        <label>Makefile input</label>
+                        <input type='text' className='input-style' value={make_input} onChange={e => setMakeInput(e.target.value)}></input>
+                    </>
+                    )}
+                </div>
+            </>
+            )}
       </div>
       
       

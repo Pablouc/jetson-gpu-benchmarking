@@ -30,7 +30,7 @@ function ExecutionView(props) {
         setRefreshFlag(false);
         setMonitoringFlag(true);
         props.setExecState('InProgress');
-      
+        console.log(userData);
         try {
           const response = await fetch(props.executionURL, {
             method: 'POST',
@@ -113,6 +113,10 @@ function ExecutionView(props) {
 
                     <div>
                         <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Lud'}/>
+                    </div>
+
+                    <div>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'External'}/>
                     </div>
 
                     <div>
