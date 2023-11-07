@@ -19,6 +19,7 @@ function MainView(props) {
 
     const handleExecState = (exec_state) =>{
         setExecutingState(exec_state);
+        console.log(exec_state);
     }
 
 

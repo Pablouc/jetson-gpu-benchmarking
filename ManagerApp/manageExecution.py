@@ -1,8 +1,7 @@
-import json
+import os
 import subprocess
 import time
 import threading
-import queue
 
 
 # Define a global variable to store the total execution time
@@ -16,10 +15,14 @@ current_apps = set()
 lock = threading.Lock()
     
 class App:
-    def __init__(self, name, workloads, threads):
+    def __init__(self, name, workloads, threads, external, make_flag, make_input):
         self.name = name
         self.workloads = workloads
         self.threads = threads
+        self.external = external
+        self.make_flag = make_flag
+        self.make_input = make_input
+
 
 def get_current_time():
     global START_TIME
@@ -33,7 +36,6 @@ def get_current_time():
 
 
 def process_input(data):
-   # Create App instances while iterating over the input data
     apps_list = []
 
     for app_data in data['apps']:
@@ -44,20 +46,25 @@ def process_input(data):
         # Check if the app is "Lud" or "CFD" to include threads
         if name in ["Lud", "CFD"]:
             threads = app_data.get('threads', '')
-            print("Evaluating threads")
-            print(app_data.get('threads', ''))
-            print('threads: ' + threads  + '/n')
 
-
-        app_instance = App(name, workloads, threads)
+        app_instance = App(name, workloads, threads, False, False,'')
         apps_list.append(app_instance)
-        print(app_instance.name)
-        print(app_instance.workloads)
-        print(app_instance.threads)
 
-    # Return the list of App instances and other values
     return apps_list, data['execType'], data['execNum'], data['freq']
 
+def process_externalApp(data):
+    apps_list = []
+
+    for app_data in data['external_app']:
+        name = app_data['appName']
+        workloads = app_data['workload_input']
+        threads = ''
+        make_flag = app_data['makefile_flag']
+        make_input = app_data['makefile_input']
+        app_instance = App(name, workloads, threads, True, make_flag, make_input)
+        apps_list.append(app_instance)
+
+    return apps_list
 
 def customize_makefile(command):
     command_res = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -118,6 +125,7 @@ def run_application(script, appName, simultFlag):
 def create_makefiles(apps,appsPath):
     for app in apps:
         if app.name == "Lud":
+            benchmark_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
             make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
             customize_makefile(f"cd {make_path} && make clean")
             customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
@@ -134,6 +142,7 @@ def create_makefiles(apps,appsPath):
 
 def simultExecution(apps, iterations, frequency):
     global executing
+    global START_TIME
     global iterations_timeStats
 
     #Scaling the frequency
@@ -148,6 +157,7 @@ def simultExecution(apps, iterations, frequency):
     #Defining Paths
     appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
     workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
+    externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks')) 
 
     create_makefiles(apps, appsPath)
 
@@ -174,7 +184,10 @@ def simultExecution(apps, iterations, frequency):
 
             elif app.name == "CFD":
                 tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
-                           
+
+            elif app.external == True:
+                tempPath = externalAppPath + '/' + app.Name +  ' ' + app.workloads
+
             else:
                 print("No app selected")
             
@@ -184,6 +197,8 @@ def simultExecution(apps, iterations, frequency):
                 thread.start()
         
         start_time = time.time()
+        if i == 0:
+            START_TIME = start_time
 
         # Wait for all threads to finish
         for t in threads:
@@ -216,9 +231,10 @@ def sequentialExecution(apps, iterations, frequency):
     #Defining Paths
     appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
     workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
-
-    create_makefiles(apps, appsPath)
     
+    externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
+    create_makefiles(apps, appsPath)
+
     #Executing Applications
     for i in range( int(iterations) ):
         tempPath = ''
@@ -227,7 +243,6 @@ def sequentialExecution(apps, iterations, frequency):
         if i == 0:
             print("In the first itertion")
             START_TIME = start_time_loop
-            print(START_TIME)
         for app in apps:
             if app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads
@@ -246,12 +261,14 @@ def sequentialExecution(apps, iterations, frequency):
 
             elif app.name == "CFD":
                 tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
+            
+            elif app.external == True:
+                tempPath = externalAppPath + '/' + app.Name +  ' ' + app.workloads
                            
             else:
                 print("No app selected")
         
             if tempPath:
-                result_queue = queue.Queue()  
                 # Create a thread to execute the script and measure time
                 thread = threading.Thread(target=run_application, args=(tempPath,app.name, 0))
                 thread.start()
@@ -297,22 +314,45 @@ jsonStruct = {
             'threads': '24'
         }
     ],
+    'external_app': [
+        {
+            'appName':'foo',
+            'workload_input':'34 56 23',
+            'makefile_flag':'False',
+            'makefile_input':'',
+
+        }
+    ],
     'execType': 'simult',
     'execNum': '2',
     'freq': '1007250000'
 }
+
+def manageExternalApp(jsonStruct):
+    
+    appList = process_externalApp(jsonStruct)
+    make_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
+    for app in appList:
+        if app.make_flag == True:
+            if app.make_input != '':
+                customize_makefile(f"cd {make_path + '/' + app.name} && make clean")
+                customize_makefile(f"cd {make_path + '/' + app.name} && make {app.make_input}")
+    
+    return appList
 
 
 def manageExecution(jsonObject):
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
+    external_apps = manageExternalApp(jsonObject)
+
     if exec_type == 'simult':
         simultExecution(apps, exec_num, freq)
     
     elif exec_type == 'not-simult':
         
-        sequentialExecution(apps, exec_num, freq)
+        sequentialExecution(apps + external_apps, exec_num, freq)
     
     appNames =[]
     for app in apps:
