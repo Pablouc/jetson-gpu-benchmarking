@@ -2,29 +2,91 @@ Reading File
 Read File
 Copied Everything to GPU memory
 Start traversing the tree
-Kernel Executed 8 times
+Kernel Executed 10 times
 Result stored in result.txt
 Init: 0.000000
 MemAlloc: 0.000000
-HtoD: 96.069008
-Exec: 0.410000
-DtoH: 0.352000
-Close: 0.049000
-Total: 98.752998
+HtoD: 97.444016
+Exec: 1.691000
+DtoH: 0.851000
+Close: 0.307000
+Total: 120.382004
 
 
 
 thread block size of kernel = 128 
 Configuration used: boxes1d = 10
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.101351998746 s, 10.852844238281 % : GPU: SET DEVICE / DRIVER INIT
- 0.001514000003 s,  0.162120193243 % : GPU MEM: ALO
- 0.002791000064 s,  0.298862278461 % : GPU MEM: COPY IN
- 0.823108017445 s, 88.138992309570 % : GPU: KERNEL
- 0.003938999958 s,  0.421790927649 % : GPU MEM: COPY OUT
- 0.001170999953 s,  0.125391513109 % : GPU MEM: FRE
+ 0.096793003380 s, 10.412070274353 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001246999949 s,  0.134140402079 % : GPU MEM: ALO
+ 0.002321999986 s,  0.249778658152 % : GPU MEM: COPY IN
+ 0.824518978596 s, 88.693908691406 % : GPU: KERNEL
+ 0.003769000061 s,  0.405433177948 % : GPU MEM: COPY OUT
+ 0.000973000017 s,  0.104666084051 % : GPU MEM: FRE
 Total time:
-0.933875024319 s
+0.929623007774 s
+
+
+
+VIDEO SEQUENCE TOOK 0.023376
+TIME TO SEND TO GPU: 0.000202
+GPU Execution: 0.035476
+FREE TIME: 0.000167
+TIME TO SEND BACK: 0.000383
+SEND ARRAY X BACK: 0.000101
+SEND ARRAY Y BACK: 0.000085
+SEND WEIGHTS BACK: 0.000030
+XE: 48.380508
+YE: 72.512300
+17.788417
+PARTICLE FILTER TOOK 0.133983
+ENTIRE PROGRAM TOOK 0.157359
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000027000000 s,  0.012480009347 % : READ COMMAND LINE PARAMETERS
+ 0.000075999997 s,  0.035128913820 % : READ IMAGE FROM FILE
+ 0.003756999969 s,  1.736570119858 % : RESIZE IMAGE
+ 0.095142997801 s, 43.977241516113 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000140999997 s,  0.065173380077 % : COPY DATA TO CPU->GPU
+ 0.000042000000 s,  0.019413348287 % : EXTRACT IMAGE
+ 0.074972003698 s, 34.653751373291 % : COMPUTE
+ 0.000010000000 s,  0.004622225650 % : COMPRESS IMAGE
+ 0.002533999970 s,  1.171271920204 % : COPY DATA TO GPU->CPU
+ 0.038284000009 s, 17.695728302002 % : SAVE IMAGE INTO FILE
+ 0.001359999995 s,  0.628622651100 % : FREE MEMORY
+Total time:
+0.216345995665 s
+
+
+
+WG size of kernel:initialize = 16, WG size of kernel:compute_step_factor = 16, WG size of kernel:compute_flux = 16, WG size of kernel:time_step = 16
+Name:                     Xavier
+Starting...
+0.00232737 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
+
+
+
+WG size of kernel = 24 X 24
+Generate input matrix internally, size =256
+Creating matrix internally size=256
+Time consumed(ms): 0.631000
+
+
+
+pyramidHeight: 20
+gridSize: [100000]
+border:[20]
+blockSize: 256
+blockGrid:[463]
+targetBlock:[216]
 
 
 
@@ -32,119 +94,91 @@ Reading File
 Read File
 Copied Everything to GPU memory
 Start traversing the tree
-Kernel Executed 8 times
+Kernel Executed 10 times
 Result stored in result.txt
 Init: 0.000000
 MemAlloc: 0.000000
-HtoD: 92.654015
-Exec: 0.394000
-DtoH: 0.406000
-Close: 0.053000
-Total: 95.274002
+HtoD: 83.375008
+Exec: 1.363000
+DtoH: 0.920000
+Close: 0.268000
+Total: 105.931000
 
 
 
 thread block size of kernel = 128 
 Configuration used: boxes1d = 10
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.099845997989 s, 10.722155570984 % : GPU: SET DEVICE / DRIVER INIT
- 0.001150000026 s,  0.123494967818 % : GPU MEM: ALO
- 0.002167999977 s,  0.232814863324 % : GPU MEM: COPY IN
- 0.823092997074 s, 88.389434814453 % : GPU: KERNEL
- 0.003992999904 s,  0.428795993328 % : GPU MEM: COPY OUT
- 0.000961999991 s,  0.103306226432 % : GPU MEM: FRE
+ 0.084894999862 s,  9.253677368164 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001111999969 s,  0.121209606528 % : GPU MEM: ALO
+ 0.001691999962 s,  0.184430450201 % : GPU MEM: COPY IN
+ 0.825026988983 s, 89.929138183594 % : GPU: KERNEL
+ 0.003712000092 s,  0.404613375664 % : GPU MEM: COPY OUT
+ 0.000981000019 s,  0.106930419803 % : GPU MEM: FRE
 Total time:
-0.931212007999 s
+0.917419016361 s
 
 
 
-Reading File
-Read File
-Copied Everything to GPU memory
-Start traversing the tree
-Kernel Executed 8 times
-Result stored in result.txt
-Init: 0.000000
-MemAlloc: 0.000000
-HtoD: 95.551010
-Exec: 0.422000
-DtoH: 0.625000
-Close: 0.071000
-Total: 98.579002
+VIDEO SEQUENCE TOOK 0.022228
+TIME TO SEND TO GPU: 0.000290
+GPU Execution: 0.035297
+FREE TIME: 0.000167
+TIME TO SEND BACK: 0.000336
+SEND ARRAY X BACK: 0.000079
+SEND ARRAY Y BACK: 0.000060
+SEND WEIGHTS BACK: 0.000030
+XE: 48.372415
+YE: 72.404341
+17.744136
+PARTICLE FILTER TOOK 0.129313
+ENTIRE PROGRAM TOOK 0.151541
 
 
 
-thread block size of kernel = 128 
-Configuration used: boxes1d = 10
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.096886999905 s, 10.420881271362 % : GPU: SET DEVICE / DRIVER INIT
- 0.001201999956 s,  0.129283592105 % : GPU MEM: ALO
- 0.002397000091 s,  0.257814288139 % : GPU MEM: COPY IN
- 0.823107004166 s, 88.530975341797 % : GPU: KERNEL
- 0.004989000037 s,  0.536602199078 % : GPU MEM: COPY OUT
- 0.001156999962 s,  0.124443531036 % : GPU MEM: FRE
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000026000000 s,  0.011914254166 % : READ COMMAND LINE PARAMETERS
+ 0.000093000002 s,  0.042616371065 % : READ IMAGE FROM FILE
+ 0.003745000111 s,  1.716110825539 % : RESIZE IMAGE
+ 0.096207998693 s, 44.086406707764 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000142999997 s,  0.065528400242 % : COPY DATA TO CPU->GPU
+ 0.000077999997 s,  0.035742763430 % : EXTRACT IMAGE
+ 0.075520001352 s, 34.606327056885 % : COMPUTE
+ 0.000011000000 s,  0.005040646065 % : COMPRESS IMAGE
+ 0.002543000039 s,  1.165305733681 % : COPY DATA TO GPU->CPU
+ 0.038490001112 s, 17.637678146362 % : SAVE IMAGE INTO FILE
+ 0.001368999947 s,  0.627331316471 % : FREE MEMORY
 Total time:
-0.929738998413 s
+0.218226000667 s
 
 
 
-Reading File
-Read File
-Copied Everything to GPU memory
-Start traversing the tree
-Kernel Executed 8 times
-Result stored in result.txt
-Init: 0.000000
-MemAlloc: 0.000000
-HtoD: 97.218010
-Exec: 0.407000
-DtoH: 0.359000
-Close: 0.074000
-Total: 99.777000
+WG size of kernel:initialize = 16, WG size of kernel:compute_step_factor = 16, WG size of kernel:compute_flux = 16, WG size of kernel:time_step = 16
+Name:                     Xavier
+Starting...
+0.00232285 seconds per iteration
+Saving solution...
+Saved solution...
+Cleaning up...
+Done...
 
 
 
-thread block size of kernel = 128 
-Configuration used: boxes1d = 10
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.094940997660 s, 10.233424186707 % : GPU: SET DEVICE / DRIVER INIT
- 0.001126999967 s,  0.121476165950 % : GPU MEM: ALO
- 0.002334000077 s,  0.251575291157 % : GPU MEM: COPY IN
- 0.824433982372 s, 88.863426208496 % : GPU: KERNEL
- 0.003895000089 s,  0.419831126928 % : GPU MEM: COPY OUT
- 0.001022999990 s,  0.110266298056 % : GPU MEM: FRE
-Total time:
-0.927753984928 s
+WG size of kernel = 24 X 24
+Generate input matrix internally, size =256
+Creating matrix internally size=256
+Time consumed(ms): 0.626000
 
 
 
-Reading File
-Read File
-Copied Everything to GPU memory
-Start traversing the tree
-Kernel Executed 8 times
-Result stored in result.txt
-Init: 0.000000
-MemAlloc: 0.000000
-HtoD: 90.591003
-Exec: 0.387000
-DtoH: 0.345000
-Close: 0.072000
-Total: 93.085999
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 10
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.097957998514 s, 10.521533012390 % : GPU: SET DEVICE / DRIVER INIT
- 0.001344999997 s,  0.144464597106 % : GPU MEM: ALO
- 0.002330000047 s,  0.250262081623 % : GPU MEM: COPY IN
- 0.824527978897 s, 88.561408996582 % : GPU: KERNEL
- 0.003868000116 s,  0.415456533432 % : GPU MEM: COPY OUT
- 0.000995000009 s,  0.106871567667 % : GPU MEM: FRE
-Total time:
-0.931024014950 s
+pyramidHeight: 20
+gridSize: [100000]
+border:[20]
+blockSize: 256
+blockGrid:[463]
+targetBlock:[216]
 
 
 

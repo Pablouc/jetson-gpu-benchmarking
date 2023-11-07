@@ -122,18 +122,19 @@ def run_application(script, appName, simultFlag):
 
         
 
-def create_makefiles(apps,appsPath):
+def create_makefiles(apps):
+    benchmark_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
+    appsPath = benchmark_path + "/gpu-rodinia/bin/linux/cuda/"
     for app in apps:
         if app.name == "Lud":
-            benchmark_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
-            make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/lud/cuda/"
+            make_path = benchmark_path + "/gpu-rodinia/cuda/lud/cuda/"
             customize_makefile(f"cd {make_path} && make clean")
             customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
             customize_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
             
 
         elif app.name == "CFD":
-            make_path = "/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/cuda/cfd/"
+            make_path = benchmark_path + "/gpu-rodinia/cuda/cfd/"
             customize_makefile(f"cd {make_path} && make clean") 
             customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
             customize_makefile(f"cd {make_path} && cp euler3d {appsPath}")
@@ -154,12 +155,12 @@ def simultExecution(apps, iterations, frequency):
     with open('execution_results.txt',"w") as file:
         pass
     
-    #Defining Paths
-    appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
-    workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
+    #Defining Paths  
+    appsPath ='../benchmarks/gpu-rodinia/bin/linux/cuda/'
+    workloadsPath = '../benchmarks/gpu-rodinia/data/'
     externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks')) 
 
-    create_makefiles(apps, appsPath)
+    create_makefiles(apps)
 
     
     #Executing Applications
@@ -186,7 +187,7 @@ def simultExecution(apps, iterations, frequency):
                 tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
 
             elif app.external == True:
-                tempPath = externalAppPath + '/' + app.Name +  ' ' + app.workloads
+                tempPath = f"{externalAppPath}/{app.name}/{app.name} {app.workloads}"
 
             else:
                 print("No app selected")
@@ -229,19 +230,17 @@ def sequentialExecution(apps, iterations, frequency):
         pass
     
     #Defining Paths
-    appsPath ='/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/bin/linux/cuda/'   
-    workloadsPath = '/home/carpab00/Desktop/Pablo/jetson-gpu-benchmarking/benchmarks/gpu-rodinia/data/'
+    appsPath ='../benchmarks/gpu-rodinia/bin/linux/cuda/'
+    workloadsPath = '../benchmarks/gpu-rodinia/data/'
     
     externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
-    create_makefiles(apps, appsPath)
+    create_makefiles(apps)
 
     #Executing Applications
     for i in range( int(iterations) ):
         tempPath = ''
         start_time_loop = time.time()
-        print("Checking iteration number:", i)
         if i == 0:
-            print("In the first itertion")
             START_TIME = start_time_loop
         for app in apps:
             if app.name == "BFS":
@@ -263,7 +262,7 @@ def sequentialExecution(apps, iterations, frequency):
                 tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
             
             elif app.external == True:
-                tempPath = externalAppPath + '/' + app.Name +  ' ' + app.workloads
+                tempPath = f"{externalAppPath}/{app.name}/{app.name} {app.workloads}"
                            
             else:
                 print("No app selected")
@@ -316,14 +315,14 @@ jsonStruct = {
     ],
     'external_app': [
         {
-            'appName':'foo',
-            'workload_input':'34 56 23',
+            'appName':'pathfinder',
+            'workload_input':'100000 100 20',
             'makefile_flag':'False',
             'makefile_input':'',
 
         }
     ],
-    'execType': 'simult',
+    'execType': 'not-simult',
     'execNum': '2',
     'freq': '1007250000'
 }
@@ -348,7 +347,7 @@ def manageExecution(jsonObject):
     external_apps = manageExternalApp(jsonObject)
 
     if exec_type == 'simult':
-        simultExecution(apps, exec_num, freq)
+        simultExecution(apps + external_apps, exec_num, freq)
     
     elif exec_type == 'not-simult':
         
