@@ -13,7 +13,7 @@ import time
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from manageExecution import manageExecution, current_apps, get_current_time
+from manageExecution import manageExecution, current_apps, get_current_time, START_TIME, END_TIME
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu
 
@@ -54,6 +54,17 @@ global_gpu_data = {
     "power": None
 }
 
+global_current_apps = {
+    "current_apps": list(current_apps)
+}
+
+execution_data = {
+    "gpu_iterations_data": gpu_iterations_data,
+    "global_gpu_data": global_gpu_data,
+    "global_current_apps": global_current_apps
+}
+
+
 def setAvgData():
     powerArray = gpu_iterations_data['power']
     if len(powerArray) != 0:
@@ -87,16 +98,12 @@ def gpu_monitor_thread():
         gpu_iterations_data['power'].append(gpu_data[2])
         
         current_time, iterations_time = get_current_time()
-        print("get_current_time: " , current_time , iterations_time)
-        print("gpu_iterations_data:", gpu_iterations_data)
+
         if current_time != 0 :
-            print("Inside current_timeeeeeeeeeeee:", current_time)
             gpu_iterations_data["current_time"].append(current_time)
-            print("Execution time: ", gpu_iterations_data["current_time"])
 
         if iterations_time !=[]:
             gpu_iterations_data['iteration_time'] = iterations_time
-            print("Iterations time: ", gpu_iterations_data['iteration_time'])
 
         print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'])
         
@@ -119,10 +126,13 @@ def get_gpu_iterations_data():
 
 @app.route('/gpu_data', methods=['GET'])
 def get_gpuData():
-    gpu_monitor_thread()
-    print("Server data: ", global_gpu_data)
-    response = jsonify(global_gpu_data)
-    response.headers['ngrok-skip-browser-warning'] = '1'
+    if START_TIME is not None and END_TIME is None:
+        gpu_monitor_thread()
+        response = jsonify(execution_data)
+        response.headers['ngrok-skip-browser-warning'] = '1'
+    else:
+        response = jsonify("out of execution")
+        response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
 

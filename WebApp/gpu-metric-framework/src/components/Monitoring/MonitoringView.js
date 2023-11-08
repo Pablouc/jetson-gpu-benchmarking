@@ -86,10 +86,16 @@ function MonitoringView (props) {
             return response.json();
           })
           .then((data) => {
-            //console.log(data);
-            setGpuTemp(data.temperature);
-            setGpuFreq(data.frequency);
-            setPower(data.power);
+            if(data != 'out of execution'){
+              setGpuTemp(data.global_gpu_data.temperature);
+              setGpuFreq(data.global_gpu_data.frequency);
+              setPower(data.global_gpu_data.power);
+              setGpuTempArray(data.gpu_iterations_data.temperature.map((temp) => parseFloat(temp)));
+              setGpuPowerArray(data.gpu_iterations_data.power.map((temp) => parseFloat(temp)));
+              setExecTimeArray(data.gpu_iterations_data.current_time);
+              setCurrentApps(data.global_current_apps);
+            }
+            
           })
           .catch((error) => {
             setError(error.message);
@@ -124,15 +130,15 @@ function MonitoringView (props) {
 
     useEffect(() => {
         if (props.getExecState === 'InProgress') {
-          fetch_AppsInUse();
+          //fetch_AppsInUse();
           fetch_GPUData();
-          fetch_GPUIterationsData();
+          //fetch_GPUIterationsData();
       
           // Set up a polling interval (every second in this example) for both
           const pollingIntervalId = setInterval(() => {
-            fetch_AppsInUse();
+            //fetch_AppsInUse();
             fetch_GPUData();
-            fetch_GPUIterationsData();
+            //fetch_GPUIterationsData();
           }, 1000);
       
             return () => clearInterval(pollingIntervalId);

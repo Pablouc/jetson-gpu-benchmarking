@@ -9,6 +9,7 @@ total_execution_time = 0
 iterations_timeStats=[]
 executing = False
 START_TIME= None
+END_TIME = None
 current_apps = set()
 
 # Create a lock to ensure that only one thread updates the total_execution_time at a time
@@ -144,6 +145,7 @@ def create_makefiles(apps):
 def simultExecution(apps, iterations, frequency):
     global executing
     global START_TIME
+    global END_TIME
     global iterations_timeStats
 
     #Scaling the frequency
@@ -206,7 +208,8 @@ def simultExecution(apps, iterations, frequency):
             t.join()
 
         end_time = time.time()
-
+        if i == int(iterations) -1:
+            END_TIME = end_time
         iteration_execTime = end_time - start_time
         iterations_timeStats.append(iteration_execTime)
         print("Simultaneous iteration time: ", iterations_timeStats[i]) 
@@ -219,6 +222,7 @@ def simultExecution(apps, iterations, frequency):
 def sequentialExecution(apps, iterations, frequency):
     global executing
     global START_TIME
+    global END_TIME
     global iterations_timeStats
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
@@ -276,6 +280,8 @@ def sequentialExecution(apps, iterations, frequency):
                 
         
         end_time_loop = time.time()  # Record end time of the loop
+        if i == int(iterations) -1:
+            END_TIME = end_time_loop
         iteration_execTime = end_time_loop - start_time_loop
         iterations_timeStats.append(iteration_execTime)
         print("Execution_Time per iteration", iterations_timeStats[i])     
