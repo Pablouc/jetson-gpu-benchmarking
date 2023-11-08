@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import './MonitoringView.css';
 import MyChart from "./MyChart";
 import ExecutionTime from "./ExecutionTime";
@@ -15,6 +15,9 @@ function MonitoringView (props) {
     const [gpu_TempArray, setGpuTempArray] = useState([]);
     const [timer, setTimer] = useState(0);
     const [execTimeArray, setExecTimeArray] = useState([]);
+
+    const tempChartRef = useRef(null);
+    const powerChartRef = useRef(null);
 
     const downloadResults = () => {
         console.log(props.resultsFileURL);
@@ -199,7 +202,7 @@ function MonitoringView (props) {
                   <div className="cell-body">
                     {execTimeArray && gpu_TempArray && execTimeArray.length > 0 && gpu_TempArray.length > 0 ? (
                         <div>
-                          <MyChart label={['Temperature','Temperature (°C)']} execution_time={execTimeArray} temperatureArray={gpu_TempArray} />
+                          <MyChart ref={tempChartRef} label={['Temperature','Temperature (°C)']} execution_time={execTimeArray} temperatureArray={gpu_TempArray} />
                         </div>
                       ) : (
                         <p>No data available for the chart.</p>
@@ -227,7 +230,7 @@ function MonitoringView (props) {
                   <div className="cell-body">
                     {execTimeArray && gpu_PowerArray && execTimeArray.length > 0 && gpu_PowerArray.length > 0 ? (
                         <div>
-                          <MyChart label={['Power','Power (W)']} execution_time={execTimeArray} powerArray={gpu_PowerArray} />
+                          <MyChart ref={powerChartRef} label={['Power','Power (W)']} execution_time={execTimeArray} powerArray={gpu_PowerArray} />
                         </div>
                       ) : (
                         <p>No data available for the chart.</p>

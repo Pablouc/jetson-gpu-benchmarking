@@ -5,3 +5,25 @@
     justify-content: center;
     align-items: center;
   }
+
+
+  .button-cont{
+    height: 30px;
+    width: 30px;
+    padding: 0; /* No padding inside the button container */
+    border: none; /* Remove border */
+    background-color: black;
+    display: flex; /* Using flex to center the image in the button */
+    justify-content: center;
+    align-items: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .button-cont:hover {
+    opacity: 0.7; /* Shadow appears on hover */
+  }
+
+  .button-image {
+    width: 100%; /* Make image fill the button */
+    height: 100%;
+    display: block; 
+  }

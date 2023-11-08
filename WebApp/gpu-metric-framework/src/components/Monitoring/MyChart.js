@@ -1,13 +1,42 @@
-import React from 'react';
-import { Chart, Line } from 'react-chartjs-2';
-import 'chart.js/auto';
+import React, { useRef } from 'react';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import './MyChart.css';
+import image from '../../Images/download-icon.png';
+
+// Register the components required by ChartJS to draw the line chart
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const MyChart = (props) => {
-  // Assuming the temperature values are centered around 40, calculate min and max
+  const chartRef = useRef(null); // Define the chartRef
+
+  // Updated function to download the chart as an image
+  const downloadChart = () => {
+    const canvas = chartRef.current.canvas; // Assuming chartRef is attached to the canvas element
+
+    canvas.toBlob(function(blob) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${props.label[0]}_chart.png`; // Dynamic filename based on chart label
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link); // Remove the link when done
+      URL.revokeObjectURL(url); // Free up memory by releasing object URL
+    }, 'image/png');
+  };
   let max_yAxis_value = 0;
   let min_yAxis_value = 0;
-  let yAxis_Array=[];
+  let yAxis_Array = [];
+
   if (props.label[0] == 'Temperature'){
     max_yAxis_value = Math.max(...props.temperatureArray);
     min_yAxis_value = Math.min(...props.temperatureArray);
@@ -44,7 +73,6 @@ const MyChart = (props) => {
         suggestedMin: min_yAxis_value - 1, // slightly lower than the minimum data value
         suggestedMax: max_yAxis_value + 1, // slightly higher than the maximum data value
         ticks: {
-          // Include the degree sign and fine-tune the step size
           stepSize: 1 // Adjust step size to control how many ticks are shown
         },
         title: { // This is where you set the Y axis title
@@ -75,8 +103,16 @@ const MyChart = (props) => {
   };
 
   return (
-    <div className="chartContainer">
-      <Line data={data} options={options} />
+    <div >
+      <div className='button-cont'>
+        <button onClick={downloadChart}  style={{ padding: 0, border: 'none' }}>
+          <img src={image} alt="Button Image" className='button-image'/>
+          </button>
+      </div>
+      <div className="chartContainer">
+        <Line ref={chartRef} data={data} options={options} />
+      </div>
+      
     </div>
   );
 };

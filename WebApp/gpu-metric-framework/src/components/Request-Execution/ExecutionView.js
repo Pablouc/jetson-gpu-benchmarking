@@ -30,7 +30,6 @@ function ExecutionView(props) {
         setRefreshFlag(false);
         setMonitoringFlag(true);
         props.setExecState('InProgress');
-        console.log(userData);
         try {
           const response = await fetch(props.executionURL, {
             method: 'POST',
