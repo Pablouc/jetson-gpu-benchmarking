@@ -13,7 +13,7 @@ import time
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from manageExecution import manageExecution, current_apps, get_current_time, START_TIME, END_TIME
+from manageExecution import manageExecution, current_apps, get_current_time, time_flags
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu
 
@@ -54,16 +54,12 @@ global_gpu_data = {
     "power": None
 }
 
-global_current_apps = {
-    "current_apps": list(current_apps)
-}
 
-execution_data = {
-    "gpu_iterations_data": gpu_iterations_data,
-    "global_gpu_data": global_gpu_data,
-    "global_current_apps": global_current_apps
+execution_data = {            
+        "gpu_iterations_data": gpu_iterations_data,                        
+        "global_gpu_data": global_gpu_data,                                    
+        "global_current_apps": []                                         
 }
-
 
 def setAvgData():
     powerArray = gpu_iterations_data['power']
@@ -126,14 +122,26 @@ def get_gpu_iterations_data():
 
 @app.route('/gpu_data', methods=['GET'])
 def get_gpuData():
-    if START_TIME is not None and END_TIME is None:
+    start_time , end_time= time_flags()
+    print("Start and END", start_time,"  ", end_time)
+    if start_time is not None and end_time is None:
+    
+        execution_data['gpu_iterations_data'] = gpu_iterations_data
+        execution_data['global_gpu_data'] = global_gpu_data
+
+        if current_apps == []:
+            execution_data['global_current_apps'] = ""
+        
+        else:
+            execution_data['global_current_apps']= list(current_apps)    
+        
         gpu_monitor_thread()
         response = jsonify(execution_data)
         response.headers['ngrok-skip-browser-warning'] = '1'
     else:
         response = jsonify("out of execution")
         response.headers['ngrok-skip-browser-warning'] = '1'
-    
+    print(response.get_json())    
     return response
 
 @app.route('/getCurrentApps', methods=['GET'])
