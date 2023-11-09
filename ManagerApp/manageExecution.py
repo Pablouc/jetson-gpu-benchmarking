@@ -8,8 +8,8 @@ import threading
 total_execution_time = 0
 iterations_timeStats=[]
 executing = False
-START_TIME= None
-END_TIME = None
+start_time= None
+end_time = None
 current_apps = set()
 
 # Create a lock to ensure that only one thread updates the total_execution_time at a time
@@ -26,11 +26,11 @@ class App:
 
 
 def get_current_time():
-    global START_TIME
+    global start_time
     global iterations_timeStats
     
-    if START_TIME != None:
-        current_time = time.time() - START_TIME
+    if start_time != None:
+        current_time = time.time() - start_time
     else:
         current_time = 0
     return [current_time, iterations_timeStats]
@@ -144,8 +144,8 @@ def create_makefiles(apps):
 
 def simultExecution(apps, iterations, frequency):
     global executing
-    global START_TIME
-    global END_TIME
+    global start_time
+    global end_time
     global iterations_timeStats
 
     #Scaling the frequency
@@ -201,7 +201,7 @@ def simultExecution(apps, iterations, frequency):
         
         start_time = time.time()
         if i == 0:
-            START_TIME = start_time
+            start_time = start_time
 
         # Wait for all threads to finish
         for t in threads:
@@ -209,7 +209,7 @@ def simultExecution(apps, iterations, frequency):
 
         end_time = time.time()
         if i == int(iterations) -1:
-            END_TIME = end_time
+            end_time = end_time
         iteration_execTime = end_time - start_time
         iterations_timeStats.append(iteration_execTime)
         print("Simultaneous iteration time: ", iterations_timeStats[i]) 
@@ -221,8 +221,8 @@ def simultExecution(apps, iterations, frequency):
 
 def sequentialExecution(apps, iterations, frequency):
     global executing
-    global START_TIME
-    global END_TIME
+    global start_time
+    global end_time
     global iterations_timeStats
     #Scaling the frequency
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
@@ -245,7 +245,7 @@ def sequentialExecution(apps, iterations, frequency):
         tempPath = ''
         start_time_loop = time.time()
         if i == 0:
-            START_TIME = start_time_loop
+            start_time = start_time_loop
         for app in apps:
             if app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads
@@ -281,7 +281,7 @@ def sequentialExecution(apps, iterations, frequency):
         
         end_time_loop = time.time()  # Record end time of the loop
         if i == int(iterations) -1:
-            END_TIME = end_time_loop
+            end_time = end_time_loop
         iteration_execTime = end_time_loop - start_time_loop
         iterations_timeStats.append(iteration_execTime)
         print("Execution_Time per iteration", iterations_timeStats[i])     
@@ -347,6 +347,7 @@ def manageExternalApp(jsonStruct):
 
 
 def manageExecution(jsonObject):
+    global end_time, start_time
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
@@ -362,6 +363,9 @@ def manageExecution(jsonObject):
     appNames =[]
     for app in apps:
         appNames.append(app.name)
+    
+    start_time = None
+    end_time = None
     
     return[appNames, exec_num, exec_type, freq] 
     
