@@ -124,12 +124,6 @@ def gpu_monitor_thread():
 
 #GET METHODS
 
-@app.route('/gpu_iterations_data', methods=['GET'])
-def get_gpu_iterations_data():
-    response = jsonify(gpu_iterations_data)
-    response.headers['ngrok-skip-browser-warning'] = '1'
-    return response
-
 
 @app.route('/gpu_data', methods=['GET'])
 def get_gpuData():
@@ -155,16 +149,7 @@ def get_gpuData():
     print(response.get_json())    
     return response
 
-@app.route('/getCurrentApps', methods=['GET'])
-def get_current_apps():
-    if current_apps == []:        
-        response = jsonify("")             
-    else:
-        response = jsonify(list(current_apps))
-    
-    response.headers['ngrok-skip-browser-warning'] = '1'
-    
-    return response
+
 
 @app.route('/get-csv', methods=['GET'])
 def get_csv():
@@ -250,13 +235,6 @@ def execution_request():
     }
     
     appNames, exec_num, exec_type, freq = manageExecution(executionJson)
-    
-
-    # Signal that execution is complete
-    #execution_complete.set()
-
-    # Wait for the GPU monitoring thread to finish
-    #gpu_monitor_thread_instance.join()
     
     setAvgData()
     input_filename = "execution_results.txt"    

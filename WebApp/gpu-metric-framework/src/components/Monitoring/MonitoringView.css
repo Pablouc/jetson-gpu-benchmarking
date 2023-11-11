@@ -14,8 +14,27 @@
     margin-left: 10px;
     margin-top: 40px;
     margin-right: 30px;
-    height: 40vh;
+    height: 40.2vh;
 }
+
+.cell-Title{
+    text-align: center;
+    height: 5vh;
+    background-color: black;
+    color:white
+    
+}
+
+.cell-body {
+    display: flex;            /* Turn on flexbox */
+    flex-direction: column;   /* Stack children vertically */
+    justify-content: center;  /* Center content horizontally */
+    align-items: center;      /* Center content vertically */
+    text-align: center;
+    height: 32.7vh;
+    background-color: white;
+}
+
 
 
 .monitoring-button{
@@ -32,7 +51,7 @@
   }
 
 .boldText {
-    font-size: 100px;
+    font-size: 60px;
 }
 
 .execution-time{
@@ -42,23 +61,55 @@
     font-weight: bold;
 }
 
-.cell-Title{
+.singleData-metric{
+    font-size: 60px;
+}
+
+.cell-Title-Metrics {
     text-align: center;
     height: 5vh;
     background-color: black;
-    color:white
-    
+    color: white;
+    margin-bottom: 20px;
 }
 
-.cell-body{
-    display: flex;            /* Turn on flexbox */
-    justify-content: center;  /* Center content horizontally */
-    align-items: center;      /* Center content vertically */
-    text-align: center;
+.cell-Metrics{
+    background-color: black;
+    border: 2px solid rgb(0, 0, 0);
+    margin-left: 10px;
+    margin-top: 40px;
+    margin-right: 30px;
+    height: 40.2vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cell-generalMetrics {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
     height: 32.7vh;
     background-color: white;
+    overflow-y: auto; /* Allows scrolling if content overflows */
 }
 
-.singleData-metric{
-    font-size: 100px;
+.execution-info {
+    text-align: center; /* Center the execution info text */
+  }
+  
+.execution-times {
+    display: flex; /* Use flexbox for the two columns */
+    justify-content: space-around; /* Space out the columns */
+    text-align: center;
+    width: 80%; /* Set width to fill the parent container */
+    height: 80%;
 }
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 50%; 
+}
+

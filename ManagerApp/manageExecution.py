@@ -355,14 +355,16 @@ def manageExecution(jsonObject):
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
-    external_apps = manageExternalApp(jsonObject)
+    if jsonObject['external_app']['appName'] != '':
+        external_apps = manageExternalApp(jsonObject)
+        apps = apps + external_apps
 
     if exec_type == 'simult':
-        simultExecution(apps + external_apps, exec_num, freq)
+        simultExecution(apps, exec_num, freq)
     
     elif exec_type == 'not-simult':
         
-        sequentialExecution(apps + external_apps, exec_num, freq)
+        sequentialExecution(apps, exec_num, freq)
     
     appNames =[]
     for app in apps:

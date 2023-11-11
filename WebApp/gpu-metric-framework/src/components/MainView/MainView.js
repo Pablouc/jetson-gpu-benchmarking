@@ -12,6 +12,8 @@ function MainView(props) {
 
     //Options: Succed, Failed, InProgress, Paused
     const [executingState, setExecutingState] = useState('Paused');
+    const [executionType, setExecutionType] = useState('');
+    const [executionsNumber, setExecutionsNumber] = useState(0)
 
     const handleView = (viewFlag) =>{
         setShowMonitoring(viewFlag);
@@ -22,6 +24,13 @@ function MainView(props) {
         console.log(exec_state);
     }
 
+    const handleExecProperties = (exec_properties) =>{
+        console.log(exec_properties);
+        if(exec_properties[0] == 'not-simult'){setExecutionType('sequential')}
+        else if(exec_properties[0] == 'simult'){setExecutionType('simultaneous')}
+        setExecutionsNumber(exec_properties[1])
+    }
+
 
     return (
       <div>
@@ -30,17 +39,17 @@ function MainView(props) {
             showMonitoring == false  && (
                 <>
                 <ExecutionView cfd_workloadsURL={props.cfd_workloadsURL} bfs_workloadsURL={props.bfs_workloadsURL} 
-                      executionURL={props.executionURL} frequenciesURL={props.frequenciesURL} setView={handleView} 
-                      setExecState={handleExecState}/>
+                                executionURL={props.executionURL} frequenciesURL={props.frequenciesURL} setView={handleView} 
+                                setExecState={handleExecState} setExecProperties={handleExecProperties}/>
                 </>
             ) 
         }
         {
             showMonitoring == true && (
                 <> 
-                <MonitoringView resultsFileURL={props.resultsFileURL} setView={handleView} currentAppsURL={props.currentAppsURL} 
-                getExecState={executingState} gpu_dataURL={props.gpu_dataURL} gpu_IterDataURL= {props.gpu_IterDataURL}
-                execTimeURL={props.execTimeURL}/>
+                <MonitoringView resultsFileURL={props.resultsFileURL} setView={handleView} 
+                                getExecState={executingState} gpu_dataURL={props.gpu_dataURL} 
+                                execTimeURL={props.execTimeURL} execType ={executionType} execNum={executionsNumber}/>
                 </>
             )
         }

@@ -13,11 +13,14 @@ function MonitoringView (props) {
     const [gpuPower, setPower] =  useState('');
     const [gpu_PowerArray, setGpuPowerArray] = useState([]);
     const [gpu_TempArray, setGpuTempArray] = useState([]);
+    const [gpu_ramArray, setGpuRamArray] = useState([]);
     const [timer, setTimer] = useState(0);
     const [execTimeArray, setExecTimeArray] = useState([]);
+    const [iterationsTime, setIterationsTime] = useState([]);
 
     const tempChartRef = useRef(null);
     const powerChartRef = useRef(null);
+    const ramChartRef = useRef(null);
 
     const downloadResults = () => {
         console.log(props.resultsFileURL);
@@ -46,87 +49,50 @@ function MonitoringView (props) {
         });
     }
 
-    const fetch_AppsInUse = () => {
-        setError(null);
-        fetch(props.currentAppsURL, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'ngrok-skip-browser-warning': '1'
-          }
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            //console.log(data);
-            setCurrentApps(data);
-          })
-          .catch((error) => {
-            setError(error.message);
-          });
-      };
 
-      const fetch_GPUData = () => {
-        setError(null);
-        fetch(props.gpu_dataURL, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'ngrok-skip-browser-warning': '1'
+    const fetch_GPUData = () => {
+      setError(null);
+      fetch(props.gpu_dataURL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': '1'
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
           }
+          return response.json();
         })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            if(data != 'out of execution'){
-              setGpuTemp(data.global_gpu_data.temperature);
-              setGpuFreq(data.global_gpu_data.frequency);
-              setPower(data.global_gpu_data.power);
-              setGpuTempArray(data.gpu_iterations_data.temperature.map((temp) => parseFloat(temp)));
-              setGpuPowerArray(data.gpu_iterations_data.power.map((temp) => parseFloat(temp)));
-              setExecTimeArray(data.gpu_iterations_data.current_time);
-              setCurrentApps(data.global_current_apps);
+        .then((data) => {
+          console.log(data);
+          if(data != 'out of execution'){
+            setGpuTemp(data.global_gpu_data.temperature);
+            setGpuFreq(data.global_gpu_data.frequency);
+            setPower(data.global_gpu_data.power);
+            setGpuTempArray(data.gpu_iterations_data.temperature.map((temp) => parseFloat(temp)));
+            setGpuPowerArray(data.gpu_iterations_data.power.map((temp) => parseFloat(temp)));
+            setExecTimeArray(data.gpu_iterations_data.current_time);
+            setIterationsTime(data.gpu_iterations_data.iteration_time);
+            console.log(data.gpu_iterations_data.ram_used);
+            setGpuRamArray(data.gpu_iterations_data.ram_used);
+            let current_apps = data.global_current_apps;
+            if (current_apps != ""){
+              setCurrentApps(current_apps);
             }
             
-          })
-          .catch((error) => {
-            setError(error.message);
-          });
-      };
-
-
-      const fetch_GPUIterationsData = () => {
-        setError(null);
-        fetch(props.gpu_IterDataURL, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'ngrok-skip-browser-warning': '1'
+            
           }
+          
         })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            setGpuTempArray(data.temperature.map((temp) => parseFloat(temp)));
-            setGpuPowerArray(data.power.map((temp) => parseFloat(temp)));
-            setExecTimeArray(data.current_time);
-          })
-          .catch((error) => {
-            setError(error.message);
-          });
-      };
+        .catch((error) => {
+          setError(error.message);
+        });
+    };
+
+
+
 
     useEffect(() => {
         if (props.getExecState === 'InProgress') {
@@ -143,6 +109,7 @@ function MonitoringView (props) {
       
             return () => clearInterval(pollingIntervalId);
         }
+        else{setCurrentApps([])}
     }, [props.currentAppsURL, currentApps, props.getExecState, props.gpuData]);
 
   
@@ -166,6 +133,7 @@ function MonitoringView (props) {
       setGpuPowerArray ([]);
       setGpuTempArray([]);
       setExecTimeArray([]);
+      setIterationsTime([]);
       props.setView(false);
     }
 
@@ -192,18 +160,21 @@ function MonitoringView (props) {
                   <div className="cell-body">
                       {currentApps === null ? (
                           <p>Loading...</p>
-                      ) : (
+                      ) : Array.isArray(currentApps) ? (
                           currentApps.map((item, index) => (
-                              <div key={index} className="boldText">{item}</div>
+                              <div key={index} className="boldText">
+                                <div>{item}</div>
+                              </div>
                           ))
+                      ) : (
+                          <p>currentApps is not an array</p>
                       )}
-
                   </div>
                 </div>
                 
                 <div className="cell ">
                   <div className="cell-Title">
-                    <h2 className="cell-Title">GPU Temperature (C°)</h2>
+                    <h2 >GPU Temperature (C°)</h2>
                   </div>
                   <div className="cell-body">
                     {execTimeArray && gpu_TempArray && execTimeArray.length > 0 && gpu_TempArray.length > 0 ? (
@@ -224,7 +195,7 @@ function MonitoringView (props) {
                   </div>
                   <div  className="cell-body">
                   { gpuFreq !== null  && (
-                      <label className="singleData-metric">{gpuFreq}</label>
+                      <label className="singleData-metric">{gpuFreq/1000000}</label>
                   )}
                   </div>
                 </div>
@@ -246,16 +217,43 @@ function MonitoringView (props) {
                 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2 >Threads In Use</h2>
-                  </div>
-                  <div className="cell-body"></div>
-                </div>
-
-                <div className="cell">
-                  <div className="cell-Title">
-                    <h2 >General Metrics</h2>
+                    <h2 >RAM In Use</h2>
                   </div>
                   <div className="cell-body">
+                    {execTimeArray && gpu_ramArray && execTimeArray.length > 0 && gpu_ramArray.length > 0 ? (
+                        <div>
+                          <MyChart ref={ramChartRef} label={['RAM','RAM (MB)']} execution_time={execTimeArray} ramArray={gpu_ramArray} />
+                        </div>
+                      ) : (
+                        <p>No data available for the chart.</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="cell-Metrics">
+                  <div className="cell-Title-Metrics">
+                    <h2 >General Metrics</h2>
+                  </div>
+                  <div className="cell-generalMetrics">
+
+                    <div className="execution-info">
+                      <p>Type of executions: {props.execType}</p>
+                      <p>Number of executions: {props.execNum}</p>
+                      <h4> Execution time metrics</h4>
+                    </div>
+
+                    <div className="execution-times">
+                      <div className="column">
+                        {iterationsTime.slice(0, Math.ceil(iterationsTime.length / 2)).map((time, index) => (
+                          <p key={`time-${index}`}>{index + 1}) {time + ' s'}</p>
+                        ))}
+                      </div>
+                      <div className="column">
+                        {iterationsTime.slice(Math.ceil(iterationsTime.length / 2)).map((time, index) => (
+                          <p key={`time-${index + Math.ceil(iterationsTime.length / 2)}`}>{index + Math.ceil(iterationsTime.length / 2) + 1}) {time + ' s'}</p>
+                        ))}
+                      </div>
+                    </div>
 
                   </div>
                 </div>

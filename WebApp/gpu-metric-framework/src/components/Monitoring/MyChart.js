@@ -49,6 +49,12 @@ const MyChart = (props) => {
     yAxis_Array = props.powerArray;
   }
 
+  if (props.label[0] == 'RAM'){
+    max_yAxis_value = Math.max(...props.ramArray);
+    min_yAxis_value = Math.min(...props.ramArray);
+    yAxis_Array = props.ramArray;
+  }
+
   
   
 

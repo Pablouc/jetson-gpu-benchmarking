@@ -23,13 +23,12 @@ function ExecutionView(props) {
          
     }
 
-
-
     async function requestExecution() {
         setRefreshFlag(true);
         setRefreshFlag(false);
         setMonitoringFlag(true);
         props.setExecState('InProgress');
+        props.setExecProperties([userData['execType'], userData['execNum']]);
         try {
           const response = await fetch(props.executionURL, {
             method: 'POST',
@@ -51,7 +50,8 @@ function ExecutionView(props) {
           console.log(data);
       
         } catch (error) {
-          console.error('Error:', error.message);
+            props.setExecState('Failed');
+            console.error('Error:', error.message);
       
         }
       }
@@ -126,12 +126,12 @@ function ExecutionView(props) {
                     </div>
 
                     <div>
-                    <label className='label'>Amount of executions</label>
+                    <label className='label'>Executions number</label>
                     <Dropdown refresh={refreshFlag} injected={false} onExecuteEvent = {executeHandler}></Dropdown>
                     </div>
 
                     <div>
-                    <label className='label'>Amount of executions</label>
+                    <label className='label'>Select the frequencies</label>
                     <Dropdown refresh={refreshFlag} injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                     </div>
                     
