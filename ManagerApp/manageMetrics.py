@@ -231,7 +231,7 @@ class Srad:
         except FileNotFoundError:
             print(f"File '{filename}' not found.")
 
-def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg , temp_avg):
+def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg , temp_avg, ram_avg):
         # Define the CSV file name
         
         full_path = os.path.join(script_directory, csv_filename)
@@ -245,9 +245,11 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
             csvwriter.writerow(["Executions Number", exec_num] )
             csvwriter.writerow(["Frequency", str(freq) + 'MHz'])
             csvwriter.writerow(["Average Power consumed", str(power_avg) + 'W'])
-            csvwriter.writerow(["Average GPU Temp", str(temp_avg) + 'C'])
-            
-            
+            csvwriter.writerow(["Average GPU Temp", str(temp_avg) + ' °C'])
+            csvwriter.writerow(["Average RAM used", str(ram_avg) + ' MB'])
+            csvwriter.writerow([])
+        
+
             if 'LavaMD' in apps:
 
                 lava_md = LavaMD(filename)

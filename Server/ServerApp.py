@@ -42,16 +42,19 @@ gpu_iterations_data = {
     "current_time":[],
     "iteration_time":[],
     "execution_time" : [],
+    "ram_used": [],
     "iteration_time_avg":0,
     "temp_avg" : 0,
-    "power_avg" : 0
+    "power_avg" : 0,
+    "ram_avg" : 0
 }
 
 
 global_gpu_data = {
     "temperature": None,
     "frequency": None,
-    "power": None
+    "power": None,
+    "ram_used":None
 }
 
 
@@ -64,18 +67,23 @@ execution_data = {
 def setAvgData():
     powerArray = gpu_iterations_data['power']
     if len(powerArray) != 0:
-        powerArray = [float(item) for item in powerArray]
         gpu_iterations_data['power_avg'] = sum(powerArray)/len(powerArray)
         
     tempArray = gpu_iterations_data['temperature']
     if len(tempArray) != 0 :
-        tempArray = [float(item) for item in tempArray]
         gpu_iterations_data['temp_avg'] = sum(tempArray)/len(tempArray)
     
     iterArray = gpu_iterations_data['iteration_time']
     if len(iterArray) != 0: 
         gpu_iterations_data['iteration_time_avg'] = sum(iterArray)/len(iterArray)
-        
+    
+    ramArray = gpu_iterations_data['ram_used']
+    if len(ramArray) != 0:
+        gpu_iterations_data['ram_avg'] = sum(ramArray) / len(ramArray)
+
+    print(gpu_iterations_data)
+
+
 def gpu_monitor_thread():
     
     global global_gpu_data
@@ -92,6 +100,9 @@ def gpu_monitor_thread():
 
         global_gpu_data["power"] = gpu_data[2]
         gpu_iterations_data['power'].append(gpu_data[2])
+
+        global_gpu_data["ram_used"] = gpu_data[3]
+        gpu_iterations_data['ram_used'].append(gpu_data[3])
         
         current_time, iterations_time = get_current_time()
 
@@ -101,7 +112,7 @@ def gpu_monitor_thread():
         if iterations_time !=[]:
             gpu_iterations_data['iteration_time'] = iterations_time
 
-        print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'])
+        print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'], "RAM", gpu_iterations_data["ram_used"])
         
     except Exception as e:
         print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
@@ -224,15 +235,18 @@ def execution_request():
         "iteration_time": [],
         "current_time":[],
         "iteration_time_avg": 0,
+        "ram_used" : [],
         "temp_avg" : 0,
-        "power_avg" : 0
+        "power_avg" : 0,
+        "ram_avg" : 0
     }
 
 
     global_gpu_data = {
         "temperature": None,           
         "frequency": None,
-        "power": None                                
+        "power": None,
+        "ram_used" : None
     }
     
     appNames, exec_num, exec_type, freq = manageExecution(executionJson)
@@ -247,7 +261,12 @@ def execution_request():
     setAvgData()
     input_filename = "execution_results.txt"    
     csv_filename = 'execution_results.csv'
-    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, gpu_iterations_data['power_avg'] , gpu_iterations_data['temp_avg'] )
+
+    power_avg = gpu_iterations_data['power_avg']
+    temp_avg = gpu_iterations_data['temp_avg']
+    ram_avg = gpu_iterations_data['ram_avg']
+
+    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, ram_avg)
   
 
     return jsonify({"message": "Execution request processed successfully."})
@@ -256,3 +275,4 @@ def execution_request():
 # Run the Flask application on a local development server
 if __name__ == '__main__':
     app.run(threaded=True, host='0.0.0.0', port=5000)
+    

@@ -36,6 +36,11 @@ def get_current_time():
     return [current_time, iterations_timeStats]
 
 
+def time_flags():
+    global start_time, end_time
+
+    return [start_time, end_time]
+
 def process_input(data):
     apps_list = []
 
@@ -144,8 +149,7 @@ def create_makefiles(apps):
 
 def simultExecution(apps, iterations, frequency):
     global executing
-    global start_time
-    global end_time
+    global start_time, end_time
     global iterations_timeStats
 
     #Scaling the frequency
@@ -199,18 +203,18 @@ def simultExecution(apps, iterations, frequency):
                 threads.append(thread)
                 thread.start()
         
-        start_time = time.time()
+        start_time_loop = time.time()
         if i == 0:
-            start_time = start_time
+            start_time = start_time_loop
 
         # Wait for all threads to finish
         for t in threads:
             t.join()
 
-        end_time = time.time()
+        end_time_loop = time.time()
         if i == int(iterations) -1:
-            end_time = end_time
-        iteration_execTime = end_time - start_time
+            end_time = end_time_loop
+        iteration_execTime = end_time_loop - start_time_loop
         iterations_timeStats.append(iteration_execTime)
         print("Simultaneous iteration time: ", iterations_timeStats[i]) 
     

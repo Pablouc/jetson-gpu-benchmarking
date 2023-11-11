@@ -17,4 +17,3 @@ echo "Current: $CURRENT_A A"
 echo "Voltage: $VOLTAGE_V V"
 echo "Power: $POWER_W W"
 
-
