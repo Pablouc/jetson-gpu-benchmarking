@@ -28,10 +28,11 @@ def transform_input_json(input_json):
                 app_entry['threads'] = input_json.get(threads_key, 'None')
             jsonStruct['apps'].append(app_entry)
     
-    external_app = {'appName': input_json['appName']}
-    external_app['workload_input'] = input_json.get('workload_input', '')
-    external_app['makefile_flag'] = input_json.get('makefile_flag', False)
-    external_app['makefile_input'] = input_json.get('makefile_input', '')
-    jsonStruct['external_app'].append(external_app)
+    if input_json['appName']:
+        external_app = {'appName': input_json['appName']}
+        external_app['workload_input'] = input_json.get('workload_input', '')
+        external_app['makefile_flag'] = input_json.get('makefile_flag', False)
+        external_app['makefile_input'] = input_json.get('makefile_input', '')
+        jsonStruct['external_app'].append(external_app)
     
     return jsonStruct

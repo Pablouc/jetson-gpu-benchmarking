@@ -355,7 +355,7 @@ def manageExecution(jsonObject):
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
-    if jsonObject['external_app']['appName'] != '':
+    if jsonObject['external_app']['appName']:
         external_apps = manageExternalApp(jsonObject)
         apps = apps + external_apps
 
