@@ -105,6 +105,12 @@ def run_script(path):
         print(command_result.stderr)
 
 
+def run_script_repeatedly(script, delay):
+    while True:
+        run_script(script)
+        time.sleep(delay)
+
+
 def run_application(script, appName, simultFlag):
     global current_app
 
@@ -229,9 +235,11 @@ def sequentialExecution(apps, iterations, frequency):
     global end_time
     global iterations_timeStats
     #Scaling the frequency
+    executing = True
     frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
-    run_script(frequencyScript)
-    print(frequencyScript)
+    script_thread = threading.Thread(target=run_script_repeatedly, args=(frequencyScript, 0.5))
+    script_thread.daemon = True  # Set the thread as a daemon so it exits when the main thread exits
+    script_thread.start()
 
     #Clearing the output file 
     with open('execution_results.txt',"w") as file:
