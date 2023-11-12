@@ -351,11 +351,11 @@ def manageExternalApp(jsonStruct):
 
 
 def manageExecution(jsonObject):
-    global end_time, start_time
+    global end_time, start_time, iterations_timeStats
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
-    if jsonObject['external_app']['appName']:
+    if jsonObject['external_app']:
         external_apps = manageExternalApp(jsonObject)
         apps = apps + external_apps
 
@@ -372,7 +372,7 @@ def manageExecution(jsonObject):
     
     start_time = None
     end_time = None
-    
+    iterations_timeStats=[]  
     return[appNames, exec_num, exec_type, freq] 
     
 

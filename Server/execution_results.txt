@@ -1,230 +1,120 @@
 thread block size of kernel = 128 
-Configuration used: boxes1d = 5
+Configuration used: boxes1d = 10
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.132884994149 s, 60.542343139648 % : GPU: SET DEVICE / DRIVER INIT
- 0.000615000026 s,  0.280193716288 % : GPU MEM: ALO
- 0.000622000021 s,  0.283382922411 % : GPU MEM: COPY IN
- 0.083778001368 s, 38.169219970703 % : GPU: KERNEL
- 0.001129999990 s,  0.514827489853 % : GPU MEM: COPY OUT
- 0.000460999989 s,  0.210031405091 % : GPU MEM: FRE
+ 0.127132996917 s, 13.254854202271 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001704000053 s,  0.177658587694 % : GPU MEM: ALO
+ 0.002727000043 s,  0.284316331148 % : GPU MEM: COPY IN
+ 0.821879029274 s, 85.688888549805 % : GPU: KERNEL
+ 0.004594999831 s,  0.479073494673 % : GPU MEM: COPY OUT
+ 0.001105000032 s,  0.115207009017 % : GPU MEM: FRE
 Total time:
-0.219491004944 s
+0.959142982960 s
 
 
 
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 148.767044
+Exec: 16.334999
+DtoH: 5.492000
+Close: 2.641000
+Total: 576.283020
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 5
+Configuration used: boxes1d = 10
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.128353998065 s, 59.389328002930 % : GPU: SET DEVICE / DRIVER INIT
- 0.000568000018 s,  0.262813329697 % : GPU MEM: ALO
- 0.000768000027 s,  0.355353206396 % : GPU MEM: COPY IN
- 0.084907002747 s, 39.286426544189 % : GPU: KERNEL
- 0.001106000040 s,  0.511745631695 % : GPU MEM: COPY OUT
- 0.000419999997 s,  0.194333791733 % : GPU MEM: FRE
+ 0.123617999256 s, 12.925006866455 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001822000020 s,  0.190501093864 % : GPU MEM: ALO
+ 0.002011999954 s,  0.210366725922 % : GPU MEM: COPY IN
+ 0.822803020477 s, 86.029014587402 % : GPU: KERNEL
+ 0.005193999968 s,  0.543063998222 % : GPU MEM: COPY OUT
+ 0.000975999981 s,  0.102046675980 % : GPU MEM: FRE
 Total time:
-0.216122999787 s
+0.956425011158 s
 
 
 
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 139.895020
+Exec: 16.559000
+DtoH: 6.881000
+Close: 3.032000
+Total: 566.968994
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 5
+Configuration used: boxes1d = 10
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.127270996571 s, 58.719230651855 % : GPU: SET DEVICE / DRIVER INIT
- 0.000593999983 s,  0.274054765701 % : GPU MEM: ALO
- 0.000364000007 s,  0.167939290404 % : GPU MEM: COPY IN
- 0.086944997311 s, 40.113960266113 % : GPU: KERNEL
- 0.001059000031 s,  0.488592594862 % : GPU MEM: COPY OUT
- 0.000511999999 s,  0.236222282052 % : GPU MEM: FRE
+ 0.127434998751 s, 13.270483970642 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001783999964 s,  0.185777410865 % : GPU MEM: ALO
+ 0.002284999937 s,  0.237949192524 % : GPU MEM: COPY IN
+ 0.822567999363 s, 85.658378601074 % : GPU: KERNEL
+ 0.005303999875 s,  0.552333712578 % : GPU MEM: COPY OUT
+ 0.000913000025 s,  0.095075540245 % : GPU MEM: FRE
 Total time:
-0.216745004058 s
+0.960289001465 s
 
 
 
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 131.879013
+Exec: 16.139999
+DtoH: 5.971000
+Close: 2.649000
+Total: 557.918030
 
 
 
 thread block size of kernel = 128 
-Configuration used: boxes1d = 5
+Configuration used: boxes1d = 10
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.121720001101 s, 57.295906066895 % : GPU: SET DEVICE / DRIVER INIT
- 0.000669999979 s,  0.315381675959 % : GPU MEM: ALO
- 0.000341000006 s,  0.160515159369 % : GPU MEM: COPY IN
- 0.088281996548 s, 41.556011199951 % : GPU: KERNEL
- 0.000967000029 s,  0.455185204744 % : GPU MEM: COPY OUT
- 0.000460999989 s,  0.217001423240 % : GPU MEM: FRE
+ 0.125211998820 s, 13.034049987793 % : GPU: SET DEVICE / DRIVER INIT
+ 0.001731000026 s,  0.180189922452 % : GPU MEM: ALO
+ 0.002269000048 s,  0.236193507910 % : GPU MEM: COPY IN
+ 0.825119972229 s, 85.891571044922 % : GPU: KERNEL
+ 0.005379999988 s,  0.560035765171 % : GPU MEM: COPY OUT
+ 0.000941000006 s,  0.097954206169 % : GPU MEM: FRE
 Total time:
-0.212440997362 s
+0.960653007030 s
 
 
 
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 5
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.117014996707 s, 57.142646789551 % : GPU: SET DEVICE / DRIVER INIT
- 0.000548999989 s,  0.268096536398 % : GPU MEM: ALO
- 0.000430999993 s,  0.210472851992 % : GPU MEM: COPY IN
- 0.085386998951 s, 41.697551727295 % : GPU: KERNEL
- 0.000933000003 s,  0.455617576838 % : GPU MEM: COPY OUT
- 0.000461999996 s,  0.225611269474 % : GPU MEM: FRE
-Total time:
-0.204777002335 s
-
-
-
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 5
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.126423001289 s, 58.410720825195 % : GPU: SET DEVICE / DRIVER INIT
- 0.000592000026 s,  0.273519426584 % : GPU MEM: ALO
- 0.000342999992 s,  0.158474937081 % : GPU MEM: COPY IN
- 0.087631002069 s, 40.487808227539 % : GPU: KERNEL
- 0.001027000020 s,  0.474500805140 % : GPU MEM: COPY OUT
- 0.000422000012 s,  0.194975003600 % : GPU MEM: FRE
-Total time:
-0.216437995434 s
-
-
-
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 5
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.135398000479 s, 59.617019653320 % : GPU: SET DEVICE / DRIVER INIT
- 0.000612000003 s,  0.269469380379 % : GPU MEM: ALO
- 0.000342999992 s,  0.151026144624 % : GPU MEM: COPY IN
- 0.089195996523 s, 39.273841857910 % : GPU: KERNEL
- 0.001095999964 s,  0.482579141855 % : GPU MEM: COPY OUT
- 0.000468000013 s,  0.206064835191 % : GPU MEM: FRE
-Total time:
-0.227112993598 s
-
-
-
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 5
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.126120999455 s, 58.833599090576 % : GPU: SET DEVICE / DRIVER INIT
- 0.000524999981 s,  0.244904816151 % : GPU MEM: ALO
- 0.000376999989 s,  0.175864979625 % : GPU MEM: COPY IN
- 0.085791997612 s, 40.020713806152 % : GPU: KERNEL
- 0.001093000057 s,  0.509868502617 % : GPU MEM: COPY OUT
- 0.000460999989 s,  0.215049743652 % : GPU MEM: FRE
-Total time:
-0.214368999004 s
-
-
-
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 5
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.126985996962 s, 59.064907073975 % : GPU: SET DEVICE / DRIVER INIT
- 0.000671999995 s,  0.312566876411 % : GPU MEM: ALO
- 0.000322999986 s,  0.150236755610 % : GPU MEM: COPY IN
- 0.085562996566 s, 39.797855377197 % : GPU: KERNEL
- 0.000986999949 s,  0.459082573652 % : GPU MEM: COPY OUT
- 0.000463000004 s,  0.215354844928 % : GPU MEM: FRE
-Total time:
-0.214993998408 s
-
-
-
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 5
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.119393996894 s, 56.473224639893 % : GPU: SET DEVICE / DRIVER INIT
- 0.000607999973 s,  0.287583321333 % : GPU MEM: ALO
- 0.000376000011 s,  0.177847564220 % : GPU MEM: COPY IN
- 0.089622996747 s, 42.391578674316 % : GPU: KERNEL
- 0.000983000034 s,  0.464957863092 % : GPU MEM: COPY OUT
- 0.000433000008 s,  0.204808503389 % : GPU MEM: FRE
-Total time:
-0.211417004466 s
-
-
-
-pyramidHeight: 20
-gridSize: [100000]
-border:[20]
-blockSize: 256
-blockGrid:[463]
-targetBlock:[216]
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 12 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 146.643036
+Exec: 16.320000
+DtoH: 6.059000
+Close: 3.029000
+Total: 580.278992
 
 
 

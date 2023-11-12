@@ -28,7 +28,7 @@ def transform_input_json(input_json):
                 app_entry['threads'] = input_json.get(threads_key, 'None')
             jsonStruct['apps'].append(app_entry)
     
-    if input_json['appName']:
+    if 'appName' in input_json:
         external_app = {'appName': input_json['appName']}
         external_app['workload_input'] = input_json.get('workload_input', '')
         external_app['makefile_flag'] = input_json.get('makefile_flag', False)
