@@ -58,7 +58,7 @@ def monitor_gpu():
 
     
 
-    return [float(gpu_temperature) , int(gpu_frequency), float(gpu_power) , int(ram_used), int(ram_total)]
+    return [float(gpu_temperature) , int(gpu_frequency), float(gpu_power) , int(ram_used), int(ram_total), int(gpu_usage)]
 
 
 if __name__ == '__main__':

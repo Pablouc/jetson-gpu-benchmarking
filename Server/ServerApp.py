@@ -43,10 +43,12 @@ gpu_iterations_data = {
     "iteration_time":[],
     "execution_time" : [],
     "ram_used": [],
+    "gpu_usage": [],    
     "iteration_time_avg":0,
     "temp_avg" : 0,
     "power_avg" : 0,
-    "ram_avg" : 0
+    "ram_avg" : 0,
+    "gpu_usage_avg":0
 }
 
 
@@ -80,6 +82,10 @@ def setAvgData():
     ramArray = gpu_iterations_data['ram_used']
     if len(ramArray) != 0:
         gpu_iterations_data['ram_avg'] = sum(ramArray) / len(ramArray)
+    
+    gpu_usageArray = gpu_iterations_data['gpu_usage']
+    if len(ramArray) != 0:
+        gpu_iterations_data['gpu_usage_avg'] = sum(gpu_usageArray) / len(gpu_usageArray)
 
     print(gpu_iterations_data)
 
@@ -103,6 +109,8 @@ def gpu_monitor_thread():
 
         global_gpu_data["ram_used"] = gpu_data[3]
         gpu_iterations_data['ram_used'].append(gpu_data[3])
+
+        gpu_iterations_data['gpu_usage'].append(gpu_data[4])
         
         current_time, iterations_time = get_current_time()
 
@@ -221,9 +229,11 @@ def execution_request():
         "current_time":[],
         "iteration_time_avg": 0,
         "ram_used" : [],
+        "gpu_usage": [],
         "temp_avg" : 0,
         "power_avg" : 0,
-        "ram_avg" : 0
+        "ram_avg" : 0,
+        "gpu_usage_avg":0
     }
 
 
@@ -244,8 +254,10 @@ def execution_request():
     temp_avg = gpu_iterations_data['temp_avg']
     ram_avg = gpu_iterations_data['ram_avg']
     iterations_execTime = gpu_iterations_data['iteration_time']
-
-    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, ram_avg, workloads, total_execTime, iterations_execTime)
+    gpu_usage_avg = gpu_iterations_data['gpu_usage_avg']
+    
+    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, 
+             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
   
 
     return jsonify({"message": "Execution request processed successfully."})

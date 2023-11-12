@@ -55,6 +55,12 @@ const MyChart = (props) => {
     yAxis_Array = props.ramArray;
   }
 
+  if (props.label[0] == 'Usage'){
+    max_yAxis_value = Math.max(...props.usageArray);
+    min_yAxis_value = Math.min(...props.usageArray);
+    yAxis_Array = props.usageArray;
+  }
+
   
   
 

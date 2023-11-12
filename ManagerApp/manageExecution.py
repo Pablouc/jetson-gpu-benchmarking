@@ -374,11 +374,18 @@ def manageExecution(jsonObject):
         
         sequentialExecution(apps, exec_num, freq)
     
+    #Data to be included in the csv file
     appNames =[]
     workloads =[]
     for app in apps:
         appNames.append(app.name)
-        workloads.append(app.workloads)
+        if app.threads != '':
+            workloads.append(app.workloads + ' threads: ' + app.threads)
+        if app.make_input != '':
+            workloads.append(app.workloads + ' make_input: ' + app.make_input)
+        else:
+             workloads.append(app.workloads)
+    ####
     
     total_execution_time = end_time - start_time    
     start_time = None

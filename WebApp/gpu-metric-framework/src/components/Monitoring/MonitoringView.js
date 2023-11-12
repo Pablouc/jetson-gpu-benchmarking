@@ -17,10 +17,12 @@ function MonitoringView (props) {
     const [timer, setTimer] = useState(0);
     const [execTimeArray, setExecTimeArray] = useState([]);
     const [iterationsTime, setIterationsTime] = useState([]);
+    const [gpuUsageArray, setGpuUsageArray] = useState([]);
 
     const tempChartRef = useRef(null);
     const powerChartRef = useRef(null);
     const ramChartRef = useRef(null);
+    const usageChartRef = useRef(null);
 
     const changeCurrentApps = () =>{
       setCurrentApps([]);
@@ -79,6 +81,7 @@ function MonitoringView (props) {
             setExecTimeArray(data.gpu_iterations_data.current_time);
             setIterationsTime(data.gpu_iterations_data.iteration_time);
             setGpuRamArray(data.gpu_iterations_data.ram_used);
+            setGpuUsageArray(data.gpu_iterations_data.gpu_usage);
             let current_apps = data.global_current_apps;
             if (current_apps != ""){
               setCurrentApps(current_apps);
@@ -172,6 +175,35 @@ function MonitoringView (props) {
                     )}
                   </div>
                 </div>
+
+                <div className="cell-Metrics">
+                  <div className="cell-Title-Metrics">
+                    <h2 >General Metrics</h2>
+                  </div>
+                  <div className="cell-generalMetrics">
+
+                    <div className="execution-info">
+                      <p>Type of executions: {props.execType}</p>
+                      <p>Number of executions: {props.execNum}</p>
+                      <p>GPU frequency: {gpuFreq}</p>
+                      <h4> Execution time metrics</h4>
+                    </div>
+
+                    <div className="execution-times">
+                      <div className="column">
+                        {iterationsTime.slice(0, Math.ceil(iterationsTime.length / 2)).map((time, index) => (
+                          <p key={`time-${index}`}>{index + 1}) {time + ' s'}</p>
+                        ))}
+                      </div>
+                      <div className="column">
+                        {iterationsTime.slice(Math.ceil(iterationsTime.length / 2)).map((time, index) => (
+                          <p key={`time-${index + Math.ceil(iterationsTime.length / 2)}`}>{index + Math.ceil(iterationsTime.length / 2) + 1}) {time + ' s'}</p>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
                 
                 <div className="cell ">
                   <div className="cell-Title">
@@ -192,12 +224,16 @@ function MonitoringView (props) {
                 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2>GPU Frequency (MHz)</h2>
+                    <h2>GPU Usage (%)</h2>
                   </div>
-                  <div  className="cell-body">
-                  { gpuFreq !== null  && (
-                      <label className="singleData-metric">{gpuFreq/1000000}</label>
-                  )}
+                  <div className="cell-body">
+                    {execTimeArray && gpuUsageArray && execTimeArray.length > 0 && gpuUsageArray.length > 0 ? (
+                        <div>
+                          <MyChart ref={usageChartRef} label={['Usage','Usage (%)']} execution_time={execTimeArray} usageArray={gpuUsageArray} />
+                        </div>
+                      ) : (
+                        <p>No data available for the chart.</p>
+                    )}
                   </div>
                 </div>
                 
@@ -218,7 +254,7 @@ function MonitoringView (props) {
                 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2 >RAM In Use</h2>
+                    <h2 >RAM In Use (MB)</h2>
                   </div>
                   <div className="cell-body">
                     {execTimeArray && gpu_ramArray && execTimeArray.length > 0 && gpu_ramArray.length > 0 ? (
@@ -231,33 +267,7 @@ function MonitoringView (props) {
                   </div>
                 </div>
 
-                <div className="cell-Metrics">
-                  <div className="cell-Title-Metrics">
-                    <h2 >General Metrics</h2>
-                  </div>
-                  <div className="cell-generalMetrics">
 
-                    <div className="execution-info">
-                      <p>Type of executions: {props.execType}</p>
-                      <p>Number of executions: {props.execNum}</p>
-                      <h4> Execution time metrics</h4>
-                    </div>
-
-                    <div className="execution-times">
-                      <div className="column">
-                        {iterationsTime.slice(0, Math.ceil(iterationsTime.length / 2)).map((time, index) => (
-                          <p key={`time-${index}`}>{index + 1}) {time + ' s'}</p>
-                        ))}
-                      </div>
-                      <div className="column">
-                        {iterationsTime.slice(Math.ceil(iterationsTime.length / 2)).map((time, index) => (
-                          <p key={`time-${index + Math.ceil(iterationsTime.length / 2)}`}>{index + Math.ceil(iterationsTime.length / 2) + 1}) {time + ' s'}</p>
-                        ))}
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
             </div>
         </div>
 
