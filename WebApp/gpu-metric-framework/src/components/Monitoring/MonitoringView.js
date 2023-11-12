@@ -22,6 +22,10 @@ function MonitoringView (props) {
     const powerChartRef = useRef(null);
     const ramChartRef = useRef(null);
 
+    const changeCurrentApps = () =>{
+      setCurrentApps([]);
+    }
+
     const downloadResults = () => {
         console.log(props.resultsFileURL);
         fetch(props.resultsFileURL, {
@@ -66,7 +70,6 @@ function MonitoringView (props) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           if(data != 'out of execution'){
             setGpuTemp(data.global_gpu_data.temperature);
             setGpuFreq(data.global_gpu_data.frequency);
@@ -75,14 +78,11 @@ function MonitoringView (props) {
             setGpuPowerArray(data.gpu_iterations_data.power.map((temp) => parseFloat(temp)));
             setExecTimeArray(data.gpu_iterations_data.current_time);
             setIterationsTime(data.gpu_iterations_data.iteration_time);
-            console.log(data.gpu_iterations_data.ram_used);
             setGpuRamArray(data.gpu_iterations_data.ram_used);
             let current_apps = data.global_current_apps;
             if (current_apps != ""){
               setCurrentApps(current_apps);
-            }
-            
-            
+            }         
           }
           
         })
@@ -96,21 +96,16 @@ function MonitoringView (props) {
 
     useEffect(() => {
         if (props.getExecState === 'InProgress') {
-          //fetch_AppsInUse();
           fetch_GPUData();
-          //fetch_GPUIterationsData();
       
           // Set up a polling interval (every second in this example) for both
           const pollingIntervalId = setInterval(() => {
-            //fetch_AppsInUse();
             fetch_GPUData();
-            //fetch_GPUIterationsData();
           }, 1000);
       
             return () => clearInterval(pollingIntervalId);
         }
-        else{setCurrentApps([])}
-    }, [props.currentAppsURL, currentApps, props.getExecState, props.gpuData]);
+    }, [props.currentAppsURL, props.getExecState, props.gpuData]); 
 
   
     useEffect(() => {
@@ -123,7 +118,9 @@ function MonitoringView (props) {
         // Cleanup the interval when the component unmounts
         return () => clearInterval(interval);
       }
-    }, [props.getExecState]);
+    }, [props.getExecState, timer]);
+
+
 
 
     const changeView=()=>{
@@ -158,17 +155,21 @@ function MonitoringView (props) {
                     <h2 >Apps being executed </h2>
                   </div>
                   <div className="cell-body">
-                      {currentApps === null ? (
-                          <p>Loading...</p>
+                    {props.getExecState === "InProgress" ? (
+                      currentApps === null ? (
+                        <p>Loading...</p>
                       ) : Array.isArray(currentApps) ? (
-                          currentApps.map((item, index) => (
-                              <div key={index} className="boldText">
-                                <div>{item}</div>
-                              </div>
-                          ))
+                        currentApps.map((item, index) => (
+                          <div key={index} className="boldText">
+                            <div>{item}</div>
+                          </div>
+                        ))
                       ) : (
-                          <p>currentApps is not an array</p>
-                      )}
+                        <p>currentApps is not an array</p>
+                      )
+                    ) : (
+                      <p>Execution is not in progress</p>
+                    )}
                   </div>
                 </div>
                 

@@ -234,7 +234,7 @@ def execution_request():
         "ram_used" : None
     }
     
-    appNames, exec_num, exec_type, freq = manageExecution(executionJson)
+    appNames, workloads, exec_num, exec_type, freq, total_execTime = manageExecution(executionJson)
     
     setAvgData()
     input_filename = "execution_results.txt"    
@@ -243,8 +243,9 @@ def execution_request():
     power_avg = gpu_iterations_data['power_avg']
     temp_avg = gpu_iterations_data['temp_avg']
     ram_avg = gpu_iterations_data['ram_avg']
+    iterations_execTime = gpu_iterations_data['iteration_time']
 
-    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, ram_avg)
+    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, ram_avg, workloads, total_execTime, iterations_execTime)
   
 
     return jsonify({"message": "Execution request processed successfully."})

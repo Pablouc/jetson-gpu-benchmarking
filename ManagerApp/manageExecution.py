@@ -359,7 +359,7 @@ def manageExternalApp(jsonStruct):
 
 
 def manageExecution(jsonObject):
-    global end_time, start_time, iterations_timeStats
+    global end_time, start_time, iterations_timeStats, total_execution_time
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
@@ -375,13 +375,16 @@ def manageExecution(jsonObject):
         sequentialExecution(apps, exec_num, freq)
     
     appNames =[]
+    workloads =[]
     for app in apps:
         appNames.append(app.name)
+        workloads.append(app.workloads)
     
+    total_execution_time = end_time - start_time    
     start_time = None
     end_time = None
     iterations_timeStats=[]  
-    return[appNames, exec_num, exec_type, freq] 
+    return[appNames,workloads, exec_num, exec_type, freq, total_execution_time] 
     
 
 if __name__ == "__main__":
