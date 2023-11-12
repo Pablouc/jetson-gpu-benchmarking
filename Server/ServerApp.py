@@ -110,8 +110,7 @@ def gpu_monitor_thread():
         global_gpu_data["ram_used"] = gpu_data[3]
         gpu_iterations_data['ram_used'].append(gpu_data[3])
 
-        gpu_iterations_data['gpu_usage'].append(gpu_data[4])
-        
+        gpu_iterations_data['gpu_usage'].append(gpu_data[5])       
         current_time, iterations_time = get_current_time()
 
         if current_time != 0 :
