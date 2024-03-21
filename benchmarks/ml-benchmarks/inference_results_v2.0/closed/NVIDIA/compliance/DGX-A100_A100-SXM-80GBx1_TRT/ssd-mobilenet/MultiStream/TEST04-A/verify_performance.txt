@@ -1,4 +1,0 @@
-Verifying performance.
-TEST04-A score = 460173
-TEST04-B score = 492653
-TEST PASS

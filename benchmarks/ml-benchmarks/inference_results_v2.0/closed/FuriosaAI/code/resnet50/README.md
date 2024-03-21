@@ -1,1 +1,0 @@
-Please refer to ../mlperf/src/resnet50 

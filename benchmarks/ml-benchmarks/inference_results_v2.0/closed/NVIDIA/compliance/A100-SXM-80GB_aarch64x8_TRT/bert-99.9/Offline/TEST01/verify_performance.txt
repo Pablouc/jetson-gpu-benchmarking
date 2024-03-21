@@ -1,4 +1,0 @@
-Verifying performance.
-reference score = 14002.9
-test score = 14002.9
-TEST PASS
