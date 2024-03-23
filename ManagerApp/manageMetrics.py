@@ -249,7 +249,7 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
             csvwriter.writerow(["Average GPU Temp", str(temp_avg) + ' °C'])
             csvwriter.writerow(["Average RAM used", str(ram_avg) + ' MB'])
             csvwriter.writerow(["Average GPU used", str(gpu_usage_avg) + ' %' ])
-            csvwriter.writerow(["Total execution time", total_execTime + ' s'])
+            csvwriter.writerow(["Total execution time", str(total_execTime) + ' s'])
             csvwriter.writerow([])
             csvwriter.writerow(["Workloads used by each application"])
             for i in range(len(apps)):

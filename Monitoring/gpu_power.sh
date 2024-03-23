@@ -2,8 +2,8 @@
 
 
 # Fetch the readings from the specified paths
-CURRENT_VALUE=$(cat /sys/bus/i2c/drivers/ina3221/7-0040/hwmon/hwmon4/curr2_input)
-VOLTAGE_VALUE=$(cat /sys/bus/i2c/drivers/ina3221/7-0040/hwmon/hwmon4/in2_input)
+CURRENT_VALUE=$(cat /sys/bus/i2c/drivers/ina3221x/6-0040/iio\:device0/in_current1_input)
+VOLTAGE_VALUE=$(cat /sys/bus/i2c/drivers/ina3221x/6-0040/iio\:device0/in_voltage1_input)
 
 CURRENT_A=$(echo "scale=4; $CURRENT_VALUE/1000" | bc)
 VOLTAGE_V=$(echo "scale=4; $VOLTAGE_VALUE/1000" | bc)

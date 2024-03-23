@@ -66,6 +66,7 @@ void InitProblemOnce(char *filename);
 void InitPerRun();
 void ForwardSub();
 void BackSub();
+void SaveSolutionVectorToFile(const char* filename);
 __global__ void Fan1(float *m, float *a, int Size, int t);
 __global__ void Fan2(float *m, float *a, float *b,int Size, int j1, int t);
 void InitMat(float *ary, int nrow, int ncol);
@@ -196,6 +197,8 @@ int main(int argc, char *argv[])
         PrintAry(b, Size);
     }
     BackSub();
+    SaveSolutionVectorToFile("solutionVector.txt");
+
     if (verbose) {
         printf("The final solution is: \n");
         PrintAry(finalVec,Size);
@@ -431,6 +434,29 @@ void BackSub()
 		finalVec[Size-i-1]=finalVec[Size-i-1]/ *(a+Size*(Size-i-1)+(Size-i-1));
 	}
 }
+
+
+
+
+void SaveSolutionVectorToFile(const char* filename) {
+    FILE* f = fopen(filename, "w");
+    if (f == NULL) {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < Size; i++) {
+        fprintf(f, "%.4f\n", finalVec[i]);
+    }
+
+    fclose(f);
+}
+
+
+
+
+
+
 
 void InitMat(float *ary, int nrow, int ncol)
 {

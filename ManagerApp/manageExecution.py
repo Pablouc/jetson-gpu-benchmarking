@@ -73,7 +73,7 @@ def process_externalApp(data):
     return apps_list
 
 def customize_makefile(command):
-    command_res = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    command_res = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     print(command)
     if command_res.returncode == 0 :
         print("Makefile executed succesfully")
@@ -85,7 +85,7 @@ def customize_makefile(command):
 
 
 def run_script(path):
-    command_result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    command_result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     
     if command_result.returncode == 0:
         print("Command executed successfully.")
@@ -159,7 +159,7 @@ def simultExecution(apps, iterations, frequency):
     global iterations_timeStats
 
     #Scaling the frequency
-    frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
+    frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency     
     run_script(frequencyScript)
     print(frequencyScript)
 
@@ -236,7 +236,7 @@ def sequentialExecution(apps, iterations, frequency):
     global iterations_timeStats
     #Scaling the frequency
     executing = True
-    frequencyScript = 'sudo /home/carpab00/Desktop/Pablo/Executables/freq_scalator.sh ' + frequency     
+    frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency     
     script_thread = threading.Thread(target=run_script_repeatedly, args=(frequencyScript, 0.5))
     script_thread.daemon = True  # Set the thread as a daemon so it exits when the main thread exits
     script_thread.start()

@@ -16,11 +16,11 @@ def monitor_gpu():
         tegrastats_script = os.path.join(script_dir, "tegrastats.sh")
 
         gpu_power_script = os.path.join(script_dir, "gpu_power.sh")
-        gpu_power_output = subprocess.check_output("sudo " + gpu_power_script, shell=True, text=True, stderr=subprocess.STDOUT).splitlines()
+        gpu_power_output = subprocess.check_output("sudo " + gpu_power_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT).splitlines()
         
 
-        gpu_freq_script = "cat /sys/devices/gpu.0/devfreq/17000000.gv11b/cur_freq"
-        gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, text=True, stderr=subprocess.STDOUT).strip()
+        gpu_freq_script = "cat /sys/devices/gpu.0/devfreq/57000000.gpu/cur_freq"
+        gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT).strip()
         print("GPU freq: " + gpu_frequency)
 
         for line in gpu_power_output:
@@ -29,7 +29,7 @@ def monitor_gpu():
                 print("GPU Power:", gpu_power, "W")
                 break
 
-        tegrastats_output = subprocess.check_output(tegrastats_script, shell=True, text=True, stderr=subprocess.STDOUT)
+        tegrastats_output = subprocess.check_output(tegrastats_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT)
         
         lines = tegrastats_output.split('\n')
         
