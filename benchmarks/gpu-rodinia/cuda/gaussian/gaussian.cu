@@ -439,17 +439,23 @@ void BackSub()
 
 
 void SaveSolutionVectorToFile(const char* filename) {
-    FILE* f = fopen(filename, "w");
-    if (f == NULL) {
-        printf("Error opening file!\n");
-        exit(1);
-    }
+    	const char* relative_path = "../benchmarks/gpu-rodinia/cuda/gaussian/";
+	char full_path[256];  // Adjust the size as needed
 
-    for (int i = 0; i < Size; i++) {
-        fprintf(f, "%.4f\n", finalVec[i]);
-    }
+	// Combine the relative path and the file name
+	snprintf(full_path, sizeof(full_path), "%s%s", relative_path, filename);
 
-    fclose(f);
+	FILE* f = fopen(full_path, "w");
+	if (f == NULL) {
+        	printf("Error opening file!\n");
+   	     	exit(1);
+    	}
+
+    	for (int i = 0; i < Size; i++) {
+        	fprintf(f, "%.4f\n", finalVec[i]);
+    	}
+
+    	fclose(f);
 }
 
 

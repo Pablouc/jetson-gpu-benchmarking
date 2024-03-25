@@ -2,9 +2,9 @@ def transform_input_json(input_json):
     apps_to_include = [
         'bfs',
         'lava',
-        'filter',
+        'wicked',
         'srad',
-        'cfd',
+        'gauss',
         'lud'
     ]
 
@@ -23,7 +23,7 @@ def transform_input_json(input_json):
             workloads_key = app_name + '_workloads'
             app_entry['workloads'] = input_json.get(workloads_key, 'None')
             # Include 'threads' key only for 'cfd' and 'lud' apps
-            if app_name in ['cfd', 'lud']:
+            if app_name in ['lud']:
                 threads_key = app_name + '_threads'
                 app_entry['threads'] = input_json.get(threads_key, 'None')
             jsonStruct['apps'].append(app_entry)

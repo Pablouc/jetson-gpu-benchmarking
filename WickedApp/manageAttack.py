@@ -2,20 +2,13 @@ import sys
 import os 
 import subprocess
 import threading
-import wickedApp
-
+from wickedApp import generate_clockGlitch
 threads = []
 
 
-def executeApps():
-    benchmark_command = 'sudo ../benchmarks/gpu-rodinia/cuda/gaussian/gaussian -f ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt'
-    wicked_command = 'sudo python3 wickedApp.py'
-    #matrixMult_command= 'sudo ./test'
-    benchmark_output = '../benchmarks/gpu-rodinia/cuda/gaussian/gaussian'
-
-    run_attack = subprocess.run(f'{benchmark_command} > {benchmark_output} & {wicked_command}', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-    if run_attack.returncode != 0 :
-        print(run_attack.stderr)
+def execute_attack(iter, min_freq, max_freq, delay ):
+    
+    
 
 
 def result_validation():
@@ -41,7 +34,8 @@ def result_validation():
         return 1
 
 
-
+def manageAttack(iterations ):
+    generate_clockGlitch(
 for i in range(10):
     executeApps()
     validation = result_validation()

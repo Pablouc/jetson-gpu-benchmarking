@@ -1,0 +1,13 @@
+Reading File
+Read File
+Copied Everything to GPU memory
+Start traversing the tree
+Kernel Executed 10 times
+Result stored in result.txt
+Init: 0.000000
+MemAlloc: 0.000000
+HtoD: 150.884003
+Exec: 6.213000
+DtoH: 1.905000
+Close: 0.378000
+Total: 225.371002

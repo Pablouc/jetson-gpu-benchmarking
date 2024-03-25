@@ -2,7 +2,11 @@ import os
 import subprocess
 import time
 import threading
+import sys
+WickedApp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'WickedApp'))
+sys.path.append(WickedApp_path)
 
+from wickedApp import result_validation
 
 # Define a global variable to store the total execution time
 total_execution_time = 0
@@ -84,12 +88,12 @@ def customize_makefile(command):
         print(command_res.stderr)
 
 
-def run_script(path):
+def run_script(path, appName):
     command_result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     
     if command_result.returncode == 0:
         print("Command executed successfully.")
-        print("Output:")
+        print( appName +" Output:")
         print(command_result.stdout)
 
         # Append the output to the specified file       
@@ -101,7 +105,7 @@ def run_script(path):
 
     else:
         print(f"Error executing the command. Exit code: {command_result.returncode}")
-        print("Error output:")
+        print( appName + " Error output:")
         print(command_result.stderr)
 
 
@@ -122,10 +126,10 @@ def run_application(script, appName, simultFlag):
     if simultFlag == 0:
         with lock:           
             pass
-        run_script(script)              
+        run_script(script, appName)              
     else:
                               
-        run_script(script)
+        run_script(script, appName)
 
     # End of application execution; remove from the current_apps set
     
@@ -141,14 +145,14 @@ def create_makefiles(apps):
         if app.name == "Lud":
             make_path = benchmark_path + "/gpu-rodinia/cuda/lud/cuda/"
             customize_makefile(f"cd {make_path} && make clean")
-            customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+            customize_makefile(f"export PATH=/usr/local/cuda/bin:$PATH && cd {make_path} && make RD_WG_SIZE={app.threads}")
             customize_makefile(f"cd {make_path} && cp lud_cuda {appsPath}")
             
 
         elif app.name == "CFD":
             make_path = benchmark_path + "/gpu-rodinia/cuda/cfd/"
             customize_makefile(f"cd {make_path} && make clean") 
-            customize_makefile(f"cd {make_path} && make RD_WG_SIZE={app.threads}")
+            customize_makefile(f"export PATH=/usr/local/cuda/bin:$PATH && cd {make_path} && make RD_WG_SIZE={app.threads}")
             customize_makefile(f"cd {make_path} && cp euler3d {appsPath}")
 
 
@@ -160,7 +164,7 @@ def simultExecution(apps, iterations, frequency):
 
     #Scaling the frequency
     frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency     
-    run_script(frequencyScript)
+    run_script(frequencyScript, "Frequency Script")
     print(frequencyScript)
 
     #Clearing the output file 
@@ -169,7 +173,9 @@ def simultExecution(apps, iterations, frequency):
     
     #Defining Paths  
     appsPath ='../benchmarks/gpu-rodinia/bin/linux/cuda/'
+    wickedApp_Path= '../WickedApp/wickedApp.py'
     workloadsPath = '../benchmarks/gpu-rodinia/data/'
+    output_Path = '../benchmarks/gpu-rodinia/cuda/'
     externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks')) 
 
     create_makefiles(apps)
@@ -179,24 +185,28 @@ def simultExecution(apps, iterations, frequency):
     for i in range( int(iterations) ):
         threads = []
         tempPath = ''
+        appNames=[]
         for app in apps:
+            #Filling app names list for injection fault validation
+            appNames.append(app.name)
+
             if app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
 
             elif app.name == "LavaMD":
                 tempPath = appsPath + 'lavaMD ' +  app.workloads 
-            
-            elif app.name == "Particle Filter":
-                tempPath = appsPath + 'particlefilter_float ' + app.workloads 
-              
+
+            elif app.name == "Wicked":
+                tempPath = 'python3 ' + wickedApp_Path + app.workloads  
+        
             elif app.name == "Srad":
                 tempPath = appsPath + 'srad_v1 ' +  app.workloads
                
             elif app.name == "Lud":
                 tempPath = appsPath + 'lud_cuda '  + app.workloads  
 
-            elif app.name == "CFD":
-                tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads + ' & '
+            elif app.name == "Gauss":
+                tempPath = appsPath + 'gaussian -f ' + workloadsPath + 'gaussian/' + app.workloads 
 
             elif app.external == True:
                 tempPath = f"{externalAppPath}/{app.name}/{app.name} {app.workloads}"
@@ -223,6 +233,13 @@ def simultExecution(apps, iterations, frequency):
         iteration_execTime = end_time_loop - start_time_loop
         iterations_timeStats.append(iteration_execTime)
         print("Simultaneous iteration time: ", iterations_timeStats[i]) 
+
+        #Verify if injection fault was effective
+        validation = result_validation(appNames)
+        if validation == 1:
+            end_time = end_time_loop
+            print("Execution stoped due to injection fault")
+            break
     
     
 
@@ -234,12 +251,16 @@ def sequentialExecution(apps, iterations, frequency):
     global start_time
     global end_time
     global iterations_timeStats
+
+
+    appNames = []
     #Scaling the frequency
     executing = True
-    frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency     
-    script_thread = threading.Thread(target=run_script_repeatedly, args=(frequencyScript, 0.5))
-    script_thread.daemon = True  # Set the thread as a daemon so it exits when the main thread exits
-    script_thread.start()
+    frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency
+    run_script(frequencyScript, "Frequency script")
+    #script_thread = threading.Thread(target=run_script_repeatedly, args=(frequencyScript, 0.5))
+    #script_thread.daemon = True  # Set the thread as a daemon so it exits when the main thread exits
+    #script_thread.start()
 
     #Clearing the output file 
     with open('execution_results.txt',"w") as file:
@@ -248,7 +269,8 @@ def sequentialExecution(apps, iterations, frequency):
     #Defining Paths
     appsPath ='../benchmarks/gpu-rodinia/bin/linux/cuda/'
     workloadsPath = '../benchmarks/gpu-rodinia/data/'
-    
+    wickedApp_Path= '../WickedApp/wickedApp.py '
+    output_Path = '../benchmarks/gpu-rodinia/cuda/'
     externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
     create_makefiles(apps)
 
@@ -259,14 +281,18 @@ def sequentialExecution(apps, iterations, frequency):
         if i == 0:
             start_time = start_time_loop
         for app in apps:
+            
+            #Filling app names list for injection fault validation
+            appNames.append(app.name)
+
             if app.name == "BFS":
-                tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads
+                tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
 
             elif app.name == "LavaMD":
                 tempPath = appsPath + 'lavaMD ' +  app.workloads
 
-            elif app.name == "Particle Filter":
-                tempPath = appsPath + 'particlefilter_float ' + app.workloads
+            elif app.name == "Wicked":
+                tempPath = 'python3 ' + wickedApp_Path + app.workloads
 
             elif app.name == "Srad":
                 tempPath = appsPath + 'srad_v1 ' +  app.workloads
@@ -274,8 +300,8 @@ def sequentialExecution(apps, iterations, frequency):
             elif app.name == "Lud":
                 tempPath = appsPath + 'lud_cuda '  + app.workloads 
 
-            elif app.name == "CFD":
-                tempPath = appsPath + 'euler3d ' + workloadsPath + 'cfd/' + app.workloads
+            elif app.name == "Gauss":
+                tempPath =appsPath + 'gaussian -f ' + workloadsPath + 'gaussian/' + app.workloads
             
             elif app.external == True:
                 tempPath = f"{externalAppPath}/{app.name}/{app.name} {app.workloads}"
@@ -298,7 +324,12 @@ def sequentialExecution(apps, iterations, frequency):
         iterations_timeStats.append(iteration_execTime)
         print("Execution_Time per iteration", iterations_timeStats[i])     
             
-        
+        #Verify if injection fault was effective
+        validation = result_validation(appNames)
+        if validation == 1:
+            end_time = end_time_loop
+            print("Execution stoped due to injection fault")
+            break
 
 
 jsonStruct = {
@@ -312,8 +343,8 @@ jsonStruct = {
             'workloads': '-boxes1d 10'           
         },
         {                     
-            'name': 'Particle Filter',
-            'workloads': '-x 128 -y 128 -z 10 -np 1000'
+            'name': 'Wicked',
+            'workloads': '100 76800000 921600000 0.005'
                            
         },
         {
@@ -321,9 +352,8 @@ jsonStruct = {
             'workloads': '100 0.5 502 458'                           
         },
         {
-            'name': 'CFD',
-            'workloads': 'fvcorr.domn.097K',               
-            'threads': '16'   
+            'name': 'Gauss',
+            'workloads': 'matrix2048.txt'
         },
         {
             'name': 'Lud',
@@ -342,7 +372,7 @@ jsonStruct = {
     ],
     'execType': 'not-simult',
     'execNum': '2',
-    'freq': '1007250000'
+    'freq': '921600000'
 }
 
 def manageExternalApp(jsonStruct):
@@ -353,7 +383,7 @@ def manageExternalApp(jsonStruct):
         if app.make_flag == True:
             if app.make_input != '':
                 customize_makefile(f"cd {make_path + '/' + app.name} && make clean")
-                customize_makefile(f"cd {make_path + '/' + app.name} && make {app.make_input}")
+                customize_makefile(f"export PATH=/usr/local/cuda/bin:$PATH && cd {make_path + '/' + app.name} && make {app.make_input}")
     
     return appList
 

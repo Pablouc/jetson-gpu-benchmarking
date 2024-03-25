@@ -1,0 +1,105 @@
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.398000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 18.844000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 4.712000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 11.495000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.234000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 8.537000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.222000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.328000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.262000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 28.034000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 7.639000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.297000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.267000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 5.744000
+
+
+
+WG size of kernel = 12 X 12
+Generate input matrix internally, size =512
+Creating matrix internally size=512
+Time consumed(ms): 2.643000
+
+
+
