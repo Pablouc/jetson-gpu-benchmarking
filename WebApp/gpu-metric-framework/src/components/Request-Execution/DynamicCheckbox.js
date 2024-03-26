@@ -48,11 +48,11 @@ function DynamicCheckbox(props) {
         bfs_workload: selectedOption
       };
       props.onExecuteEvent(bfs_workload);
-    } else if (props.appName === 'CFD' && selectedOption !== null) {
-      const cfd_workload = {
-        cfd_workload: selectedOption
+    } else if (props.appName === 'Gauss' && selectedOption !== null) {
+      const gauss_workload = {
+        gauss_workload: selectedOption
       };
-      props.onExecuteEvent(cfd_workload);
+      props.onExecuteEvent(gauss_workload);
     }
   }, [props.refresh ,selectedOption]);
 

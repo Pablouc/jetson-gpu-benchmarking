@@ -90,7 +90,7 @@ function ExecutionView(props) {
                     </div>
 
                     <div>
-                        <AppComponent refresh={refreshFlag} itemsURL={props.cfd_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'CFD'}/>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.gauss_workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Gauss'}/>
                     </div>
 
                     <div>

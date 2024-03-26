@@ -31,11 +31,12 @@ const AppComponent = (props) => {
             ...userData, // Keep the existing data in userData
             ...enteredUserData, // Add the data from enteredUserData
         };
-        if (props.appName == 'CFD'){
-            const cfdApp={
-                cfd_workloads : userData.cfd_workload
+        if (props.appName == 'Gauss'){
+            const gaussApp={
+                gauss_name: 'Gauss',
+                gauss_workloads : userData.gauss_workload
             }
-            props.onExecuteEvent(cfdApp);
+            props.onExecuteEvent(gaussApp);
         }
         else if (props.appName == 'BFS'){
             const bfs = {
@@ -77,13 +78,12 @@ const AppComponent = (props) => {
         setMakeInput('');
     }
 
-    if(props.appName=='CFD'){
+    /*if(props.appName=='Gauss'){
         const cfd={ 
-        cfd_name: 'CFD',
-        cfd_threads: cfd_threads
+        gauss_name: 'Gauss'
         };
-        if(cfd_threads!='') props.onExecuteEvent(cfd); 
-    }
+        if(gauss_threads!='') props.onExecuteEvent(cfd); 
+    } */
 
     else if(props.appName=='LavaMD'){
         const lavaMD={ 
@@ -147,14 +147,11 @@ const AppComponent = (props) => {
             </>
         )}
 
-        { isChecked && (props.appName == 'CFD') && (
+        { isChecked && (props.appName == 'Gauss') && (
         <>
             <label>Workloads files:</label>
-            <DynamicCheckbox itemsURL={props.itemsURL} appName={'CFD'} onExecuteEvent = {executeHandler}/>
-            <div >
-                <label>Threads per block</label>
-                <input type='number' className='input-style' value={cfd_threads} onChange={e => set_cfd_Threads(e.target.value)}></input>
-            </div>
+            <DynamicCheckbox itemsURL={props.itemsURL} appName={'Gauss'} onExecuteEvent = {executeHandler}/>
+            
         </>
         )}
 
