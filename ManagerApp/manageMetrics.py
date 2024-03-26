@@ -26,6 +26,27 @@ class Lud:
         except FileNotFoundError:
             print(f"File '{filename}' not found.")
 
+class Gauss:
+    def __init__(self, filename):
+        self.clock_rate = []
+        self.total_time = []
+        self.kernel_time = []
+        full_path = os.path.join(script_directory, filename)
+        self.read_file(full_path)
+
+    def read_file(self, filename):
+        try:
+            with open(filename, 'r') as file:
+                lines = file.readlines()
+                for line in lines:
+                    if "Clock rate" in line:
+                        self.clock_rate.append(float(line.split()[-2]))  # Assuming the value is before the last word "KHz"
+                    elif "Time total" in line:
+                        self.total_time.append(float(line.split()[-2]))  # Assuming the value is before the last word "sec"
+                    elif "Time for CUDA kernels" in line:
+                        self.kernel_time.append(float(line.split()[-2]))  # Assuming the value is before the last word "sec"
+        except FileNotFoundError:
+            print(f"File '{filename}' not found.")
 
 class Particle:
     def __init__(self, filename):
