@@ -98,7 +98,7 @@ function ExecutionView(props) {
                     </div>
 
                     <div>
-                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} onExecuteEvent = {executeHandler} appName  ={'Particle Filter'}/>
+                        <AppComponent refresh={refreshFlag} itemsURL={props.workloadsURL} field={workloads} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler} appName  ={'Wicked'}/>
                     </div>
 
                 
@@ -127,12 +127,12 @@ function ExecutionView(props) {
 
                     <div>
                     <label className='label'>Executions number</label>
-                    <Dropdown refresh={refreshFlag} injected={false} onExecuteEvent = {executeHandler}></Dropdown>
+                    <Dropdown refresh={refreshFlag} injected={false} wickedApp={false} onExecuteEvent = {executeHandler}></Dropdown>
                     </div>
 
                     <div>
                     <label className='label'>Select the frequencies</label>
-                    <Dropdown refresh={refreshFlag} injected={true} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
+                    <Dropdown refresh={refreshFlag} injected={true} wickedApp={false} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                     </div>
                     
                     {/*<div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import DynamicCheckbox from '../Request-Execution/DynamicCheckbox';
 import './AppComponents.css';
+import Dropdown from '../Request-Execution/Dropdown';
 
 const AppComponent = (props) => {
   
@@ -14,10 +15,10 @@ const AppComponent = (props) => {
     const [lambda, setLambda] = useState('');
     const [nc, setNc] = useState('');
     const [nr, setNr] = useState('');
-    const [width, setWidth] = useState('');
-    const [height, setHeight] = useState('');
-    const [nfr, setNfr] = useState('');
-    const [np, setNp] = useState('');
+    const [iterations, setiterations] = useState('');
+    const [freq_min, setfreq_min] = useState('');
+    const [freq_max, setfreq_max] = useState('');
+    const [delay, setdelay] = useState('');
     const [matrixSize, setMatrixSize] = useState('');
     const [lud_threads, set_lud_threads] = useState('');
     const [boxes, setBoxes] = useState('');
@@ -38,12 +39,21 @@ const AppComponent = (props) => {
             }
             props.onExecuteEvent(gaussApp);
         }
-        else if (props.appName == 'BFS'){
+        if (props.appName == 'BFS'){
             const bfs = {
                 bfs_name:'BFS',
                 bfs_workloads : userData.bfs_workload
             }
             props.onExecuteEvent(bfs);
+        }
+
+        if(props.appName == 'Wicked'){
+            if(userData.wicked_minfreq != undefined){
+                setfreq_min(userData.wicked_minfreq);
+            }
+            if(userData.wicked_maxfreq != undefined){
+                setfreq_max(userData.wicked_maxfreq);
+            }
         }
     }
 
@@ -65,10 +75,10 @@ const AppComponent = (props) => {
         setLambda('');
         setNc('');
         setNr('');
-        setWidth('');
-        setHeight('');
-        setNfr('');
-        setNp('');
+        setiterations('');
+        setfreq_min('');
+        setfreq_max('');
+        setdelay('');
         setMatrixSize('');
         set_lud_threads('');
         setBoxes('');
@@ -94,12 +104,12 @@ const AppComponent = (props) => {
         if(boxes!='') props.onExecuteEvent(lavaMD); 
     }
 
-    else if(props.appName=='Particle Filter'){
-        const particle={ 
-        filter_name: 'Particle Filter',
-        filter_workloads: ' -x ' + width + ' -y ' + height + ' -z ' + nfr + ' -np ' + np
+    else if(props.appName=='Wicked'){
+        const wicked={ 
+        wicked_name: 'Wicked',
+        wicked_workloads: ' ' + String(iterations) + ' ' +  String(freq_min) + ' ' + String(freq_max) + ' ' + String(delay)
         };
-        if((width!='') && (height!='') && (nfr!='') && (np!='')) props.onExecuteEvent(particle); 
+        if((iterations!='') && (freq_min!='') && (freq_max!='') && (delay!='')) props.onExecuteEvent(wicked); 
     }
 
     else if(props.appName=='Srad'){
@@ -128,7 +138,7 @@ const AppComponent = (props) => {
         };
         if((externalName!='') && (externalWorkload!='')) props.onExecuteEvent(external_app); 
     } 
-    }, [props.refresh ,userData, cfd_threads, niter, lambda, nc, nr, width, height, nfr, np,
+    }, [props.refresh ,userData, cfd_threads, niter, lambda, nc, nr, iterations, freq_min, freq_max, delay,
          matrixSize, lud_threads, boxes, externalName, externalWorkload]);
     
 
@@ -164,26 +174,36 @@ const AppComponent = (props) => {
         </>
         )}
 
-        {isChecked && (props.appName == 'Particle Filter') && (
+        {isChecked && (props.appName == 'Wicked') && (
             <>
                 <div>
-                    <label>Width</label>
-                    <input type='number' className='input-style' value={width} onChange={e => setWidth(e.target.value)}></input>
+                    <label>Iterations</label>
+                    <input type='number' step="10" className='input-style' value={iterations} onChange={e => setiterations(e.target.value)}></input>
                 </div>
 
                 <div>
-                    <label>Height</label>
-                    <input type='number' className='input-style' value={height} onChange={e => setHeight(e.target.value)}></input>
+                    <label >Select min frequency</label>
+                    <Dropdown refresh={props.refresh} injected={true} wickedApp={true} freq_boundary={'min'} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                 </div>
 
+                {/* <div>
+                    <label>freq_min</label>
+                    <input type='number' className='input-style' value={freq_min} onChange={e => setfreq_min(e.target.value)}></input>
+                </div> */}
+
                 <div>
+                    <label >Select min frequency</label>
+                    <Dropdown refresh={props.refresh} injected={true} wickedApp={true} freq_boundary={'max'} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
+                </div>
+
+               {/*  <div>
                     <label>Number of frames</label>
-                    <input type='number' className='input-style' value={nfr} onChange={e => setNfr(e.target.value)}></input>
-                </div>
+                    <input type='number' className='input-style' value={freq_max} onChange={e => setfreq_max(e.target.value)}></input>
+                </div> */}
 
                 <div>
-                    <label>Number of particles</label>
-                    <input type='number' className='input-style' value={np} onChange={e => setNp(e.target.value)}></input>
+                    <label>Delay</label>
+                    <input type='number' className='input-style' value={delay} onChange={e => setdelay(e.target.value)}></input>
                 </div>
             </>
         )}

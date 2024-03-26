@@ -192,12 +192,12 @@ function MonitoringView (props) {
                     <div className="execution-times">
                       <div className="column">
                         {iterationsTime.slice(0, Math.ceil(iterationsTime.length / 2)).map((time, index) => (
-                          <p key={`time-${index}`}>{index + 1}) {time + ' s'}</p>
+                          <p key={`time-${index}`}>{index + 1}) {parseFloat(time.toFixed(4)) + ' s'}</p>
                         ))}
                       </div>
                       <div className="column">
                         {iterationsTime.slice(Math.ceil(iterationsTime.length / 2)).map((time, index) => (
-                          <p key={`time-${index + Math.ceil(iterationsTime.length / 2)}`}>{index + Math.ceil(iterationsTime.length / 2) + 1}) {time + ' s'}</p>
+                          <p key={`time-${index + Math.ceil(iterationsTime.length / 2)}`}>{index + Math.ceil(iterationsTime.length / 2) + 1}) {parseFloat(time.toFixed(4)) + ' s'}</p>
                         ))}
                       </div>
                     </div>

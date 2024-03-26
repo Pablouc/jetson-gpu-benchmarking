@@ -13,7 +13,7 @@ const Dropdown = (props) => {
       setSelectedNumber(e.target.value);
     };
   
-    const numbers = Array.from({ length: 15 }, (_, i) => i + 1);
+    const numbers = Array.from({ length: 1000 }, (_, i) => i);
 
 
     useEffect(() => {
@@ -57,10 +57,30 @@ const Dropdown = (props) => {
       }
       
       if(props.injected== true){
-        const freq={ 
-          freq:selectedFrequency
-        };
-        props.onExecuteEvent(freq); 
+        
+        if(props.wickedApp == true){
+          
+          if(props.freq_boundary == 'min'){
+            const wicked_minfreq={
+              wicked_minfreq: selectedFrequency
+            }
+            props.onExecuteEvent(wicked_minfreq);
+          }
+          else{
+            const wicked_maxfreq={
+              wicked_maxfreq: selectedFrequency
+          }
+          props.onExecuteEvent(wicked_maxfreq);
+          }
+        
+        }
+        else{
+          const freq={ 
+            freq:selectedFrequency
+          };
+  
+          props.onExecuteEvent(freq); 
+        }
       }
 
       }, [props.refresh ,selectedFrequency,selectedNumber]);
