@@ -8,6 +8,7 @@ sys.path.append(ManagerApp_folder_path)
 sys.path.append(Monitor_folder_path)
 
 from flask import Flask, jsonify, request, send_file, Response
+from flask_socketio import SocketIO, emit
 import threading
 import time
 import subprocess
@@ -22,16 +23,17 @@ from monitoring import monitor_gpu
 app = Flask('evaluatorServer')
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True  # This enables JSON pretty-printing
 CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
+socketio = SocketIO(app, cors_allowed_origins="*", logger=True, engineio_logger=True)
+#socketio = SocketIO(app, cors_allowed_origins="*")  # Initialize SocketIO with CORS allowed
 
-frequencies = ['114750000', '204000000', '306000000', '408000000', '510000000', '599250000', '701250000', '752250000', '803250000',
-                '854250000', '905250000', '956250000', '1007250000', '1058250000', '1109250000']
+frequencies = ['76800000', '153600000', '230400000', '307200000', '384000000', '460800000', '537600000', '614400000', '691200000', '768000000', '844800000', '921600000']
 
 bfs_workloads= {
     "itemNames" : ['graph1MW_6.txt', 'graph4096.txt', 'graph65536.txt']
 }
 
-cfd_workloads= {
-    "itemNames" : ['fvcorr.domn.097K', 'fvcorr.domn.193K', 'missile.domn.0.2M']
+gauss_workloads= {
+    "itemNames" : ['matrix1024.txt',  'matrix16.txt',  'matrix2048.txt',  'matrix208.txt']
 }
 
 execution_complete = threading.Event()
@@ -125,7 +127,12 @@ def gpu_monitor_thread():
         print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
         import traceback
         traceback.print_exc()
-           
+
+# Define a socket event for 'message'
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data)
+    emit('response', {'data': 'Message received!'})
 
 
 
@@ -185,9 +192,9 @@ def get_BFSworkloads():
     
     return response
 
-@app.route('/cfd_workloads', methods=['GET'])
-def get_CFDworkloads():
-    response = jsonify(cfd_workloads)
+@app.route('/gauss_workloads', methods=['GET'])
+def get_GAUSSworkloads():
+    response = jsonify(gauss_workloads)
     response.headers['ngrok-skip-browser-warning'] = '1'
     
     return response
@@ -264,5 +271,6 @@ def execution_request():
 
 # Run the Flask application on a local development server
 if __name__ == '__main__':
-    app.run(threaded=True, host='0.0.0.0', port=5000)
+   # app.run(threaded=True, host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000)
     
