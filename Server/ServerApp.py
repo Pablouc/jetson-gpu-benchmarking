@@ -14,7 +14,7 @@ import time
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from manageExecution import manageExecution, current_apps, get_current_time, time_flags
+from manageExecution import manageExecution, current_apps, get_current_time, time_flags, get_console_logs
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu
 
@@ -132,7 +132,10 @@ def gpu_monitor_thread():
 @socketio.on('message')
 def handle_message(data):
     print('received message: ' + data)
-    emit('response', {'data': 'Message received!'})
+    # Fetch the console logs
+    console_logs = get_console_logs()
+    # Emit the response with the console logs
+    emit('response', {'data': 'Message received!', 'console_logs': console_logs})
 
 
 
