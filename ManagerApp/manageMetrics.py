@@ -461,7 +461,7 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
                 csvwriter.writerow([])
             
             if 'Gauss' in apps:
-                
+                print("in gaussss")
                 gauss = Gauss(filename)
 
                 headers = ["App", "Clock Rate", "Kernel Time", "Total Time"]
@@ -471,6 +471,7 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
                 # Write data for Gauss
                 for i in range(len(gauss.clock_rate)):
                     row = ["Gaussian" if i == 0 else ""]
+                    print(gauss.clock_rate[i])
                     row.append(gauss.clock_rate[i])
                     row.append(gauss.kernel_time[i])
                     row.append(gauss.total_time[i])
@@ -496,5 +497,5 @@ if __name__ == "__main__":
 
     apps = ['LUD','Gauss', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
     csv_filename = 'execution_results.csv'
-    writeCSV(csv_filename,input_filename, apps, 2, 'simult', 1233333, 6 , 42)
+    writeCSV(csv_filename,input_filename, apps, 1, 'simult', 1233333, 6 , 42,40, ['matrix2048','matrix' , 'matrix','matrix2048', 'matrix', 'matrix'], 15, [15], 15)
     

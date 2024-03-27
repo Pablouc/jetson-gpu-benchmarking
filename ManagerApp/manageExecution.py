@@ -389,6 +389,9 @@ def manageExternalApp(jsonStruct):
 
 
 def manageExecution(jsonObject):
+    #Record console outputs
+    command= subprocess.run('script -a console_output.txt &&', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    print("command output*********************" + command.stdout)
     global end_time, start_time, iterations_timeStats, total_execution_time
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
@@ -403,7 +406,9 @@ def manageExecution(jsonObject):
     elif exec_type == 'not-simult':
         
         sequentialExecution(apps, exec_num, freq)
-    
+    #Stop recording console
+    subprocess.run('exit', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+
     #Data to be included in the csv file
     appNames =[]
     workloads =[]
