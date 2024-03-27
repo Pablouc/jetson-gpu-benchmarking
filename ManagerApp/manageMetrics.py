@@ -459,13 +459,42 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
                     # Write averages
                     csvwriter.writerow(averages)
                 csvwriter.writerow([])
+            
+            if 'Gauss' in apps:
+                
+                gauss = Gauss(filename)
+
+                headers = ["App", "Clock Rate", "Kernel Time", "Total Time"]
+                if( len(gauss.clock_rate)!= 0):
+                    csvwriter.writerow(headers)
+
+                # Write data for Gauss
+                for i in range(len(gauss.clock_rate)):
+                    row = ["Gaussian" if i == 0 else ""]
+                    row.append(gauss.clock_rate[i])
+                    row.append(gauss.kernel_time[i])
+                    row.append(gauss.total_time[i])
+                    csvwriter.writerow(row)
+                    
+
+                # Calculate averages
+                if (len(gauss.clock_rate) != 0 ):
+                    avg_clock_rate = sum(gauss.clock_rate) / len(gauss.clock_rate)
+                    avg_kernel_time = sum(gauss.kernel_time) / len(gauss.kernel_time)
+                    avg_total_time = sum(gauss.total_time) / len(gauss.total_time)
+                    
+
+                    # Write averages
+                    csvwriter.writerow(["Average", avg_clock_rate, avg_kernel_time, avg_total_time])
+                csvwriter.writerow([])
+
 
 
 # Example usage:
 if __name__ == "__main__":
     input_filename = "execution_results.txt"  # Replace with the path to your text file
 
-    apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
+    apps = ['LUD','Gauss', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
     csv_filename = 'execution_results.csv'
     writeCSV(csv_filename,input_filename, apps, 2, 'simult', 1233333, 6 , 42)
     
