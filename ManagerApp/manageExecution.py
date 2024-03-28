@@ -8,6 +8,7 @@ WickedApp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '
 sys.path.append(WickedApp_path)
 
 from wickedApp import result_validation
+from manageConsole import get_console_logs, write_console_log, write_print_toConsole, reset_console
 
 # Define a global variable to store the total execution time
 total_execution_time = 0
@@ -16,7 +17,7 @@ executing = False
 start_time= None
 end_time = None
 current_apps = set()
-console_output = {}
+
 
 # Create a lock to ensure that only one thread updates the total_execution_time at a time
 lock = threading.Lock()
@@ -30,26 +31,7 @@ class App:
         self.make_flag = make_flag
         self.make_input = make_input
 
-def get_console_logs():
-    global console_output
-    return console_output
 
-def write_console_log(process, type):
-    global console_output
-    
-    output_lines=[]
-    if type == 'stdout':
-        for line in iter(process.stdout.readline, b''):
-            output_line = line.decode('utf-8').strip()
-            output_lines.append(output_line)
-            
-    if type == 'stderr':
-        for line in iter(process.stderr.readline, b''):
-            output_line = line.decode('utf-8').strip()
-            output_lines.append(output_line)
-        
-    console_output[len(console_output)] = output_lines
-    
 def get_current_time():
     global start_time
     global iterations_timeStats
@@ -415,10 +397,12 @@ def manageExternalApp(jsonStruct):
 
 
 def manageExecution(jsonObject):
+    reset_console()
+
     #Record console outputs
     command= subprocess.run('script -a console_output.txt &&', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     print("command output*********************" + command.stdout)
-    global end_time, start_time, iterations_timeStats, total_execution_time
+    global end_time, start_time, iterations_timeStats, total_execution_time,console_output
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
@@ -452,9 +436,10 @@ def manageExecution(jsonObject):
     start_time = None
     end_time = None
     iterations_timeStats=[]  
+    
     return[appNames,workloads, exec_num, exec_type, freq, total_execution_time] 
     
 
 if __name__ == "__main__":
-
+    
     manageExecution(jsonStruct)

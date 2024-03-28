@@ -10,11 +10,13 @@ sys.path.append(Monitor_folder_path)
 from flask import Flask, jsonify, request, send_file, Response
 from flask_socketio import SocketIO, emit
 import threading
+from threading import Thread
 import time
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
-from manageExecution import manageExecution, current_apps, get_current_time, time_flags, get_console_logs
+from manageExecution import manageExecution, current_apps, get_current_time, time_flags
+from manageConsole import get_console_logs
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu
 
@@ -89,7 +91,7 @@ def setAvgData():
     if len(ramArray) != 0:
         gpu_iterations_data['gpu_usage_avg'] = sum(gpu_usageArray) / len(gpu_usageArray)
 
-    print(gpu_iterations_data)
+    #print(gpu_iterations_data)
 
 
 def gpu_monitor_thread():
@@ -121,22 +123,35 @@ def gpu_monitor_thread():
         if iterations_time !=[]:
             gpu_iterations_data['iteration_time'] = iterations_time
 
-        print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'], "RAM", gpu_iterations_data["ram_used"])
+        #print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'], "RAM", gpu_iterations_data["ram_used"])
         
     except Exception as e:
         print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
         import traceback
         traceback.print_exc()
 
+
+def background_task():
+    last_console_length=0
+    while True:
+        console_logs = get_console_logs()
+        if last_console_length != len(console_logs):
+        
+            last_console_length = len(console_logs)
+            socketio.emit('response', {'console_logs': console_logs})
+        time.sleep(0.5)  
+    
+
 # Define a socket event for 'message'
 @socketio.on('message')
 def handle_message(data):
-    print('received message: ' + data)
-    # Fetch the console logs
-    console_logs = get_console_logs()
-    # Emit the response with the console logs
-    emit('response', {'data': 'Message received!', 'console_logs': console_logs})
+    try:
+        print('received message: ' + data)
 
+    except Exception as e:
+        print(f"Error processing message: {e}")
+        #Emit an error response
+        emit('response', {'data': 'Error processing message', 'error': str(e)})
 
 
 #GET METHODS
@@ -163,7 +178,7 @@ def get_gpuData():
     else:
         response = jsonify("out of execution")
         response.headers['ngrok-skip-browser-warning'] = '1'
-    print(response.get_json())    
+    #print(response.get_json())    
     return response
 
 
@@ -254,7 +269,7 @@ def execution_request():
     }
     
     appNames, workloads, exec_num, exec_type, freq, total_execTime = manageExecution(executionJson)
-    
+   
     setAvgData()
     input_filename = "execution_results.txt"    
     csv_filename = 'execution_results.csv'
@@ -268,12 +283,15 @@ def execution_request():
     writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, 
              ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
   
-
     return jsonify({"message": "Execution request processed successfully."})
 
 
 # Run the Flask application on a local development server
 if __name__ == '__main__':
-   # app.run(threaded=True, host='0.0.0.0', port=5000)
+    
+    thread = Thread(target=background_task)
+    thread.start()
+    
+    #app.run(threaded=True, host='0.0.0.0', port=5000)
     socketio.run(app, host='0.0.0.0', port=5000)
     

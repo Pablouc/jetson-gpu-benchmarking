@@ -22,8 +22,8 @@ Number of Multi processors 		 - 1
 
 Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
 
-Time total (including memory transfers)	23.343100 sec
-Time for CUDA kernels:	23.144820 sec
+Time total (including memory transfers)	25.116230 sec
+Time for CUDA kernels:	24.939407 sec
 
 
 
@@ -51,8 +51,8 @@ Number of Multi processors 		 - 1
 
 Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
 
-Time total (including memory transfers)	23.738020 sec
-Time for CUDA kernels:	23.518513 sec
+Time total (including memory transfers)	25.781623 sec
+Time for CUDA kernels:	25.610975 sec
 
 
 

@@ -1,7 +1,12 @@
 import sys
 import subprocess
 import time
+import os
 
+ManagerApp_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ManagerApp'))
+sys.path.append(ManagerApp_folder_path)
+
+from manageConsole import write_console_log, write_print_toConsole
 
 def generate_clockGlitch(iterations, min_frequency, max_frequency, delay):
 
@@ -43,6 +48,8 @@ def result_validation(appNames):
                     
             result_checksum_proc = subprocess.run(result_md5_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             
+            write_console_log(solution_checksum_proc, 'stdout')
+            write_console_log(result_checksum_proc, 'stdout')
             
             # Extracting only the MD5 hash values from the command outputs
             solution_checksum = solution_checksum_proc.stdout.split()[0]
@@ -53,12 +60,16 @@ def result_validation(appNames):
             print('Result checksum of: ' + result_md5_command + '   ' + str(result_checksum))
             
             make_validation = False
-
+            validation_msg=''
             if solution_checksum == result_checksum :
-                print('Good execution')
+                validation_msg = 'Validation of attack: No Fault detected'
+                write_print_toConsole(validation_msg)
+                print(validation_msg)
                 return 0
             else:
-                print('Successful Injection Fault Attack')
+                validation_msg = 'Validation of attack: Successful Injection Fault Attack'
+                write_print_toConsole(validation_msg)
+                print(validation_msg)
                 return 1
 
 
