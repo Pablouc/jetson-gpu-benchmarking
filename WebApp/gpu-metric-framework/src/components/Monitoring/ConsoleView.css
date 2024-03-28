@@ -1,0 +1,51 @@
+
+.page-container {
+   /* Center aligns the label */
+}
+
+.console-label {
+  font-weight: bold; /* Makes the text bold */
+  margin-top: 30px; /* Adds space between the label and the block */
+  font-size: 30px ;
+  display: block; /* Ensures the label is on a new line */
+  text-align: center;
+}
+
+.scrollable-block-container {
+  display: flex;
+  align-items: center; /* Centers the block vertically */
+  justify-content: center; /* Centers the block horizontally */
+  height: 100vh; /* Sets the height of the container to the full viewport height */
+  width: 100%; /* Sets the width to full container width */
+  overflow: hidden; /* Ensures no scrolling on the container itself */
+}
+
+.scrollable-block {
+  width: 75%; /* Sets the width of the block to 50% of the container */
+  max-height: 80vh; /* Sets max-height to 80% of the viewport height */
+  margin: auto; /* Adds automatic margin */
+  background-color: #000000; /* Sets the background color of the block */
+  border: 1px solid #ccc; /* Adds a border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a shadow for a lifted effect */
+  overflow-y: auto; /* Adds vertical scrolling to the block */
+  padding: 20px; /* Adds some padding inside the block */
+  color:azure
+}
+
+/* You can customize the scroll bar to make it look better */
+.scrollable-block::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollable-block::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.scrollable-block::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 5px;
+}
+
+.scrollable-block::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

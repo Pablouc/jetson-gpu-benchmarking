@@ -1,14 +1,14 @@
 import MainView from "./components/MainView/MainView";
 
-const ngrokURL = 'https://2377-141-3-72-67.ngrok-free.app/';
+const ngrokURL = 'https://1409-141-3-72-67.ngrok-free.app';
 
-const gauss_workloadsNamesURL = ngrokURL + 'gauss_workloads';
-const bfs_workloadsNamesURL = ngrokURL + 'bfs_workloads';
-const requestExecutionURL = ngrokURL + 'setExecutionRequest';
-const frequenciesOptionsURL = ngrokURL + 'frequencies';
-const resultsFileDataURL = ngrokURL + 'get-csv';
-const gpuDataURL = ngrokURL + 'gpu_data';
-const executionTimeURL = ngrokURL + "exec_time"
+const gauss_workloadsNamesURL = ngrokURL + '/gauss_workloads';
+const bfs_workloadsNamesURL = ngrokURL + '/bfs_workloads';
+const requestExecutionURL = ngrokURL + '/setExecutionRequest';
+const frequenciesOptionsURL = ngrokURL + '/frequencies';
+const resultsFileDataURL = ngrokURL + '/get-csv';
+const gpuDataURL = ngrokURL + '/gpu_data';
+const executionTimeURL = ngrokURL + "/exec_time"
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <MainView gauss_workloadsURL={gauss_workloadsNamesURL} bfs_workloadsURL={bfs_workloadsNamesURL} 
                 executionURL={requestExecutionURL} frequenciesURL={frequenciesOptionsURL} 
                 resultsFileURL={resultsFileDataURL} gpu_dataURL={gpuDataURL} 
-                execTimeURL={executionTimeURL}/>
+                execTimeURL={executionTimeURL} ngrokURL={ngrokURL}/>
     </div>
   );
 }

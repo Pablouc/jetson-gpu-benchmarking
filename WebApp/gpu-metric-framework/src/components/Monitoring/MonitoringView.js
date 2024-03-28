@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import './MonitoringView.css';
 import MyChart from "./MyChart";
 import ExecutionTime from "./ExecutionTime";
+import ConsoleView from "./ConsoleView";
 
 function MonitoringView (props) {
   
@@ -151,7 +152,7 @@ function MonitoringView (props) {
               </div>
           
             </div>
-            <div className="container">
+            <div className="container"> 
 
                 <div className="cell"> 
                   <div className="cell-Title">
@@ -269,7 +270,12 @@ function MonitoringView (props) {
 
 
             </div>
-        </div>
+
+            <div>
+              
+              <ConsoleView ngrokURL={props.ngrokURL}> </ConsoleView>
+            </div>
+        </div>  
 
     );
 }
