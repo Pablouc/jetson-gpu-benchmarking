@@ -26,6 +26,27 @@ class Lud:
         except FileNotFoundError:
             print(f"File '{filename}' not found.")
 
+class Gauss:
+    def __init__(self, filename):
+        self.clock_rate = []
+        self.total_time = []
+        self.kernel_time = []
+        full_path = os.path.join(script_directory, filename)
+        self.read_file(full_path)
+
+    def read_file(self, filename):
+        try:
+            with open(filename, 'r') as file:
+                lines = file.readlines()
+                for line in lines:
+                    if "Clock rate" in line:
+                        self.clock_rate.append(float(line.split()[-2]))  # Assuming the value is before the last word "KHz"
+                    elif "Time total" in line:
+                        self.total_time.append(float(line.split()[-2]))  # Assuming the value is before the last word "sec"
+                    elif "Time for CUDA kernels" in line:
+                        self.kernel_time.append(float(line.split()[-2]))  # Assuming the value is before the last word "sec"
+        except FileNotFoundError:
+            print(f"File '{filename}' not found.")
 
 class Particle:
     def __init__(self, filename):
@@ -438,13 +459,43 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
                     # Write averages
                     csvwriter.writerow(averages)
                 csvwriter.writerow([])
+            
+            if 'Gauss' in apps:
+                print("in gaussss")
+                gauss = Gauss(filename)
+
+                headers = ["App", "Clock Rate", "Kernel Time", "Total Time"]
+                if( len(gauss.clock_rate)!= 0):
+                    csvwriter.writerow(headers)
+
+                # Write data for Gauss
+                for i in range(len(gauss.clock_rate)):
+                    row = ["Gaussian" if i == 0 else ""]
+                    print(gauss.clock_rate[i])
+                    row.append(gauss.clock_rate[i])
+                    row.append(gauss.kernel_time[i])
+                    row.append(gauss.total_time[i])
+                    csvwriter.writerow(row)
+                    
+
+                # Calculate averages
+                if (len(gauss.clock_rate) != 0 ):
+                    avg_clock_rate = sum(gauss.clock_rate) / len(gauss.clock_rate)
+                    avg_kernel_time = sum(gauss.kernel_time) / len(gauss.kernel_time)
+                    avg_total_time = sum(gauss.total_time) / len(gauss.total_time)
+                    
+
+                    # Write averages
+                    csvwriter.writerow(["Average", avg_clock_rate, avg_kernel_time, avg_total_time])
+                csvwriter.writerow([])
+
 
 
 # Example usage:
 if __name__ == "__main__":
     input_filename = "execution_results.txt"  # Replace with the path to your text file
 
-    apps = ['LUD','CFD', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
+    apps = ['LUD','Gauss', 'Particle Filter', 'LavaMD', 'BFS', 'Srad']
     csv_filename = 'execution_results.csv'
-    writeCSV(csv_filename,input_filename, apps, 2, 'simult', 1233333, 6 , 42)
+    writeCSV(csv_filename,input_filename, apps, 1, 'simult', 1233333, 6 , 42,40, ['matrix2048','matrix' , 'matrix','matrix2048', 'matrix', 'matrix'], 15, [15], 15)
     

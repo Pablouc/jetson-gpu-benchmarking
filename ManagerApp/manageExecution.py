@@ -3,6 +3,7 @@ import subprocess
 import time
 import threading
 import sys
+
 WickedApp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'WickedApp'))
 sys.path.append(WickedApp_path)
 
@@ -15,6 +16,7 @@ executing = False
 start_time= None
 end_time = None
 current_apps = set()
+console_output = {}
 
 # Create a lock to ensure that only one thread updates the total_execution_time at a time
 lock = threading.Lock()
@@ -28,7 +30,26 @@ class App:
         self.make_flag = make_flag
         self.make_input = make_input
 
+def get_console_logs():
+    global console_output
+    return console_output
 
+def write_console_log(process, type):
+    global console_output
+    
+    output_lines=[]
+    if type == 'stdout':
+        for line in iter(process.stdout.readline, b''):
+            output_line = line.decode('utf-8').strip()
+            output_lines.append(output_line)
+            
+    if type == 'stderr':
+        for line in iter(process.stderr.readline, b''):
+            output_line = line.decode('utf-8').strip()
+            output_lines.append(output_line)
+        
+    console_output[len(console_output)] = output_lines
+    
 def get_current_time():
     global start_time
     global iterations_timeStats
@@ -80,22 +101,26 @@ def customize_makefile(command):
     command_res = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     print(command)
     if command_res.returncode == 0 :
+        write_console_log(command_result,'stdout')
         print("Makefile executed succesfully")
         print(command_res.stdout)
 
     else:
+        write_console_log(command_result,'stderr')
         print("Error executing the makefile")
         print(command_res.stderr)
 
 
 def run_script(path, appName):
+    global console_output
     command_result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     
     if command_result.returncode == 0:
         print("Command executed successfully.")
         print( appName +" Output:")
         print(command_result.stdout)
-
+        write_console_log(command_result,'stdout')
+        
         # Append the output to the specified file       
         with open('execution_results.txt', 'a') as file:                    
             file.write(command_result.stdout)
@@ -104,6 +129,7 @@ def run_script(path, appName):
             file.write('\n')# Add a newline to separate multiple runs
 
     else:
+        write_console_log(command_result,'stderr')
         print(f"Error executing the command. Exit code: {command_result.returncode}")
         print( appName + " Error output:")
         print(command_result.stderr)
@@ -389,6 +415,9 @@ def manageExternalApp(jsonStruct):
 
 
 def manageExecution(jsonObject):
+    #Record console outputs
+    command= subprocess.run('script -a console_output.txt &&', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    print("command output*********************" + command.stdout)
     global end_time, start_time, iterations_timeStats, total_execution_time
     
     apps, exec_type, exec_num, freq = process_input(jsonObject)
@@ -403,7 +432,9 @@ def manageExecution(jsonObject):
     elif exec_type == 'not-simult':
         
         sequentialExecution(apps, exec_num, freq)
-    
+    #Stop recording console
+    subprocess.run('exit', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+
     #Data to be included in the csv file
     appNames =[]
     workloads =[]
