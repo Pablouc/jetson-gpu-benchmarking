@@ -49,7 +49,8 @@ function MainView(props) {
                 <> 
                 <MonitoringView resultsFileURL={props.resultsFileURL} setView={handleView} 
                                 getExecState={executingState} gpu_dataURL={props.gpu_dataURL} 
-                                execTimeURL={props.execTimeURL} execType ={executionType} execNum={executionsNumber}/>
+                                execTimeURL={props.execTimeURL} execType ={executionType} execNum={executionsNumber}
+                                ngrokURL={props.ngrokURL}/>
                 </>
             )
         }

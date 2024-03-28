@@ -14,7 +14,7 @@
     margin-left: 10px;
     margin-top: 40px;
     margin-right: 30px;
-    height: 40.2vh;
+    height: 40vh;
 }
 
 .cell-Title{
@@ -31,7 +31,7 @@
     justify-content: center;  /* Center content horizontally */
     align-items: center;      /* Center content vertically */
     text-align: center;
-    height: 32.7vh;
+    height: 32.2vh;
     background-color: white;
 }
 
@@ -113,3 +113,13 @@
     width: 50%; 
 }
 
+.label-top-center {
+    position: absolute; /* Position it relative to the browser window */
+    top: 0; /* Align it to the top */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Offset it by half its width to truly center it */
+    font-weight: bold; /* Make the font bold */
+    /* Add additional styling as needed */
+    padding: 10px; /* Add some padding for aesthetic spacing */
+    font-size: 16px; /* You can set the font-size as needed */
+  }
