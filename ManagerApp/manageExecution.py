@@ -61,7 +61,11 @@ def process_input(data):
             threads = app_data.get('threads', '')
 
         app_instance = App(name, workloads, threads, False, False,'')
-        apps_list.append(app_instance)
+        
+        if name == "Wicked":
+            apps_list.insert(0, app_instance)  # Insert "Wicked" at the first position
+        else:
+            apps_list.append(app_instance)
 
     return apps_list, data['execType'], data['execNum'], data['freq']
 
@@ -181,7 +185,7 @@ def simultExecution(apps, iterations, frequency):
     
     #Defining Paths  
     appsPath ='../benchmarks/gpu-rodinia/bin/linux/cuda/'
-    wickedApp_Path= '../WickedApp/wickedApp.py'
+    wickedApp_Path= 'sudo ../WickedApp/freq_scalator.sh'
     workloadsPath = '../benchmarks/gpu-rodinia/data/'
     output_Path = '../benchmarks/gpu-rodinia/cuda/'
     externalAppPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'benchmarks')) 
@@ -191,21 +195,20 @@ def simultExecution(apps, iterations, frequency):
     
     #Executing Applications
     for i in range( int(iterations) ):
-        threads = []
+        threads = {}
         tempPath = ''
         appNames=[]
         for app in apps:
             #Filling app names list for injection fault validation
             appNames.append(app.name)
-
-            if app.name == "BFS":
+            if app.name == "Wicked":
+                tempPath =  wickedApp_Path + app.workloads
+            
+            elif app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
 
             elif app.name == "LavaMD":
-                tempPath = appsPath + 'lavaMD ' +  app.workloads 
-
-            elif app.name == "Wicked":
-                tempPath = 'python3 ' + wickedApp_Path + app.workloads  
+                tempPath = appsPath + 'lavaMD ' +  app.workloads  
         
             elif app.name == "Srad":
                 tempPath = appsPath + 'srad_v1 ' +  app.workloads
@@ -224,7 +227,7 @@ def simultExecution(apps, iterations, frequency):
             
             if tempPath:
                 thread = threading.Thread(target=run_application, args=(tempPath,app.name, 100))
-                threads.append(thread)
+                threads[app.name]= thread
                 thread.start()
         
         start_time_loop = time.time()
@@ -232,11 +235,17 @@ def simultExecution(apps, iterations, frequency):
             start_time = start_time_loop
 
         # Wait for all threads to finish
-        for t in threads:
+        for name, t in threads.items():
+            if name != "Wicked":
+                t.join()
+        #kill Wicked App process and thread
+        run_script("sudo killall -9 freq_scalator.sh", "Wicked")
+        for name, t in threads.items():
             t.join()
 
         end_time_loop = time.time()
         if i == int(iterations) -1:
+            #Get end time of the loop
             end_time = end_time_loop
         iteration_execTime = end_time_loop - start_time_loop
         iterations_timeStats.append(iteration_execTime)
@@ -247,7 +256,9 @@ def simultExecution(apps, iterations, frequency):
         if validation == 1:
             end_time = end_time_loop
             print("Execution stoped due to injection fault")
-            break
+            return 1
+    
+    return 0
     
     
 
@@ -337,7 +348,8 @@ def sequentialExecution(apps, iterations, frequency):
         if validation == 1:
             end_time = end_time_loop
             print("Execution stoped due to injection fault")
-            break
+            return 1
+    return 0
 
 
 jsonStruct = {
@@ -352,7 +364,7 @@ jsonStruct = {
         },
         {                     
             'name': 'Wicked',
-            'workloads': '100 76800000 921600000 0.005'
+            'workloads': ' 76800000 921600000 0.005'
                            
         },
         {
@@ -364,7 +376,7 @@ jsonStruct = {
             'workloads': 'matrix2048.txt'
         },
         {
-            'name': 'Lud',
+            'name': 'Luda',
             'workloads': '-s 256',
             'threads': '24'
         }
@@ -378,7 +390,7 @@ jsonStruct = {
 
         }
     ],
-    'execType': 'not-simult',
+    'execType': 'simult',
     'execNum': '2',
     'freq': '921600000'
 }
@@ -403,7 +415,8 @@ def manageExecution(jsonObject):
     command= subprocess.run('script -a console_output.txt &&', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     print("command output*********************" + command.stdout)
     global end_time, start_time, iterations_timeStats, total_execution_time,console_output
-    
+   
+    execution_result=0
     apps, exec_type, exec_num, freq = process_input(jsonObject)
 
     if jsonObject['external_app']:
@@ -411,13 +424,12 @@ def manageExecution(jsonObject):
         apps = apps + external_apps
 
     if exec_type == 'simult':
-        simultExecution(apps, exec_num, freq)
+        execution_result = simultExecution(apps, exec_num, freq)
     
     elif exec_type == 'not-simult':
         
-        sequentialExecution(apps, exec_num, freq)
-    #Stop recording console
-    subprocess.run('exit', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        execution_result = sequentialExecution(apps, exec_num, freq)
+    
 
     #Data to be included in the csv file
     appNames =[]
@@ -437,7 +449,7 @@ def manageExecution(jsonObject):
     end_time = None
     iterations_timeStats=[]  
     
-    return[appNames,workloads, exec_num, exec_type, freq, total_execution_time] 
+    return[appNames,workloads, exec_num, exec_type, freq, total_execution_time, execution_result] 
     
 
 if __name__ == "__main__":

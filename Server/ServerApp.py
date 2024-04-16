@@ -12,6 +12,7 @@ from flask_socketio import SocketIO, emit
 import threading
 from threading import Thread
 import time
+from zipfile import ZipFile
 import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
@@ -37,6 +38,7 @@ bfs_workloads= {
 gauss_workloads= {
     "itemNames" : ['matrix1024.txt',  'matrix16.txt',  'matrix2048.txt',  'matrix208.txt']
 }
+injection_fault = False
 
 execution_complete = threading.Event()
 
@@ -185,15 +187,32 @@ def get_gpuData():
 
 @app.route('/get-csv', methods=['GET'])
 def get_csv():
+    global injection_fault
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_file = os.path.join(current_directory, 'execution_results.csv')
-    
-    response = send_file(path_to_file, as_attachment=True, download_name='execution_results.csv')
 
-    # Add your custom header here
-    response.headers['ngrok-skip-browser-warning'] = '1'
+    if injection_fault == False:
+        print("In CSV ---------------------- Not --------------Injection")
+        path_to_file = os.path.join(current_directory, 'execution_results.csv')
+        response = send_file(path_to_file, as_attachment=True, download_name='execution_results.csv')
+        response.headers['ngrok-skip-browser-warning'] = '1'
+        return response
 
-    return response
+    else:
+        print("In CSV ---------------------- YEssssss --------------Injection")
+        file1 = os.path.join(current_directory, 'execution_results.csv')
+        file2 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt')
+        file3 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt')
+        zip_filename = os.path.join(current_directory, 'execution_results.zip')
+
+        with ZipFile(zip_filename, 'w') as zipf:
+            zipf.write(file1, arcname=os.path.basename(file1))
+            zipf.write(file2, arcname=os.path.basename(file2))
+            zipf.write(file3, arcname=os.path.basename(file3))
+            zipf.close()
+
+        response = send_file(zip_filename, mimetype='application/zip', as_attachment=True,download_name='execution_results.zip')
+        response.headers['ngrok-skip-browser-warning'] = '1'
+        return response
 
 @app.route('/frequencies', methods=['GET'])
 def get_frequencies():
@@ -226,6 +245,8 @@ def execution_request():
     global executionRequest
     global global_gpu_data
     global gpu_iterations_data
+    global injection_fault
+
 
     if request.method == 'OPTIONS':
                
@@ -268,7 +289,9 @@ def execution_request():
         "ram_used" : None
     }
     
-    appNames, workloads, exec_num, exec_type, freq, total_execTime = manageExecution(executionJson)
+    injection_fault = False
+
+    appNames, workloads, exec_num, exec_type, freq, total_execTime, execution_result = manageExecution(executionJson)
    
     setAvgData()
     input_filename = "execution_results.txt"    
@@ -280,10 +303,13 @@ def execution_request():
     iterations_execTime = gpu_iterations_data['iteration_time']
     gpu_usage_avg = gpu_iterations_data['gpu_usage_avg']
     
-    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg, 
-             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
-  
-    return jsonify({"message": "Execution request processed successfully."})
+    if execution_result == 0:
+        writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
+                             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
+        return jsonify({"message": "Execution request processed successfully."})
+    else:
+        injection_fault = True
+        return jsonify({"message": "Execution stoped due to injection fault"})
 
 
 # Run the Flask application on a local development server
