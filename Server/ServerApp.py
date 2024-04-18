@@ -19,7 +19,7 @@ from jsonParsing import transform_input_json
 from manageExecution import manageExecution, current_apps, get_current_time, time_flags
 from manageConsole import get_console_logs
 from manageMetrics import writeCSV
-from monitoring import monitor_gpu
+from monitoring import monitor_gpu,update_freqFile
 
 
 # Create a Flask web application
@@ -39,8 +39,8 @@ gauss_workloads= {
     "itemNames" : ['matrix1024.txt',  'matrix16.txt',  'matrix2048.txt',  'matrix208.txt']
 }
 injection_fault = False
-
-execution_complete = threading.Event()
+stop_event = threading.Event()
+FREQ_REQ_TIME = 0.001
 
 gpu_iterations_data = {
     "temperature" : [],
@@ -131,6 +131,28 @@ def gpu_monitor_thread():
         print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
         import traceback
         traceback.print_exc()
+
+
+def update_frequency_file(stop_event):
+    while not stop_event.is_set():
+        update_freqFile()
+        time.sleep(FREQ_REQ_TIME)
+
+
+def send_frequency_task(stop_event):
+
+    file_path = './frequency_report.txt'
+    while not stop_event.is_set():
+        try:        
+            with open(file_path, 'r') as file:
+                print("El file se ha enviado ak14")
+                file_content = file.read()
+            socketio.emit('file_transfer', {'file_content': file_content, 'filename': file_path})
+                                                
+        except Exception as e:                                                
+            print(f"Failed to send file: {e}")
+            socketio.emit('error', {'message': 'Failed to send file', 'error': str(e)})
+        time.sleep(1)
 
 
 def background_task():
@@ -246,7 +268,7 @@ def execution_request():
     global global_gpu_data
     global gpu_iterations_data
     global injection_fault
-
+    global stop_event
 
     if request.method == 'OPTIONS':
                
@@ -288,11 +310,23 @@ def execution_request():
         "power": None,
         "ram_used" : None
     }
+    frequency_report_path= './frequency_report.txt'
+    if os.path.exists(frequency_report_path):
+        os.remove(frequency_report_path)
     
     injection_fault = False
 
+    stop_event = threading.Event()
+    thread_updateFreq = threading.Thread(target=update_frequency_file, args=(stop_event,))
+    thread_sendFreq = Thread(target=send_frequency_task, args=(stop_event,))
+    thread_updateFreq.start()
+    thread_sendFreq.start()
     appNames, workloads, exec_num, exec_type, freq, total_execTime, execution_result = manageExecution(executionJson)
-   
+    
+    stop_event.set()
+    thread_updateFreq.join()
+    thread_sendFreq.join()
+
     setAvgData()
     input_filename = "execution_results.txt"    
     csv_filename = 'execution_results.csv'

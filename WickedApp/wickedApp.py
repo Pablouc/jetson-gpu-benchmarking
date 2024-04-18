@@ -40,8 +40,8 @@ def result_validation(appNames):
     for appName in appNames:
         if appName == 'Gauss':
             sol_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt'
-            #result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt' 
-            result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/gaussian.cu'
+            result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt' 
+            #result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/gaussian.cu'
             make_validation = True
         
         if make_validation == True:

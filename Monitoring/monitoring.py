@@ -3,6 +3,11 @@ import sys
 import os
 import re
 
+ManagerApp_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ManagerApp'))
+sys.path.append(ManagerApp_folder_path)
+from manageExecution import get_current_time
+
+
 def monitor_gpu():
     gpu_temperature=None
     gpu_frequency=None
@@ -59,6 +64,48 @@ def monitor_gpu():
     
 
     return [float(gpu_temperature) , int(gpu_frequency), float(gpu_power) , int(ram_used), int(ram_total), int(gpu_usage)]
+
+
+
+
+def update_freqFile():
+    gpu_freq_script = "cat /sys/devices/gpu.0/devfreq/57000000.gpu/cur_freq"
+    try:        
+        # Execute the command and capture the output
+        gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT).strip()
+                            
+    except subprocess.CalledProcessError as e:                                
+        print("Failed to get GPU frequency:", e)
+        return
+    
+    current_time =get_current_time()[0]
+    current_time =  round( current_time, 2)
+    filename = "frequency_report.txt"
+    try:
+        with open(filename, "r") as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print("File not found, creating new file")
+        lines = ["Time samples\n", "\n", "Frequency samples\n", "\n"]
+
+
+    # Modify the lines where time and frequency samples are stored
+    for i, line in enumerate(lines):
+        if "Time samples" in line:
+            if lines[i+1].strip():  # Check if the next line is not just a newline character
+                lines[i+1] = lines[i+1].strip() + f"{current_time:.2f},\n"
+            else:
+                lines[i+1] = f"{current_time}\n"
+        elif "Frequency samples" in line:
+            if lines[i+1].strip():
+                lines[i+1] = lines[i+1].strip() + f",{gpu_frequency}\n"
+            else:
+                lines[i+1] = f"{gpu_frequency}\n"
+
+    # Write the modified content back to the file
+    with open(filename, "w") as file:
+        file.writelines(lines)
+
 
 
 if __name__ == '__main__':

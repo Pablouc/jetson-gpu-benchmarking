@@ -6,11 +6,6 @@ from wickedApp import generate_clockGlitch
 threads = []
 
 
-def execute_attack(iter, min_freq, max_freq, delay ):
-    
-    
-
-
 def result_validation():
     gaussian_sol = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt'
     gaussian_result = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt' 
