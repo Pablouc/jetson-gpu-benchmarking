@@ -14,6 +14,14 @@ To install Flask, run the following command:
 pip install Flask
 ```
 
+### Install NumPy and SciPy
+
+Run the following command:
+
+```bash
+pip install numpy scipy
+```
+
 ### Running the Server
 
 Navigate to the server directory and run the server:
