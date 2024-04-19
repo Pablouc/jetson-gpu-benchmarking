@@ -1,0 +1,58 @@
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	44.007633 sec
+Time for CUDA kernels:	43.778848 sec
+
+
+
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	43.045300 sec
+Time for CUDA kernels:	42.705916 sec
+
+
+
+
+
+

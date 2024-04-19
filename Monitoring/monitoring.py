@@ -73,7 +73,7 @@ def update_freqFile():
     try:        
         # Execute the command and capture the output
         gpu_frequency = subprocess.check_output(gpu_freq_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT).strip()
-                            
+        gpu_frequency= int(gpu_frequency)/1000000                    
     except subprocess.CalledProcessError as e:                                
         print("Failed to get GPU frequency:", e)
         return

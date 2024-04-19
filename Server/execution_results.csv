@@ -1,24 +1,24 @@
 Execution Type,simult
 Executions Number,2
-Frequency,460800000 MHz
-Average Power consumed,0.7613768292682925 W
-Average GPU Temp,45.43292682926829 °C
-Average RAM used,1916.560975609756 MB
-Average GPU used,81.7560975609756 %
-Total execution time,105.0660753250122 s
+Frequency,307200000 MHz
+Average Power consumed,0.8070857142857144 W
+Average GPU Temp,46.032467532467535 °C
+Average RAM used,1896.8051948051948 MB
+Average GPU used,86.05194805194805 %
+Total execution time,99.22394227981567 s
 
 Workloads used by each application
 Wicked, 76800000 921600000 0.005
 Gauss,matrix2048.txt
 
 Execution times per iteration
-1,50.45359396934509
-2,54.47484540939331
+1,48.45875859260559
+2,50.66852164268494
 
 Application-specific iteration metrics
 
 App,Clock Rate,Kernel Time,Total Time
-Gaussian,921600.0,43.659547,43.853477
-,921600.0,44.64189,45.044795
-Average,921600.0,44.150718499999996,44.449135999999996
+Gaussian,921600.0,43.778848,44.007633
+,921600.0,42.705916,43.0453
+Average,921600.0,43.242382000000006,43.5264665
 
