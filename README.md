@@ -11,7 +11,9 @@ Download and install Ngrok from [here](https://ngrok.com/download).
 To install Flask, run the following command:
 
 ```bash
-pip install Flask
+pip3 install Flask
+pip3 install flask-socketio
+
 ```
 
 ### Install NumPy and SciPy
@@ -19,7 +21,7 @@ pip install Flask
 Run the following command:
 
 ```bash
-pip install numpy scipy
+pip3 install numpy scipy
 ```
 
 ### Running the Server
