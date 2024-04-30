@@ -17,7 +17,7 @@ import subprocess
 from flask_cors import CORS #allow the server and front-end to run on different domains( different ports are considered different domains)
 from jsonParsing import transform_input_json 
 from manageExecution import manageExecution, current_apps, get_current_time, time_flags
-from manageConsole import get_console_logs
+from manageConsole import get_console_logs, write_print_toConsole
 from manageMetrics import writeCSV
 from monitoring import monitor_gpu,update_freqFile
 
@@ -142,18 +142,32 @@ def update_frequency_file(stop_event):
 def send_frequency_task(stop_event):
 
     file_path = './frequency_report.txt'
+    log_file_path = './frequency_log.txt'
+        
+    # Open the log file in append mode
+    log_file = open(log_file_path, 'a')
+
+    # Redirect stdout and stderr to the log file
+    sys.stdout = log_file
+    sys.stderr = log_file
     while not stop_event.is_set():
         try:        
             with open(file_path, 'r') as file:
-                print("El file se ha enviado ak14")
                 file_content = file.read()
+            
             socketio.emit('file_transfer', {'file_content': file_content, 'filename': file_path})
-                                                
+            
+            # Reverting stdout back to its original value
+            #sys.stdout = sys.__stdout__
         except Exception as e:                                                
             print(f"Failed to send file: {e}")
             socketio.emit('error', {'message': 'Failed to send file', 'error': str(e)})
         time.sleep(1)
-
+    
+    # Restore stdout and stderr
+    sys.stdout = sys.__stdout__
+    sys.stderr = sys.__stderr__
+    log_file.close()
 
 def background_task():
     last_console_length=0
@@ -162,7 +176,11 @@ def background_task():
         if last_console_length != len(console_logs):
         
             last_console_length = len(console_logs)
+            # Redirecting stdout to /dev/null to suppress print statements
+            sys.stdout = open('/dev/null', 'w')
             socketio.emit('response', {'console_logs': console_logs})
+            # Reverting stdout back to its original value
+            sys.stdout = sys.__stdout__
         time.sleep(0.5)  
     
 
@@ -213,14 +231,12 @@ def get_csv():
     current_directory = os.path.dirname(os.path.abspath(__file__))
 
     if injection_fault == False:
-        print("In CSV ---------------------- Not --------------Injection")
         path_to_file = os.path.join(current_directory, 'execution_results.csv')
         response = send_file(path_to_file, as_attachment=True, download_name='execution_results.csv')
         response.headers['ngrok-skip-browser-warning'] = '1'
         return response
 
     else:
-        print("In CSV ---------------------- YEssssss --------------Injection")
         file1 = os.path.join(current_directory, 'execution_results.csv')
         file2 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt')
         file3 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt')
@@ -342,6 +358,8 @@ def execution_request():
                              ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
         return jsonify({"message": "Execution request processed successfully."})
     else:
+        writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
+                                             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
         injection_fault = True
         return jsonify({"message": "Execution stoped due to injection fault"})
 
