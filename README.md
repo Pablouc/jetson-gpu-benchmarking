@@ -11,7 +11,11 @@ Download and install Ngrok from [here](https://ngrok.com/download).
 To install Flask, run the following command:
 
 ```bash
-pip install Flask
+pip3 install Flask
+pip3 install flask-socketio
+pip3 install flask-cors
+
+
 ```
 
 ### Install NumPy and SciPy
@@ -19,7 +23,7 @@ pip install Flask
 Run the following command:
 
 ```bash
-pip install numpy scipy
+pip3 install numpy scipy
 ```
 
 ### Running the Server
@@ -35,7 +39,7 @@ sudo python3 ServerApp.py
 To expose the server using Ngrok, run the following command, replacing 192.168.20.15:5000 with the address and port of your server:
 
 ```bash
-ngrok http 192.168.20.15:5000
+ngrok http 192.168.20.13:5000
 ```
 This will provide you with a public URL that you can use to access your Flask server from anywhere on the internet.
 
