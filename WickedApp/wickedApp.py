@@ -36,18 +36,37 @@ def generate_clockGlitch(iterations, min_frequency, max_frequency, delay):
 
 def result_validation(appNames):
     make_validation = False
-
+    solutionsArray=[]
+    resultsArray=[]
     for appName in appNames:
         if appName == 'Gauss':
             sol_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt'
             result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt' 
             #result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/gaussian/gaussian.cu'
+            solutionsArray.append(sol_md5_command)
+            resultsArray.append(result_md5_command)
             make_validation = True
         
-        if make_validation == True:
-            solution_checksum_proc = subprocess.run(sol_md5_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        if appName == "Srad":
+            sol_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/srad/srad_v1/originalSolution.pgm'
+            result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/srad/srad_v1/solutionImage.pgm'
+            solutionsArray.append(sol_md5_command)
+            resultsArray.append(result_md5_command)
+            make_validation = True
+
+        if appName == "LavaMD":
+            sol_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/lavaMD/originalVector.txt'
+            result_md5_command = 'sudo md5sum ../benchmarks/gpu-rodinia/cuda/lavaMD/solutionVector.txt'
+            solutionsArray.append(sol_md5_command)
+            resultsArray.append(result_md5_command)
+            make_validation = True
+
+    if make_validation == True:
+            
+        for i in range( len(resultsArray)):
+            solution_checksum_proc = subprocess.run(solutionsArray[i], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
                     
-            result_checksum_proc = subprocess.run(result_md5_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            result_checksum_proc = subprocess.run(resultsArray[i], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             
             write_console_log(solution_checksum_proc, 'stdout')
             write_console_log(result_checksum_proc, 'stdout')
@@ -62,17 +81,17 @@ def result_validation(appNames):
             
             make_validation = False
             validation_msg=''
-            if solution_checksum == result_checksum :
-                validation_msg = 'Validation of attack: No Fault detected'
-                write_print_toConsole(validation_msg)
-                print(validation_msg)
-                return 0
-            else:
+            if solution_checksum != result_checksum :
                 validation_msg = 'Validation of attack: Successful Injection Fault Attack'
                 write_print_toConsole(validation_msg)
                 print(validation_msg)
                 return 1
+            else:
+                validation_msg = 'Validation of attack: No Fault detected'
+                write_print_toConsole(validation_msg)
+                print(validation_msg)
 
+        return 0
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:

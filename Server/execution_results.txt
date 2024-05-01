@@ -1,3 +1,36 @@
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000167933496 % : READ COMMAND LINE PARAMETERS
+ 0.000056000001 s,  0.000494961860 % : READ IMAGE FROM FILE
+ 0.001723999972 s,  0.015237756073 % : RESIZE IMAGE
+ 0.102545000613 s,  0.906354844570 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000661999977 s,  0.005851156544 % : COPY DATA TO CPU->GPU
+ 0.000075999997 s,  0.000671733986 % : EXTRACT IMAGE
+11.107897758484 s, 98.178329467773 % : COMPUTE
+ 0.000027000000 s,  0.000238642344 % : COMPRESS IMAGE
+ 0.008902000263 s,  0.078681267798 % : COPY DATA TO GPU->CPU
+ 0.089962996542 s,  0.795147478580 % : SAVE IMAGE INTO FILE
+ 0.002129999921 s,  0.018826229498 % : FREE MEMORY
+Total time:
+11.314002037048 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.199395999312 s,  3.437787294388 % : GPU: SET DEVICE / DRIVER INIT
+ 0.110440000892 s,  1.904096603394 % : GPU MEM: ALO
+ 0.270321995020 s,  4.660622596741 % : GPU MEM: COPY IN
+ 5.219947814941 s, 89.997146606445 % : GPU: KERNEL
+ 0.000014000000 s,  0.000241374073 % : GPU MEM: COPY OUT
+ 0.000006000000 s,  0.000103446029 % : GPU MEM: FRE
+Total time:
+5.800126075745 s
+
+
+
 WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
 Total Device found: 1
 Device Name 		 - NVIDIA Tegra X1 
@@ -19,11 +52,8 @@ Number of Multi processors 		 - 1
 
 Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
 
-Time total (including memory transfers)	42.926369 sec
-Time for CUDA kernels:	42.785172 sec
-
-
-
+Time total (including memory transfers)	29.429819 sec
+Time for CUDA kernels:	24.434728 sec
 
 
 

@@ -39,10 +39,10 @@ while true; do
 			   
 	# Compare the current frequency with the provided frequency parameters			        
 	if [ "$current_frequency" -ge "$new_freq" ]; then
-					        
+				
 		# If current frequency is higher than or equal to min_freq, adjust max and min frequencies					        
-		echo "$new_freq" > min_freq						        
-		echo "$new_freq" > max_freq
+		echo "$new_freq" > min_freq 2>/dev/null				        
+		echo "$new_freq" > max_freq 2>/dev/null
 								    
 	else
 									            

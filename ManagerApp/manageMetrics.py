@@ -278,7 +278,16 @@ def writeCSV(csv_filename,filename ,apps, exec_num, exec_type, freq, power_avg ,
 
             csvwriter.writerow([])
             csvwriter.writerow(["Execution times per iteration"])
-            for i in range(int(exec_num)):
+            print("printeos mamalones")
+            print(exec_num)
+            print(iterations_execTime)
+            
+            if int(exec_num) > len(iterations_execTime):
+                iterations = len(iterations_execTime)
+            else: 
+                iterations =int( exec_num)
+            
+            for i in range(int(iterations)):
                 csvwriter.writerow([i+1, iterations_execTime[i]])
         
             csvwriter.writerow([])

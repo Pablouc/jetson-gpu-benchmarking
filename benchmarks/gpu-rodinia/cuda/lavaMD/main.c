@@ -40,6 +40,32 @@
 
 #include "./kernel/kernel_gpu_cuda_wrapper.h"	// (in library path specified here)
 
+
+//=======================================================================================================================================================
+//GENERAL FUNCTIONS
+//=======================================================================================================================================================
+
+void SaveSolutionVectorToFile(const char* filename, FOUR_VECTOR* fv_cpu, int dim_cpu_space_elem) {    
+	const char* relative_path = "../benchmarks/gpu-rodinia/cuda/lavaMD/";        
+	char full_path[256];  // Adjust the size as needed
+
+	// Combine the relative path and the file name
+	snprintf(full_path, sizeof(full_path), "%s%s", relative_path, filename);
+	
+	FILE* f = fopen(full_path, "w");	
+	if (f == NULL) {
+		printf("Error opening file '%s' for writing!\n", full_path);
+		perror("fopen");
+		exit(1);
+	}
+	
+	for (int i = 0; i < dim_cpu_space_elem; i++) {
+	    fprintf(f, "%.4f, %.4f, %.4f, %.4f\n", fv_cpu[i].v, fv_cpu[i].x, fv_cpu[i].y, fv_cpu[i].z);
+	}
+	fclose(f);
+
+}
+
 //========================================================================================================================================================================================================200
 //	MAIN FUNCTION
 //========================================================================================================================================================================================================200
@@ -53,7 +79,10 @@ main(	int argc,
 	//======================================================================================================================================================150
 	//	CPU/MCPU VARIABLES
 	//======================================================================================================================================================150
-
+	// Initialize seed for random number generation
+	//Set seed to a fixed value
+	srand(123);
+	
 	// timer
 	long long time0;
 
@@ -224,8 +253,6 @@ main(	int argc,
 	//	PARAMETERS, DISTANCE, CHARGE AND FORCE
 	//====================================================================================================100
 
-	// random generator seed set to random value - time in this case
-	srand(time(NULL));
 
 	// input (distances)
 	rv_cpu = (FOUR_VECTOR*)malloc(dim_cpu.space_mem);
@@ -267,6 +294,9 @@ main(	int argc,
 							rv_cpu,
 							qv_cpu,
 							fv_cpu);
+
+	// Save the result vector to a file
+	SaveSolutionVectorToFile("solutionVector.txt", fv_cpu, dim_cpu.space_elem);
 
 	time6 = get_time();
 

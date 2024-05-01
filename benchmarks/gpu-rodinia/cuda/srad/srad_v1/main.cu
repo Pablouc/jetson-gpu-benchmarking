@@ -435,8 +435,9 @@ int main(int argc, char *argv []){
 	//================================================================================80
 	// 	WRITE IMAGE AFTER PROCESSING
 	//================================================================================80
+	char relative_path[] = "../benchmarks/gpu-rodinia/cuda/srad/srad_v1/solutionImage.pgm";
 
-	write_graphics(	"image_out.pgm",
+	write_graphics(	relative_path,
 					image,
 					Nr,
 					Nc,

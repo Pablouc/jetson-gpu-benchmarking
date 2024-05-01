@@ -198,11 +198,13 @@ def simultExecution(apps, iterations, frequency):
         threads = {}
         tempPath = ''
         appNames=[]
+        wicked_running=False
         for app in apps:
             #Filling app names list for injection fault validation
             appNames.append(app.name)
-            if app.name == "Wicked":
+            if app.name == "Wicked" and wicked_running==False:
                 tempPath =  wickedApp_Path + app.workloads
+                wicked_running=True
             
             elif app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
@@ -218,7 +220,7 @@ def simultExecution(apps, iterations, frequency):
 
             elif app.name == "Gauss":
                 tempPath = appsPath + 'gaussian -f ' + workloadsPath + 'gaussian/' + app.workloads 
-
+                print(tempPath)
             elif app.external == True:
                 tempPath = f"{externalAppPath}/{app.name}/{app.name} {app.workloads}"
 
@@ -239,12 +241,13 @@ def simultExecution(apps, iterations, frequency):
             if name != "Wicked":
                 t.join()
         #kill Wicked App process and thread
-        run_script("sudo killall -9 freq_scalator.sh", "Wicked")
-        for name, t in threads.items():
-            t.join()
+        #run_script("sudo killall -9 freq_scalator.sh", "Wicked")
+        #for name, t in threads.items():
+        #    t.join()
 
         end_time_loop = time.time()
         if i == int(iterations) -1:
+            run_script("sudo killall -9 freq_scalator.sh", "Wicked")
             #Get end time of the loop
             end_time = end_time_loop
         iteration_execTime = end_time_loop - start_time_loop
@@ -254,6 +257,7 @@ def simultExecution(apps, iterations, frequency):
         #Verify if injection fault was effective
         validation = result_validation(appNames)
         if validation == 1:
+            run_script("sudo killall -9 freq_scalator.sh", "Wicked")
             end_time = end_time_loop
             print("Execution stoped due to injection fault")
             return 1
@@ -354,31 +358,31 @@ def sequentialExecution(apps, iterations, frequency):
 
 jsonStruct = {
     'apps': [
-        {
-            'name': 'BFS',
-            'workloads': 'graph65536.txt'
-        },
-        {                        
-            'name': 'LavaMD',         
-            'workloads': '-boxes1d 10'           
-        },
+       # {
+       #     'name': 'BFS',
+       #     'workloads': 'graph65536.txt'
+       # },
+       # {                        
+       #     'name': 'LavaMD',         
+       #     'workloads': '-boxes1d 10'           
+       # },
         {                     
             'name': 'Wicked',
-            'workloads': ' 76800000 921600000 0.005'
+            'workloads': ' 76800000 921600000 0.05'
                            
         },
-        {
-            'name': 'Srad',
-            'workloads': '100 0.5 502 458'                           
-        },
+       # {
+       #     'name': 'Srad',
+       #     'workloads': '100 0.5 502 458'                           
+       # },
         {
             'name': 'Gauss',
             'workloads': 'matrix2048.txt'
-        },
-        {
-            'name': 'Luda',
-            'workloads': '-s 256',
-            'threads': '24'
+       # },
+       # {
+       #     'name': 'Luda',
+       #     'workloads': '-s 256',
+       #     'threads': '24'
         }
     ],
     'external_app': [
@@ -410,7 +414,7 @@ def manageExternalApp(jsonStruct):
 
 def manageExecution(jsonObject):
     reset_console()
-
+    write_print_toConsole(str(jsonObject))
     #Record console outputs
     command= subprocess.run('script -a console_output.txt &&', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     print("command output*********************" + command.stdout)
