@@ -3,6 +3,7 @@ import './MonitoringView.css';
 import MyChart from "./MyChart";
 import ExecutionTime from "./ExecutionTime";
 import ConsoleView from "./ConsoleView";
+import io from 'socket.io-client';
 
 function MonitoringView (props) {
   
@@ -19,14 +20,39 @@ function MonitoringView (props) {
     const [execTimeArray, setExecTimeArray] = useState([]);
     const [iterationsTime, setIterationsTime] = useState([]);
     const [gpuUsageArray, setGpuUsageArray] = useState([]);
+    const [consoleLogs, setConsoleLogs] = useState([]);
+    const [timeSamples, setTimeSamples] = useState([]);
+    const [frequencySamples, setFrequencySamples] = useState([]);
 
     const tempChartRef = useRef(null);
     const powerChartRef = useRef(null);
-    const ramChartRef = useRef(null);
+    const freqChartRef = useRef(null);
     const usageChartRef = useRef(null);
 
     const changeCurrentApps = () =>{
       setCurrentApps([]);
+    }
+
+    function parseFileContent(content) {
+      const lines = content.split('\n');
+      const timeIndex = lines.findIndex(line => line.startsWith('Time samples'));
+      const frequencyIndex = lines.findIndex(line => line.startsWith('Frequency samples'));
+  
+      if (timeIndex !== -1 && lines[timeIndex + 1]) {
+        // First, filter to take every 10th element
+        const rawTimeData = lines[timeIndex + 1].split(',').map(Number).filter((_, index) => (index % 10) === 0);
+        // Then, take the last 100 elements of this filtered set, or all if fewer than 100
+        const timeData = rawTimeData.length > 100 ? rawTimeData.slice(-100) : rawTimeData;
+        setTimeSamples(timeData);
+      }
+  
+      if (frequencyIndex !== -1 && lines[frequencyIndex + 1]) {
+         // First, filter to take every 10th element
+        const rawFrequencyData = lines[frequencyIndex + 1].split(',').map(Number).filter((_, index) => (index % 10) === 0);
+        // Then, take the last 100 elements of this filtered set, or all if fewer than 100
+        const frequencyData = rawFrequencyData.length > 100 ? rawFrequencyData.slice(-100) : rawFrequencyData;
+        setFrequencySamples(frequencyData);
+      }
     }
 
     const downloadResults = () => {
@@ -47,7 +73,10 @@ function MonitoringView (props) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'execution_results.csv'; // Or whatever you want the filename to be
+            if(props.getExecState == 'Injection Fault detected'){
+              a.download = 'execution_results.zip'; // Or whatever you want the filename to be
+            }
+            else{a.download = 'execution_results.csv'; }
             a.click();
             window.URL.revokeObjectURL(url);
         })
@@ -125,6 +154,45 @@ function MonitoringView (props) {
     }, [props.getExecState, timer]);
 
 
+    
+
+    useEffect(() => {
+      const socket = io(props.ngrokURL, {
+        path: '/socket.io/', // Default path for Socket.IO
+        transports: ['websocket'] // Force WebSocket transport
+      });
+
+      socket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+        socket.emit('message', 'Hello from React');
+      });
+
+      socket.on('connect_error', (error) => {
+        console.error('Connection Error:', error);
+      });
+
+      socket.on('response', (data) => {
+        console.log('Received response:', data);
+        // Update the consoleLogs state with the received logs
+        if (data.console_logs) {
+          const newConsoleLogs = Object.values(data.console_logs || {});
+          setConsoleLogs(newConsoleLogs);
+        }
+      });
+
+      socket.on('file_transfer', (data) => {
+        
+        if (data.file_content) {
+          parseFileContent(data.file_content);
+        }
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+    }, [props.ngrokURL]);
+
+
 
 
     const changeView=()=>{
@@ -147,9 +215,12 @@ function MonitoringView (props) {
                 <button className="monitoring-button" onClick={downloadResults}>Download results</button>
                 <button className="monitoring-button" onClick={changeView}>Request Execution</button>
               </div>
-              <div>
+              <div className="labels-container">
+                <label className="execution-state">Execution State: {'  '} {props.getExecState}</label>
                 <label className="execution-time">Execution time: {timer/1000} s</label>
+                
               </div>
+
           
             </div>
             <div className="container"> 
@@ -255,12 +326,12 @@ function MonitoringView (props) {
                 
                 <div className="cell">
                   <div className="cell-Title">
-                    <h2 >RAM In Use (MB)</h2>
+                    <h2 >GPU FREQUENCY (MHz)</h2>
                   </div>
                   <div className="cell-body">
-                    {execTimeArray && gpu_ramArray && execTimeArray.length > 0 && gpu_ramArray.length > 0 ? (
+                    {timeSamples && frequencySamples && timeSamples.length > 0 && frequencySamples.length > 0 ? ( 
                         <div>
-                          <MyChart ref={ramChartRef} label={['RAM','RAM (MB)']} execution_time={execTimeArray} ramArray={gpu_ramArray} />
+                          <MyChart ref={freqChartRef} label={['GPU FREQ','FREQ (MHz)']} execution_time={timeSamples} ramArray={frequencySamples} />
                         </div>
                       ) : (
                         <p>No data available for the chart.</p>
@@ -272,8 +343,7 @@ function MonitoringView (props) {
             </div>
 
             <div>
-              
-              <ConsoleView ngrokURL={props.ngrokURL}> </ConsoleView>
+              <ConsoleView consoleLogs={consoleLogs}> </ConsoleView>
             </div>
         </div>  
 

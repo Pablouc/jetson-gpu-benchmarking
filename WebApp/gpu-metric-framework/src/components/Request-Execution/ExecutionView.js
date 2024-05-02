@@ -38,16 +38,25 @@ function ExecutionView(props) {
             },
           });
       
-          if (!response.ok) {
+            if (!response.ok) {
             // Handle HTTP errors
             props.setExecState('Failed');
             throw new Error(`HTTP error! Status: ${response.status}`);
-          }
+            }
       
-          const data = await response.json();
-          props.setExecState('Succed');
+            const data = await response.json();
+            console.log("very important mamani: ", data.message)
+            
+            if(data.message == 'Execution request processed successfully.'){
+                props.setExecState('Succeded');
+            }
+
+            if(data.message == 'Execution stoped due to injection fault'){
+                props.setExecState('Injection Fault detected');
+            }
+          
       
-          console.log(data);
+            console.log(data);
       
         } catch (error) {
             props.setExecState('Failed');
@@ -131,7 +140,7 @@ function ExecutionView(props) {
                     </div>
 
                     <div>
-                    <label className='label'>Select the frequencies</label>
+                    <label className='label'>Select the frequency (MHz)</label>
                     <Dropdown refresh={refreshFlag} injected={true} wickedApp={false} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                     </div>
                     

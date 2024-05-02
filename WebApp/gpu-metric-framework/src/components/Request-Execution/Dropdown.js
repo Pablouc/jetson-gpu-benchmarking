@@ -90,14 +90,16 @@ const Dropdown = (props) => {
       <div>
         {(props.injected == false) && (
           <div>
-          <select className='select' onChange={handleSelectChange} value={selectedNumber}>
-            <option value="">Select a number</option>
-            {numbers.map((number) => (
+          {/*<select className='select' onChange={handleSelectChange} value={selectedNumber}>
+            <option value=""></option>
+             {numbers.map((number) => (
               <option key={number} value={number}>
                 {number}
               </option>
-            ))}
-          </select>
+            ))} 
+            </select>*/}
+            <input type="number" className='select' onChange={handleSelectChange} value={selectedNumber}/>
+          
 
           </div>
         )}

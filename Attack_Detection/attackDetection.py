@@ -1,13 +1,13 @@
 import matplotlib
-matplotlib.use('Agg')
 
+import os
 import numpy as np
 from numpy.fft import fft, fftfreq
 import matplotlib.pyplot as plt
 
+base_dir = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(base_dir, '..', 'Server', 'frequency_report.txt')
 
-# Path to the file
-file_path = "../Server/frequency_report.txt"
 
 
 def read_and_process_file(file_path):
@@ -46,25 +46,27 @@ def attack_detection(time_samples, frequency_samples):
     print("Número de muestras de frecuencia:", len(frequency_samples))
      
     if len(time_samples) != len(frequency_samples):
-        raise ValueError("Los arrays de tiempo y frecuencia deben tener el mismo tamaño.")
+        raise ValueError("Time and frequency arrays must have the same length.")
     
     time_differences = np.diff(time_samples)
     
     if np.any(time_differences == 0):            
-        print("Hay diferencias de tiempo cero entre algunas muestras. Se eliminarán duplicados.")
+        print("There are non-positive time differences between some samples. Duplicates will be removed.")
         # Eliminar duplicados consecutivos
-        unique_time_samples, unique_indices = np.unique(time_samples, return_index=True)
-        time_samples = unique_time_samples
+        _, unique_indices = np.unique(time_samples, return_index=True)
+        time_samples = time_samples[unique_indices]
         frequency_samples = frequency_samples[unique_indices]
+        print("Adjusted number of time samples:", len(time_samples))
+        print("Adjusted number of frequency samples:", len(frequency_samples))
 
      # Calcular el intervalo de muestreo promedio
     if len(time_samples) > 1:
         d = np.mean(np.diff(time_samples))
     else:
-        raise ValueError("No hay suficientes muestras de tiempo después de eliminar duplicados.")
+        raise ValueError("Insufficient time samples after removing duplicates.")
 
     if d == 0:
-        raise ValueError("El intervalo de muestreo calculado es cero, verifica tus datos de tiempo.")
+        raise ValueError("Calculated sampling interval is zero or negative, check your time data.")
 
     N = len(frequency_samples)
 
@@ -75,18 +77,21 @@ def attack_detection(time_samples, frequency_samples):
     
     # Tomar la magnitud de la FFT
     fft_magnitude = np.abs(fft_values)
-    
-    threshold = 10
+    for freq in fft_magnitude:
+        print(freq)
+
+    # Plot the spectrum
     plt.figure(figsize=(10, 5))
     plt.plot(fft_frequencies, fft_magnitude)
-    plt.xlabel('Frecuencia (Hz)')
-    plt.ylabel('Magnitud')
-    plt.title('FFT de las Frecuencias')
-    plt.axhline(y=threshold, color='r', linestyle='--')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Magnitude')
+    plt.title('FFT Spectrum')
+    plt.grid(True)
     plt.show()
 
 time_samples, frequency_samples = read_and_process_file(file_path)
-time_sampes = np.array(time_samples)
+
+time_samples = np.array(time_samples)
 frequency_samples = np.array(frequency_samples)
 attack_detection(time_samples, frequency_samples)
 

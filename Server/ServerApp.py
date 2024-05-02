@@ -11,6 +11,7 @@ from flask import Flask, jsonify, request, send_file, Response
 from flask_socketio import SocketIO, emit
 import threading
 from threading import Thread
+import uuid
 import time
 from zipfile import ZipFile
 import subprocess
@@ -220,7 +221,6 @@ def get_gpuData():
     else:
         response = jsonify("out of execution")
         response.headers['ngrok-skip-browser-warning'] = '1'
-    #print(response.get_json())    
     return response
 
 
@@ -281,10 +281,6 @@ def get_GAUSSworkloads():
 @app.route('/setExecutionRequest', methods=['POST', 'OPTIONS'])
 def execution_request():
     global executionRequest
-    global global_gpu_data
-    global gpu_iterations_data
-    global injection_fault
-    global stop_event
 
     if request.method == 'OPTIONS':
                
@@ -300,7 +296,28 @@ def execution_request():
     data = request.get_json()
     executionRequest = data
     print(executionRequest)
+    task_id = background_execution(executionRequest)
+    return jsonify({"message": "Execution started", "task_id": task_id})
 
+
+def background_execution(executionRequest):
+    
+
+    def task():
+        result = executionTask(executionRequest)
+        socketio.emit('task_complete', {'task_id': thread.name, 'result': result})
+    
+    thread = threading.Thread(target=task, name=f"task-{uuid.uuid4()}")
+    thread.start()
+    return thread.name
+
+
+
+def executionTask(executionRequest):
+    global global_gpu_data
+    global gpu_iterations_data
+    global injection_fault
+    global stop_event
     #Transform the input to the JSON expected format of the managerApp
     executionJson =  transform_input_json(executionRequest)
     print(executionJson)
@@ -352,14 +369,13 @@ def execution_request():
     ram_avg = gpu_iterations_data['ram_avg']
     iterations_execTime = gpu_iterations_data['iteration_time']
     gpu_usage_avg = gpu_iterations_data['gpu_usage_avg']
+
+    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
+                             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
     
     if execution_result == 0:
-        writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
-                             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
         return jsonify({"message": "Execution request processed successfully."})
     else:
-        writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
-                                             ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
         injection_fault = True
         return jsonify({"message": "Execution stoped due to injection fault"})
 

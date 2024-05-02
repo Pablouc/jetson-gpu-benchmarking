@@ -107,9 +107,9 @@ const AppComponent = (props) => {
     else if(props.appName=='Wicked'){
         const wicked={ 
         wicked_name: 'Wicked',
-        wicked_workloads: ' ' + String(iterations) + ' ' +  String(freq_min) + ' ' + String(freq_max) + ' ' + String(delay)
+        wicked_workloads: ' '  +  String(freq_min) + ' ' + String(freq_max) + ' ' + String(delay)
         };
-        if((iterations!='') && (freq_min!='') && (freq_max!='') && (delay!='')) props.onExecuteEvent(wicked); 
+        if((freq_min!='') && (freq_max!='') && (delay!='')) props.onExecuteEvent(wicked); 
     }
 
     else if(props.appName=='Srad'){
@@ -176,13 +176,9 @@ const AppComponent = (props) => {
 
         {isChecked && (props.appName == 'Wicked') && (
             <>
-                <div>
-                    <label>Iterations</label>
-                    <input type='number' step="10" className='input-style' value={iterations} onChange={e => setiterations(e.target.value)}></input>
-                </div>
 
                 <div>
-                    <label >Select min frequency</label>
+                    <label >Select min frequency (MHz)</label>
                     <Dropdown refresh={props.refresh} injected={true} wickedApp={true} freq_boundary={'min'} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                 </div>
 
@@ -192,7 +188,7 @@ const AppComponent = (props) => {
                 </div> */}
 
                 <div>
-                    <label >Select min frequency</label>
+                    <label >Select min frequency (MHz)</label>
                     <Dropdown refresh={props.refresh} injected={true} wickedApp={true} freq_boundary={'max'} frequenciesURL={props.frequenciesURL} onExecuteEvent = {executeHandler}></Dropdown>
                 </div>
 
