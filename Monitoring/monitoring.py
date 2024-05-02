@@ -105,6 +105,37 @@ def update_freqFile():
     # Write the modified content back to the file
     with open(filename, "w") as file:
         file.writelines(lines)
+    
+    create_limited_freqFile(gpu_frequency, current_time)
+
+
+def create_limited_freqFile(gpu_frequency, current_time):
+    filename = "limited_frequency_report.txt"
+    try:
+        with open(filename, "r") as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print("File not found, creating new file")
+        lines = ["Time samples\n", "\n", "Frequency samples\n", "\n"]
+
+    # Modify the lines where time and frequency samples are stored
+    for i, line in enumerate(lines):
+        if "Time samples" in line:
+            if lines[i+1].strip():  # Check if the next line is not just a newline character
+                times = [float(t) for t in lines[i+1].strip().split(",")]
+                times.append(current_time)
+                times = times[-200:]  # Keep only the last 200 values
+                lines[i+1] = ",".join([f"{t:.2f}" for t in times]) + "\n"
+            else:
+                lines[i+1] = f"{current_time}\n"
+        elif "Frequency samples" in line:
+            if lines[i+1].strip():
+                frequencies = [float(f) for f in lines[i+1].strip().split(",")]
+                frequencies.append(gpu_frequency)
+                frequencies = frequencies[-200:]  # Keep only the last 200 values
+                lines[i+1] = ",".join([f"{f:.2f}" for f in frequencies]) + "\n"
+            else:
+                lines[i+1] = f"{gpu_frequency}\n"
 
 
 
