@@ -118,24 +118,38 @@ def create_limited_freqFile(gpu_frequency, current_time):
         print("File not found, creating new file")
         lines = ["Time samples\n", "\n", "Frequency samples\n", "\n"]
 
-    # Modify the lines where time and frequency samples are stored
+    # Find the indices of "Time samples" and "Frequency samples" sections
+    time_samples_index = None
+    freq_samples_index = None
     for i, line in enumerate(lines):
         if "Time samples" in line:
-            if lines[i+1].strip():  # Check if the next line is not just a newline character
-                times = [float(t) for t in lines[i+1].strip().split(",")]
-                times.append(current_time)
-                times = times[-200:]  # Keep only the last 200 values
-                lines[i+1] = ",".join([f"{t:.2f}" for t in times]) + "\n"
-            else:
-                lines[i+1] = f"{current_time}\n"
+            time_samples_index = i + 1
         elif "Frequency samples" in line:
-            if lines[i+1].strip():
-                frequencies = [float(f) for f in lines[i+1].strip().split(",")]
-                frequencies.append(gpu_frequency)
-                frequencies = frequencies[-200:]  # Keep only the last 200 values
-                lines[i+1] = ",".join([f"{f:.2f}" for f in frequencies]) + "\n"
-            else:
-                lines[i+1] = f"{gpu_frequency}\n"
+            freq_samples_index = i + 1
+
+    # Extract time and frequency samples
+    time_samples = [float(t) for t in lines[time_samples_index].strip().split(",")] if time_samples_index is not None else []
+    freq_samples = [float(f) for f in lines[freq_samples_index].strip().split(",")] if freq_samples_index is not None else []
+
+    # Append new values and limit each section to a maximum of 200 elements
+    time_samples.append(current_time)
+    freq_samples.append(gpu_frequency)
+    time_samples = time_samples[-200:]
+    freq_samples = freq_samples[-200:]
+
+    # Update lines with modified time and frequency samples
+    if time_samples_index is not None:
+        lines[time_samples_index] = ",".join([f"{t:.2f}" for t in time_samples]) + "\n"
+    else:
+        lines.insert(time_samples_index, ",".join([f"{t:.2f}" for t in time_samples]) + "\n")
+    if freq_samples_index is not None:
+        lines[freq_samples_index] = ",".join([f"{f:.2f}" for f in freq_samples]) + "\n"
+    else:
+        lines.insert(freq_samples_index, ",".join([f"{f:.2f}" for f in freq_samples]) + "\n")
+
+    # Write the modified content back to the file
+    with open(filename, "w") as file:
+        file.writelines(lines)
 
 
 
