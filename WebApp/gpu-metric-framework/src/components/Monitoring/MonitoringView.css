@@ -54,12 +54,34 @@
     font-size: 60px;
 }
 
-.execution-time{
-    padding: 5px;
-    margin-left: 20px;
+.labels-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .execution-state {
+    padding: 0px;
     font-size: 25px;
     font-weight: bold;
-}
+    text-align: right;
+    margin-left: 20px;
+    background-color: #323131;
+    border: 2px solid rgb(0, 0, 0);
+    color:white;
+
+  }
+  
+  .execution-time {
+    padding: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 20px;
+    
+    background-color: #323131;
+    border: 2px solid rgb(0, 0, 0);
+    color:white;
+  }
 
 .singleData-metric{
     font-size: 60px;
