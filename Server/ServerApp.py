@@ -142,7 +142,7 @@ def update_frequency_file(stop_event):
 
 def send_frequency_task(stop_event):
 
-    file_path = './frequency_report.txt'
+    file_path = './limited_frequency_report.txt'
     log_file_path = './frequency_log.txt'
         
     # Open the log file in append mode
