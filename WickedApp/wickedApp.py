@@ -64,6 +64,8 @@ def result_validation(appNames):
     if make_validation == True:
             
         for i in range( len(resultsArray)):
+            print( len(resultsArray))
+            print( len(solutionsArray))
             solution_checksum_proc = subprocess.run(solutionsArray[i], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
                     
             result_checksum_proc = subprocess.run(resultsArray[i], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
