@@ -136,6 +136,7 @@ def gpu_monitor_thread():
 
 def update_frequency_file(stop_event):
     while not stop_event.is_set():
+        print("Hooked in the updated freq file loop\n")
         update_freqFile()
         time.sleep(FREQ_REQ_TIME)
 
@@ -145,30 +146,16 @@ def send_frequency_task(stop_event):
     file_path = './limited_frequency_report.txt'
     log_file_path = './frequency_log.txt'
         
-    # Open the log file in append mode
-    log_file = open(log_file_path, 'a')
-
-    # Redirect stdout and stderr to the log file
-    sys.stdout = log_file
-    sys.stderr = log_file
     while not stop_event.is_set():
         try:        
             with open(file_path, 'r') as file:
                 file_content = file.read()
             
             socketio.emit('file_transfer', {'file_content': file_content, 'filename': file_path})
-            
-            # Reverting stdout back to its original value
-            #sys.stdout = sys.__stdout__
         except Exception as e:                                                
             print(f"Failed to send file: {e}")
             socketio.emit('error', {'message': 'Failed to send file', 'error': str(e)})
         time.sleep(1)
-    
-    # Restore stdout and stderr
-    sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
-    log_file.close()
 
 def background_task():
     last_console_length=0
@@ -344,8 +331,10 @@ def executionTask(executionRequest):
         "ram_used" : None
     }
     frequency_report_path= './frequency_report.txt'
+    frequency_limited_report= './limited_frequency_report.txt'
     if os.path.exists(frequency_report_path):
         os.remove(frequency_report_path)
+        os.remove(frequency_limited_report)
     
     injection_fault = False
 

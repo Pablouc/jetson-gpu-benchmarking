@@ -184,7 +184,7 @@ def simultExecution(apps, iterations, frequency):
         pass
     
     #Defining Paths  
-    appsPath ='../benchmarks/gpu-rodinia/bin/linux/cuda/'
+    appsPath ='sudo ../benchmarks/gpu-rodinia/bin/linux/cuda/'
     wickedApp_Path= 'sudo ../WickedApp/freq_scalator.sh'
     workloadsPath = '../benchmarks/gpu-rodinia/data/'
     output_Path = '../benchmarks/gpu-rodinia/cuda/'
@@ -203,14 +203,14 @@ def simultExecution(apps, iterations, frequency):
             #Filling app names list for injection fault validation
             appNames.append(app.name)
             if app.name == "Wicked" and wicked_running==False:
-                tempPath =  wickedApp_Path + app.workloads
+                tempPath = wickedApp_Path + app.workloads
                 wicked_running=True
             
             elif app.name == "BFS":
                 tempPath = appsPath + 'bfs.out ' + workloadsPath + 'bfs/' + app.workloads 
 
             elif app.name == "LavaMD":
-                tempPath = appsPath + 'lavaMD ' +  app.workloads  
+                tempPath =  appsPath + 'lavaMD ' +  app.workloads  
         
             elif app.name == "Srad":
                 tempPath = appsPath + 'srad_v1 ' +  app.workloads
@@ -219,7 +219,7 @@ def simultExecution(apps, iterations, frequency):
                 tempPath = appsPath + 'lud_cuda '  + app.workloads  
 
             elif app.name == "Gauss":
-                tempPath = appsPath + 'gaussian -f ' + workloadsPath + 'gaussian/' + app.workloads 
+                tempPath ="sudo " + appsPath + 'gaussian -f ' + workloadsPath + 'gaussian/' + app.workloads 
                 print(tempPath)
             elif app.external == True:
                 tempPath = f"{externalAppPath}/{app.name}/{app.name} {app.workloads}"
