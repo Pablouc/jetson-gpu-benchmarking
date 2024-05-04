@@ -1,92 +1,33 @@
 thread block size of kernel = 128 
 Configuration used: boxes1d = 30
 Time spent in different stages of GPU_CUDA KERNEL:
- 0.306661009789 s,  5.133554935455 % : GPU: SET DEVICE / DRIVER INIT
- 0.145097002387 s,  2.428947210312 % : GPU MEM: ALO
- 0.422751009464 s,  7.076920032501 % : GPU MEM: COPY IN
- 5.099134922028 s, 85.360343933105 % : GPU: KERNEL
- 0.000009000000 s,  0.000150661464 % : GPU MEM: COPY OUT
- 0.000005000000 s,  0.000083700812 % : GPU MEM: FRE
+ 0.363361001015 s,  5.881080150604 % : GPU: SET DEVICE / DRIVER INIT
+ 0.168873995543 s,  2.733263969421 % : GPU MEM: ALO
+ 0.419514000416 s,  6.789928436279 % : GPU MEM: COPY IN
+ 5.226710796356 s, 84.595504760742 % : GPU: KERNEL
+ 0.000009000000 s,  0.000145667029 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000080926133 % : GPU MEM: FRE
 Total time:
-5.973658084869 s
-
-
-
-The file was not opened for reading
-Time spent in different stages of the application:
- 0.000001000000 s,  0.000005162643 % : SETUP VARIABLES
- 0.000014000000 s,  0.000072276998 % : READ COMMAND LINE PARAMETERS
- 0.000082999999 s,  0.000428499392 % : READ IMAGE FROM FILE
- 0.001808000030 s,  0.009334058501 % : RESIZE IMAGE
- 0.152851000428 s,  0.789115130901 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
- 0.000615999976 s,  0.003180187894 % : COPY DATA TO CPU->GPU
- 0.000069000002 s,  0.000356222357 % : EXTRACT IMAGE
-19.098663330078 s, 98.599586486816 % : COMPUTE
- 0.000130000000 s,  0.000671143585 % : COMPRESS IMAGE
- 0.017514999956 s,  0.090423688293 % : COPY DATA TO GPU->CPU
- 0.095680996776 s,  0.493966847658 % : SAVE IMAGE INTO FILE
- 0.002492000116 s,  0.012865305878 % : FREE MEMORY
-Total time:
-19.369924545288 s
-
-
-
-WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
-Total Device found: 1
-Device Name 		 - NVIDIA Tegra X1 
-**************************************
-Total Global Memory			 - 4059200 KB
-Shared memory available per block 	 - 48 KB
-Number of registers per thread block 	 - 32768
-Warp size in threads 			 - 32
-Memory Pitch 				 - 2147483647 bytes
-Maximum threads per block 		 - 1024
-Maximum Thread Dimension (block) 	 - 1024 1024 64
-Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
-Total constant memory 			 - 65536 bytes
-CUDA ver 				 - 5.3
-Clock rate 				 - 921600 KHz
-Texture Alignment 			 - 512 bytes
-Device Overlap 				 - Allowed
-Number of Multi processors 		 - 1
-
-Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
-
-Time total (including memory transfers)	51.346515 sec
-Time for CUDA kernels:	45.614005 sec
-
-
-
-thread block size of kernel = 128 
-Configuration used: boxes1d = 30
-Time spent in different stages of GPU_CUDA KERNEL:
- 0.345743000507 s,  5.582275867462 % : GPU: SET DEVICE / DRIVER INIT
- 0.141008004546 s,  2.276678085327 % : GPU MEM: ALO
- 0.400851011276 s,  6.472035408020 % : GPU MEM: COPY IN
- 5.305969238281 s, 85.668785095215 % : GPU: KERNEL
- 0.000009000000 s,  0.000145311642 % : GPU MEM: COPY OUT
- 0.000005000000 s,  0.000080728685 % : GPU MEM: FRE
-Total time:
-6.193584918976 s
+6.178473949432 s
 
 
 
 The file was not opened for reading
 Time spent in different stages of the application:
  0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
- 0.000018999999 s,  0.000095834432 % : READ COMMAND LINE PARAMETERS
- 0.000065000000 s,  0.000327854679 % : READ IMAGE FROM FILE
- 0.001768999966 s,  0.008922690526 % : RESIZE IMAGE
- 0.180621996522 s,  0.911042571068 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
- 0.000645999971 s,  0.003258371027 % : COPY DATA TO CPU->GPU
- 0.000101999998 s,  0.000514479645 % : EXTRACT IMAGE
-19.525140762329 s, 98.483207702637 % : COMPUTE
- 0.000043000000 s,  0.000216888468 % : COMPRESS IMAGE
- 0.012023000047 s,  0.060643024743 % : COPY DATA TO GPU->CPU
- 0.102801002562 s,  0.518519818783 % : SAVE IMAGE INTO FILE
- 0.002628999995 s,  0.013260460459 % : FREE MEMORY
+ 0.000012000000 s,  0.000059399990 % : READ COMMAND LINE PARAMETERS
+ 0.000057000001 s,  0.000282149937 % : READ IMAGE FROM FILE
+ 0.001726999995 s,  0.008548648097 % : RESIZE IMAGE
+ 0.163582995534 s,  0.809735715389 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000646999979 s,  0.003202649532 % : COPY DATA TO CPU->GPU
+ 0.000075000004 s,  0.000371249946 % : EXTRACT IMAGE
+19.888700485229 s, 98.449043273926 % : COMPUTE
+ 0.000028000000 s,  0.000138599979 % : COMPRESS IMAGE
+ 0.052329000086 s,  0.259028494358 % : COPY DATA TO GPU->CPU
+ 0.092238999903 s,  0.456582933664 % : SAVE IMAGE INTO FILE
+ 0.002624999965 s,  0.012993747368 % : FREE MEMORY
 Total time:
-19.825857162476 s
+20.202024459839 s
 
 
 
@@ -111,8 +52,3463 @@ Number of Multi processors 		 - 1
 
 Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
 
-Time total (including memory transfers)	51.731559 sec
-Time for CUDA kernels:	45.783850 sec
+Time total (including memory transfers)	49.961782 sec
+Time for CUDA kernels:	44.016264 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.357852995396 s,  5.914344787598 % : GPU: SET DEVICE / DRIVER INIT
+ 0.163105994463 s,  2.695702314377 % : GPU MEM: ALO
+ 0.399349987507 s,  6.600178718567 % : GPU MEM: COPY IN
+ 5.130270957947 s, 84.789543151855 % : GPU: KERNEL
+ 0.000009000000 s,  0.000148745719 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000082636514 % : GPU MEM: FRE
+Total time:
+6.050593852997 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000095761287 % : READ COMMAND LINE PARAMETERS
+ 0.000047000001 s,  0.000236883192 % : READ IMAGE FROM FILE
+ 0.001781000057 s,  0.008976361714 % : RESIZE IMAGE
+ 0.136640995741 s,  0.688679933548 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000684999977 s,  0.003452446545 % : COPY DATA TO CPU->GPU
+ 0.000078999998 s,  0.000398165372 % : EXTRACT IMAGE
+19.592267990112 s, 98.746368408203 % : COMPUTE
+ 0.000031000000 s,  0.000156242109 % : COMPRESS IMAGE
+ 0.013639999554 s,  0.068746529520 % : COPY DATA TO GPU->CPU
+ 0.093249000609 s,  0.469981312752 % : SAVE IMAGE INTO FILE
+ 0.002562999958 s,  0.012917694636 % : FREE MEMORY
+Total time:
+19.841001510620 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	50.300579 sec
+Time for CUDA kernels:	44.568426 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.258864998817 s,  4.295009136200 % : GPU: SET DEVICE / DRIVER INIT
+ 0.161094993353 s,  2.672838926315 % : GPU MEM: ALO
+ 0.406877011061 s,  6.750778675079 % : GPU MEM: COPY IN
+ 5.200261116028 s, 86.281135559082 % : GPU: KERNEL
+ 0.000010000000 s,  0.000165916950 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000066366774 % : GPU MEM: FRE
+Total time:
+6.027112007141 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000022000000 s,  0.000109485030 % : READ COMMAND LINE PARAMETERS
+ 0.000062999999 s,  0.000313525321 % : READ IMAGE FROM FILE
+ 0.001759000006 s,  0.008753824979 % : RESIZE IMAGE
+ 0.156014993787 s,  0.776422977448 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000652000017 s,  0.003244738095 % : COPY DATA TO CPU->GPU
+ 0.000165999998 s,  0.000826114323 % : EXTRACT IMAGE
+19.826147079468 s, 98.666648864746 % : COMPUTE
+ 0.000033000000 s,  0.000164227531 % : COMPRESS IMAGE
+ 0.010010999627 s,  0.049820665270 % : COPY DATA TO GPU->CPU
+ 0.096671998501 s,  0.481097131968 % : SAVE IMAGE INTO FILE
+ 0.002530999947 s,  0.012595755048 % : FREE MEMORY
+Total time:
+20.094072341919 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	51.547388 sec
+Time for CUDA kernels:	45.944911 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.322017997503 s,  5.345183849335 % : GPU: SET DEVICE / DRIVER INIT
+ 0.163164004683 s,  2.708363056183 % : GPU MEM: ALO
+ 0.406946986914 s,  6.754922866821 % : GPU MEM: COPY IN
+ 5.132308006287 s, 85.191299438477 % : GPU: KERNEL
+ 0.000009000000 s,  0.000149391199 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000082995117 % : GPU MEM: FRE
+Total time:
+6.024450778961 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000106538297 % : READ COMMAND LINE PARAMETERS
+ 0.000056000001 s,  0.000284102105 % : READ IMAGE FROM FILE
+ 0.001795000047 s,  0.009106487036 % : RESIZE IMAGE
+ 0.150361999869 s,  0.762824356556 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000661000027 s,  0.003353419714 % : COPY DATA TO CPU->GPU
+ 0.000099999997 s,  0.000507325225 % : EXTRACT IMAGE
+19.444992065430 s, 98.649345397949 % : COMPUTE
+ 0.000031000000 s,  0.000157270813 % : COMPRESS IMAGE
+ 0.011841000058 s,  0.060072377324 % : COPY DATA TO GPU->CPU
+ 0.098654001951 s,  0.500496625900 % : SAVE IMAGE INTO FILE
+ 0.002709999913 s,  0.013748512603 % : FREE MEMORY
+Total time:
+19.711221694946 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	50.174670 sec
+Time for CUDA kernels:	44.554994 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.311666995287 s,  5.123632907867 % : GPU: SET DEVICE / DRIVER INIT
+ 0.163561999798 s,  2.688868761063 % : GPU MEM: ALO
+ 0.365898013115 s,  6.015160083771 % : GPU MEM: COPY IN
+ 5.241788864136 s, 86.172111511230 % : GPU: KERNEL
+ 0.000009000000 s,  0.000147955012 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000082197235 % : GPU MEM: FRE
+Total time:
+6.082930088043 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000104719402 % : READ COMMAND LINE PARAMETERS
+ 0.000049999999 s,  0.000249331933 % : READ IMAGE FROM FILE
+ 0.001829999965 s,  0.009125548415 % : RESIZE IMAGE
+ 0.204438000917 s,  1.019458413124 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000641999999 s,  0.003201421816 % : COPY DATA TO CPU->GPU
+ 0.000155000002 s,  0.000772928994 % : EXTRACT IMAGE
+19.735801696777 s, 98.415306091309 % : COMPUTE
+ 0.000029000001 s,  0.000144612510 % : COMPRESS IMAGE
+ 0.011788000353 s,  0.058782491833 % : COPY DATA TO GPU->CPU
+ 0.095779001713 s,  0.477615237236 % : SAVE IMAGE INTO FILE
+ 0.003055999987 s,  0.015239167027 % : FREE MEMORY
+Total time:
+20.053590774536 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	50.848012 sec
+Time for CUDA kernels:	44.985341 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.219701007009 s,  3.681087017059 % : GPU: SET DEVICE / DRIVER INIT
+ 0.176958993077 s,  2.964945316315 % : GPU MEM: ALO
+ 0.349803000689 s,  5.860944271088 % : GPU MEM: COPY IN
+ 5.221896171570 s, 87.492790222168 % : GPU: KERNEL
+ 0.000009000000 s,  0.000150794876 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000083774925 % : GPU MEM: FRE
+Total time:
+5.968372821808 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000100473371 % : READ COMMAND LINE PARAMETERS
+ 0.000043000000 s,  0.000216017754 % : READ IMAGE FROM FILE
+ 0.001739999978 s,  0.008741183206 % : RESIZE IMAGE
+ 0.174858003855 s,  0.878428697586 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000644000014 s,  0.003235242562 % : COPY DATA TO CPU->GPU
+ 0.000070000002 s,  0.000351656781 % : EXTRACT IMAGE
+19.562715530396 s, 98.276603698730 % : COMPUTE
+ 0.000032000000 s,  0.000160757394 % : COMPRESS IMAGE
+ 0.056901000440 s,  0.285851776600 % : COPY DATA TO GPU->CPU
+ 0.105558000505 s,  0.530288398266 % : SAVE IMAGE INTO FILE
+ 0.003192000091 s,  0.016035549343 % : FREE MEMORY
+Total time:
+19.905771255493 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	51.219947 sec
+Time for CUDA kernels:	45.644950 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.391279011965 s,  6.462882518768 % : GPU: SET DEVICE / DRIVER INIT
+ 0.169424995780 s,  2.798447847366 % : GPU MEM: ALO
+ 0.384467989206 s,  6.350383281708 % : GPU MEM: COPY IN
+ 5.109055995941 s, 84.387939453125 % : GPU: KERNEL
+ 0.000016000000 s,  0.000264277187 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000082586630 % : GPU MEM: FRE
+Total time:
+6.054248809814 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000103632105 % : READ COMMAND LINE PARAMETERS
+ 0.000107000000 s,  0.000554431754 % : READ IMAGE FROM FILE
+ 0.006473999936 s,  0.033545710146 % : RESIZE IMAGE
+ 0.197402998805 s,  1.022864341736 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000682000013 s,  0.003533854382 % : COPY DATA TO CPU->GPU
+ 0.000073000003 s,  0.000378257158 % : EXTRACT IMAGE
+18.983032226562 s, 98.362571716309 % : COMPUTE
+ 0.000029999999 s,  0.000155448157 % : COMPRESS IMAGE
+ 0.010277999565 s,  0.053256534040 % : COPY DATA TO GPU->CPU
+ 0.098086997867 s,  0.508248090744 % : SAVE IMAGE INTO FILE
+ 0.002853000071 s,  0.014783118851 % : FREE MEMORY
+Total time:
+19.299039840698 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	49.603306 sec
+Time for CUDA kernels:	44.266061 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.312456995249 s,  5.130453109741 % : GPU: SET DEVICE / DRIVER INIT
+ 0.184854999185 s,  3.035265207291 % : GPU MEM: ALO
+ 0.391032010317 s,  6.420631885529 % : GPU MEM: COPY IN
+ 5.201883792877 s, 85.413421630859 % : GPU: KERNEL
+ 0.000010000000 s,  0.000164197088 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000065678832 % : GPU MEM: FRE
+Total time:
+6.090241909027 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000012000000 s,  0.000061845138 % : READ COMMAND LINE PARAMETERS
+ 0.000058000001 s,  0.000298918167 % : READ IMAGE FROM FILE
+ 0.001760000014 s,  0.009070619941 % : RESIZE IMAGE
+ 0.162355005741 s,  0.836738944054 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000755999994 s,  0.003896243637 % : COPY DATA TO CPU->GPU
+ 0.000078999998 s,  0.000407147163 % : EXTRACT IMAGE
+19.128145217896 s, 98.581901550293 % : COMPUTE
+ 0.000035000001 s,  0.000180381656 % : COMPRESS IMAGE
+ 0.010290999897 s,  0.053037360311 % : COPY DATA TO GPU->CPU
+ 0.097018003464 s,  0.500007629395 % : SAVE IMAGE INTO FILE
+ 0.002794000087 s,  0.014399608597 % : FREE MEMORY
+Total time:
+19.403303146362 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	50.798369 sec
+Time for CUDA kernels:	44.926657 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.380483001471 s,  6.152089595795 % : GPU: SET DEVICE / DRIVER INIT
+ 0.169145002961 s,  2.734932184219 % : GPU MEM: ALO
+ 0.410701990128 s,  6.640705585480 % : GPU MEM: COPY IN
+ 5.224105834961 s, 84.469398498535 % : GPU: KERNEL
+ 0.000174000001 s,  0.002813433530 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000064676628 % : GPU MEM: FRE
+Total time:
+6.184614181519 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000024999999 s,  0.000129308319 % : READ COMMAND LINE PARAMETERS
+ 0.000067000001 s,  0.000346546294 % : READ IMAGE FROM FILE
+ 0.002867999952 s,  0.014834250323 % : RESIZE IMAGE
+ 0.227224007249 s,  1.175278186798 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000706000021 s,  0.003651667153 % : COPY DATA TO CPU->GPU
+ 0.000064000000 s,  0.000331029296 % : EXTRACT IMAGE
+18.955739974976 s, 98.045394897461 % : COMPUTE
+ 0.000032000000 s,  0.000165514648 % : COMPRESS IMAGE
+ 0.014530999586 s,  0.075159169734 % : COPY DATA TO GPU->CPU
+ 0.129528999329 s,  0.669967114925 % : SAVE IMAGE INTO FILE
+ 0.002851000056 s,  0.014746321365 % : FREE MEMORY
+Total time:
+19.333635330200 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	52.119804 sec
+Time for CUDA kernels:	46.116087 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.383783996105 s,  6.206296920776 % : GPU: SET DEVICE / DRIVER INIT
+ 0.166004002094 s,  2.684504985809 % : GPU MEM: ALO
+ 0.419295996428 s,  6.780572891235 % : GPU MEM: COPY IN
+ 5.214686870575 s, 84.328414916992 % : GPU: KERNEL
+ 0.000008000000 s,  0.000129370630 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000080856640 % : GPU MEM: FRE
+Total time:
+6.183784008026 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000094069772 % : READ COMMAND LINE PARAMETERS
+ 0.000054000000 s,  0.000267356198 % : READ IMAGE FROM FILE
+ 0.001763000037 s,  0.008728684857 % : RESIZE IMAGE
+ 0.270938009024 s,  1.341425061226 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.002670000074 s,  0.013219278306 % : COPY DATA TO CPU->GPU
+ 0.000067000001 s,  0.000331719726 % : EXTRACT IMAGE
+19.763193130493 s, 97.848381042480 % : COMPUTE
+ 0.000027000000 s,  0.000133678099 % : COMPRESS IMAGE
+ 0.051210999489 s,  0.253547757864 % : COPY DATA TO GPU->CPU
+ 0.105292998254 s,  0.521309912205 % : SAVE IMAGE INTO FILE
+ 0.002538000001 s,  0.012565741315 % : FREE MEMORY
+Total time:
+20.197774887085 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	52.144278 sec
+Time for CUDA kernels:	46.536866 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.437099009752 s,  7.030633926392 % : GPU: SET DEVICE / DRIVER INIT
+ 0.170757994056 s,  2.746602058411 % : GPU MEM: ALO
+ 0.398422986269 s,  6.408539295197 % : GPU MEM: COPY IN
+ 5.210770130157 s, 83.814002990723 % : GPU: KERNEL
+ 0.000009000000 s,  0.000144762860 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000080423815 % : GPU MEM: FRE
+Total time:
+6.217063903809 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000097755888 % : READ COMMAND LINE PARAMETERS
+ 0.000043000000 s,  0.000221237016 % : READ IMAGE FROM FILE
+ 0.001756999991 s,  0.009039847180 % : RESIZE IMAGE
+ 0.239062994719 s,  1.229990363121 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000714000023 s,  0.003673563711 % : COPY DATA TO CPU->GPU
+ 0.000074000003 s,  0.000380733487 % : EXTRACT IMAGE
+19.075424194336 s, 98.143951416016 % : COMPUTE
+ 0.000028000000 s,  0.000144061327 % : COMPRESS IMAGE
+ 0.016628000885 s,  0.085551843047 % : COPY DATA TO GPU->CPU
+ 0.099448002875 s,  0.511664688587 % : SAVE IMAGE INTO FILE
+ 0.002971000038 s,  0.015285935253 % : FREE MEMORY
+Total time:
+19.436168670654 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	50.683912 sec
+Time for CUDA kernels:	44.896682 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.378488987684 s,  6.190800189972 % : GPU: SET DEVICE / DRIVER INIT
+ 0.168422996998 s,  2.754830837250 % : GPU MEM: ALO
+ 0.440928012133 s,  7.212091445923 % : GPU MEM: COPY IN
+ 5.125877857208 s, 83.842033386230 % : GPU: KERNEL
+ 0.000010000000 s,  0.000163566190 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000081783095 % : GPU MEM: FRE
+Total time:
+6.113732814789 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000026000000 s,  0.000136485571 % : READ COMMAND LINE PARAMETERS
+ 0.000062999999 s,  0.000330715062 % : READ IMAGE FROM FILE
+ 0.002102999948 s,  0.011039583012 % : RESIZE IMAGE
+ 0.170834004879 s,  0.896783709526 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001184000052 s,  0.006215343252 % : COPY DATA TO CPU->GPU
+ 0.000071000002 s,  0.000372710609 % : EXTRACT IMAGE
+18.764038085938 s, 98.500785827637 % : COMPUTE
+ 0.000037999998 s,  0.000199478935 % : COMPRESS IMAGE
+ 0.006967000198 s,  0.036572884768 % : COPY DATA TO GPU->CPU
+ 0.101521000266 s,  0.532928943634 % : SAVE IMAGE INTO FILE
+ 0.002787000034 s,  0.014630204067 % : FREE MEMORY
+Total time:
+19.049631118774 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	52.052376 sec
+Time for CUDA kernels:	46.324766 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.413383007050 s,  6.594048500061 % : GPU: SET DEVICE / DRIVER INIT
+ 0.189471006393 s,  3.022332668304 % : GPU MEM: ALO
+ 0.445805013180 s,  7.111225128174 % : GPU MEM: COPY IN
+ 5.220358848572 s, 83.272171020508 % : GPU: KERNEL
+ 0.000009000000 s,  0.000143562822 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000079757134 % : GPU MEM: FRE
+Total time:
+6.269032001495 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000101480546 % : READ COMMAND LINE PARAMETERS
+ 0.002474999987 s,  0.013219176792 % : READ IMAGE FROM FILE
+ 0.004674999975 s,  0.024969555438 % : RESIZE IMAGE
+ 0.162204995751 s,  0.866350173950 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000745999976 s,  0.003984446637 % : COPY DATA TO CPU->GPU
+ 0.000144000005 s,  0.000769115752 % : EXTRACT IMAGE
+18.410112380981 s, 98.329910278320 % : COMPUTE
+ 0.000038999999 s,  0.000208302183 % : COMPRESS IMAGE
+ 0.016543999314 s,  0.088362850249 % : COPY DATA TO GPU->CPU
+ 0.122845001519 s,  0.656125128269 % : SAVE IMAGE INTO FILE
+ 0.002994999988 s,  0.015996539965 % : FREE MEMORY
+Total time:
+18.722799301147 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	51.359273 sec
+Time for CUDA kernels:	45.466384 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.376718997955 s,  6.125398635864 % : GPU: SET DEVICE / DRIVER INIT
+ 0.182031005621 s,  2.959798812866 % : GPU MEM: ALO
+ 0.384622991085 s,  6.253916740417 % : GPU MEM: COPY IN
+ 5.206726074219 s, 84.660644531250 % : GPU: KERNEL
+ 0.000010000000 s,  0.000162598604 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000081299302 % : GPU MEM: FRE
+Total time:
+6.150114059448 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000110693021 % : READ COMMAND LINE PARAMETERS
+ 0.000051999999 s,  0.000274097023 % : READ IMAGE FROM FILE
+ 0.001808000030 s,  0.009530141950 % : RESIZE IMAGE
+ 0.205713003874 s,  1.084333062172 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000592000026 s,  0.003120488953 % : COPY DATA TO CPU->GPU
+ 0.000065000000 s,  0.000342621264 % : EXTRACT IMAGE
+18.642942428589 s, 98.268737792969 % : COMPUTE
+ 0.000027000000 s,  0.000142319594 % : COMPRESS IMAGE
+ 0.015729999170 s,  0.082914344966 % : COPY DATA TO GPU->CPU
+ 0.101019002497 s,  0.532480835915 % : SAVE IMAGE INTO FILE
+ 0.003416999942 s,  0.018011335284 % : FREE MEMORY
+Total time:
+18.971385955811 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	51.696642 sec
+Time for CUDA kernels:	45.865256 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.442945986986 s,  7.198478221893 % : GPU: SET DEVICE / DRIVER INIT
+ 0.192368000746 s,  3.126243114471 % : GPU MEM: ALO
+ 0.414074987173 s,  6.729285240173 % : GPU MEM: COPY IN
+ 5.103925228119 s, 82.945762634277 % : GPU: KERNEL
+ 0.000009000000 s,  0.000146262319 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000081256840 % : GPU MEM: FRE
+Total time:
+6.153327941895 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000092185808 % : READ COMMAND LINE PARAMETERS
+ 0.000056000001 s,  0.000286800292 % : READ IMAGE FROM FILE
+ 0.001892999979 s,  0.009694874287 % : RESIZE IMAGE
+ 0.218654006720 s,  1.119822025299 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000631999981 s,  0.003236746183 % : COPY DATA TO CPU->GPU
+ 0.000102999998 s,  0.000527507684 % : EXTRACT IMAGE
+19.177892684937 s, 98.218307495117 % : COMPUTE
+ 0.000031000000 s,  0.000158764451 % : COMPRESS IMAGE
+ 0.010440999642 s,  0.053472891450 % : COPY DATA TO GPU->CPU
+ 0.113127999008 s,  0.579377532005 % : SAVE IMAGE INTO FILE
+ 0.002933999989 s,  0.015026287176 % : FREE MEMORY
+Total time:
+19.525781631470 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	52.231300 sec
+Time for CUDA kernels:	46.493731 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.443870007992 s,  7.002128601074 % : GPU: SET DEVICE / DRIVER INIT
+ 0.193341001868 s,  3.049988985062 % : GPU MEM: ALO
+ 0.471042007208 s,  7.430772304535 % : GPU MEM: COPY IN
+ 5.230804920197 s, 82.516891479492 % : GPU: KERNEL
+ 0.000009000000 s,  0.000141976619 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000078875899 % : GPU MEM: FRE
+Total time:
+6.339072227478 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000104764636 % : READ COMMAND LINE PARAMETERS
+ 0.000047000001 s,  0.000246196898 % : READ IMAGE FROM FILE
+ 0.001737999963 s,  0.009104046039 % : RESIZE IMAGE
+ 0.271369993687 s,  1.421498894691 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000721000019 s,  0.003776765196 % : COPY DATA TO CPU->GPU
+ 0.000076999997 s,  0.000403343845 % : EXTRACT IMAGE
+18.681886672974 s, 97.860046386719 % : COMPUTE
+ 0.000034000001 s,  0.000178099872 % : COMPRESS IMAGE
+ 0.014418000355 s,  0.075524821877 % : COPY DATA TO GPU->CPU
+ 0.117412000895 s,  0.615031242371 % : SAVE IMAGE INTO FILE
+ 0.002688999986 s,  0.014085604809 % : FREE MEMORY
+Total time:
+19.090412139893 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	52.978627 sec
+Time for CUDA kernels:	47.032131 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.412854999304 s,  6.703258991241 % : GPU: SET DEVICE / DRIVER INIT
+ 0.187446996570 s,  3.043455362320 % : GPU MEM: ALO
+ 0.438100993633 s,  7.113161563873 % : GPU MEM: COPY IN
+ 5.120602130890 s, 83.139892578125 % : GPU: KERNEL
+ 0.000009000000 s,  0.000146127175 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000081181759 % : GPU MEM: FRE
+Total time:
+6.159018993378 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000026000000 s,  0.000136900184 % : READ COMMAND LINE PARAMETERS
+ 0.000049999999 s,  0.000263269554 % : READ IMAGE FROM FILE
+ 0.001977999927 s,  0.010414944962 % : RESIZE IMAGE
+ 0.241620004177 s,  1.272223949432 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000640999991 s,  0.003375115804 % : COPY DATA TO CPU->GPU
+ 0.000071000002 s,  0.000373842806 % : EXTRACT IMAGE
+18.606264114380 s, 97.969261169434 % : COMPUTE
+ 0.000027000000 s,  0.000142165576 % : COMPRESS IMAGE
+ 0.030641999096 s,  0.161342129111 % : COPY DATA TO GPU->CPU
+ 0.107814997435 s,  0.567688167095 % : SAVE IMAGE INTO FILE
+ 0.002807999961 s,  0.014785218984 % : FREE MEMORY
+Total time:
+18.991939544678 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	53.213315 sec
+Time for CUDA kernels:	47.541738 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000017000000 s,  0.000079125515 % : READ COMMAND LINE PARAMETERS
+ 0.000044000000 s,  0.000204795448 % : READ IMAGE FROM FILE
+ 0.001800999977 s,  0.008382650092 % : RESIZE IMAGE
+ 0.201388001442 s,  0.937348783016 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000645999971 s,  0.003006769577 % : COPY DATA TO CPU->GPU
+ 0.005047000013 s,  0.023490969092 % : EXTRACT IMAGE
+21.083749771118 s, 98.133094787598 % : COMPUTE
+ 0.000032000000 s,  0.000148942156 % : COMPRESS IMAGE
+ 0.012226000428 s,  0.056905213743 % : COPY DATA TO GPU->CPU
+ 0.177246004343 s,  0.824981272221 % : SAVE IMAGE INTO FILE
+ 0.002653999953 s,  0.012352889404 % : FREE MEMORY
+Total time:
+21.484851837158 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.361268997192 s,  5.865912437439 % : GPU: SET DEVICE / DRIVER INIT
+ 0.181264996529 s,  2.943193674088 % : GPU MEM: ALO
+ 0.397266000509 s,  6.450394630432 % : GPU MEM: COPY IN
+ 5.218972206116 s, 84.740272521973 % : GPU: KERNEL
+ 0.000009000000 s,  0.000146132690 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000081184829 % : GPU MEM: FRE
+Total time:
+6.158785820007 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.678780 sec
+Time for CUDA kernels:	49.704386 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.371666014194 s,  6.099957466125 % : GPU: SET DEVICE / DRIVER INIT
+ 0.191948994994 s,  3.150357246399 % : GPU MEM: ALO
+ 0.409458994865 s,  6.720233917236 % : GPU MEM: COPY IN
+ 5.119840145111 s, 84.029220581055 % : GPU: KERNEL
+ 0.000009000000 s,  0.000147712228 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000082062354 % : GPU MEM: FRE
+Total time:
+6.092927932739 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000005340080 % : SETUP VARIABLES
+ 0.000012000000 s,  0.000064080959 % : READ COMMAND LINE PARAMETERS
+ 0.000062999999 s,  0.000336425059 % : READ IMAGE FROM FILE
+ 0.001752999960 s,  0.009361160919 % : RESIZE IMAGE
+ 0.158437997103 s,  0.846071660519 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000707999978 s,  0.003780776635 % : COPY DATA TO CPU->GPU
+ 0.000716999988 s,  0.003828837769 % : EXTRACT IMAGE
+18.432060241699 s, 98.428680419922 % : COMPUTE
+ 0.000035000001 s,  0.000186902806 % : COMPRESS IMAGE
+ 0.005276000127 s,  0.028174262494 % : COPY DATA TO GPU->CPU
+ 0.123618997633 s,  0.660135388374 % : SAVE IMAGE INTO FILE
+ 0.003627999919 s,  0.019373811781 % : FREE MEMORY
+Total time:
+18.726310729980 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	53.594092 sec
+Time for CUDA kernels:	47.728990 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.338427990675 s,  5.592375755310 % : GPU: SET DEVICE / DRIVER INIT
+ 0.203786000609 s,  3.367475509644 % : GPU MEM: ALO
+ 0.405102014542 s,  6.694135189056 % : GPU MEM: COPY IN
+ 5.104266166687 s, 84.345779418945 % : GPU: KERNEL
+ 0.000010000000 s,  0.000165245656 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000066098270 % : GPU MEM: FRE
+Total time:
+6.051596164703 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000017000000 s,  0.000092190232 % : READ COMMAND LINE PARAMETERS
+ 0.000047000001 s,  0.000254878862 % : READ IMAGE FROM FILE
+ 0.003255000105 s,  0.017651718110 % : RESIZE IMAGE
+ 0.163055002689 s,  0.884239852428 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000592000026 s,  0.003210389288 % : COPY DATA TO CPU->GPU
+ 0.000068000001 s,  0.000368760928 % : EXTRACT IMAGE
+18.131408691406 s, 98.325798034668 % : COMPUTE
+ 0.000028000000 s,  0.000151842731 % : COMPRESS IMAGE
+ 0.025195000693 s,  0.136631339788 % : COPY DATA TO GPU->CPU
+ 0.113688997924 s,  0.616530299187 % : SAVE IMAGE INTO FILE
+ 0.002776999958 s,  0.015059545636 % : FREE MEMORY
+Total time:
+18.440132141113 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	53.386655 sec
+Time for CUDA kernels:	47.852225 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.469058007002 s,  7.548119068146 % : GPU: SET DEVICE / DRIVER INIT
+ 0.211003005505 s,  3.395477294922 % : GPU MEM: ALO
+ 0.436044007540 s,  7.016854763031 % : GPU MEM: COPY IN
+ 5.098117828369 s, 82.039329528809 % : GPU: KERNEL
+ 0.000010000000 s,  0.000160920797 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000064368323 % : GPU MEM: FRE
+Total time:
+6.214237213135 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000109683569 % : READ COMMAND LINE PARAMETERS
+ 0.000043000000 s,  0.000235819680 % : READ IMAGE FROM FILE
+ 0.001759000006 s,  0.009646669962 % : RESIZE IMAGE
+ 0.133563995361 s,  0.732488811016 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001201999956 s,  0.006591982674 % : COPY DATA TO CPU->GPU
+ 0.000070000002 s,  0.000383892475 % : EXTRACT IMAGE
+17.957988739014 s, 98.484809875488 % : COMPUTE
+ 0.000031000000 s,  0.000170009531 % : COMPRESS IMAGE
+ 0.011048999615 s,  0.060594685376 % : COPY DATA TO GPU->CPU
+ 0.125908002257 s,  0.690501928329 % : SAVE IMAGE INTO FILE
+ 0.002636000048 s,  0.014456294477 % : FREE MEMORY
+Total time:
+18.234272003174 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.026600 sec
+Time for CUDA kernels:	48.059827 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.378197014332 s,  6.070333480835 % : GPU: SET DEVICE / DRIVER INIT
+ 0.208040997386 s,  3.339207649231 % : GPU MEM: ALO
+ 0.426313996315 s,  6.842646121979 % : GPU MEM: COPY IN
+ 5.217685222626 s, 83.747589111328 % : GPU: KERNEL
+ 0.000009000000 s,  0.000144456470 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000080253594 % : GPU MEM: FRE
+Total time:
+6.230250835419 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000096205200 % : READ COMMAND LINE PARAMETERS
+ 0.000048999998 s,  0.000261891953 % : READ IMAGE FROM FILE
+ 0.001759000006 s,  0.009401386604 % : RESIZE IMAGE
+ 0.125145003200 s,  0.668866693974 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000654999982 s,  0.003500800347 % : COPY DATA TO CPU->GPU
+ 0.000070000002 s,  0.000374131341 % : EXTRACT IMAGE
+18.291040420532 s, 97.760734558105 % : COMPUTE
+ 0.000029999999 s,  0.000160342010 % : COMPRESS IMAGE
+ 0.024034999311 s,  0.128460675478 % : COPY DATA TO GPU->CPU
+ 0.261938005686 s,  1.399988889694 % : SAVE IMAGE INTO FILE
+ 0.005266000051 s,  0.028145369142 % : FREE MEMORY
+Total time:
+18.710006713867 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	53.499285 sec
+Time for CUDA kernels:	47.347073 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.297392994165 s,  4.889337062836 % : GPU: SET DEVICE / DRIVER INIT
+ 0.204910993576 s,  3.368871927261 % : GPU MEM: ALO
+ 0.378949999809 s,  6.230188369751 % : GPU MEM: COPY IN
+ 5.201212882996 s, 85.511375427246 % : GPU: KERNEL
+ 0.000010000000 s,  0.000164406592 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000065762637 % : GPU MEM: FRE
+Total time:
+6.082480907440 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000105571657 % : READ COMMAND LINE PARAMETERS
+ 0.000050999999 s,  0.000269207725 % : READ IMAGE FROM FILE
+ 0.012560999952 s,  0.066304281354 % : RESIZE IMAGE
+ 0.153844997287 s,  0.812083601952 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000709999993 s,  0.003747794079 % : COPY DATA TO CPU->GPU
+ 0.000076999997 s,  0.000406450912 % : EXTRACT IMAGE
+18.630884170532 s, 98.344665527344 % : COMPUTE
+ 0.000032000000 s,  0.000168914659 % : COMPRESS IMAGE
+ 0.014862000011 s,  0.078450299799 % : COPY DATA TO GPU->CPU
+ 0.128728002310 s,  0.679501414299 % : SAVE IMAGE INTO FILE
+ 0.002706999891 s,  0.014289123937 % : FREE MEMORY
+Total time:
+18.944477081299 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.222479 sec
+Time for CUDA kernels:	48.422843 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.401327997446 s,  6.445433139801 % : GPU: SET DEVICE / DRIVER INIT
+ 0.202922999859 s,  3.258996725082 % : GPU MEM: ALO
+ 0.425357013941 s,  6.831345558167 % : GPU MEM: COPY IN
+ 5.196926116943 s, 83.464004516602 % : GPU: KERNEL
+ 0.000009000000 s,  0.000144542370 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000080301317 % : GPU MEM: FRE
+Total time:
+6.226548194885 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000005582207 % : SETUP VARIABLES
+ 0.000012000000 s,  0.000066986475 % : READ COMMAND LINE PARAMETERS
+ 0.000057000001 s,  0.000318185776 % : READ IMAGE FROM FILE
+ 0.001815999974 s,  0.010137286969 % : RESIZE IMAGE
+ 0.158687993884 s,  0.885829150677 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000708999985 s,  0.003957784269 % : COPY DATA TO CPU->GPU
+ 0.000100999998 s,  0.000563802838 % : EXTRACT IMAGE
+17.559522628784 s, 98.020874023438 % : COMPUTE
+ 0.000032000000 s,  0.000178630609 % : COMPRESS IMAGE
+ 0.017045000568 s,  0.095148704946 % : COPY DATA TO GPU->CPU
+ 0.173191994429 s,  0.966793477535 % : SAVE IMAGE INTO FILE
+ 0.002889000112 s,  0.016126994044 % : FREE MEMORY
+Total time:
+17.914064407349 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	53.599196 sec
+Time for CUDA kernels:	47.603754 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.368036985397 s,  5.928039550781 % : GPU: SET DEVICE / DRIVER INIT
+ 0.189573004842 s,  3.053487062454 % : GPU MEM: ALO
+ 0.410654008389 s,  6.614479541779 % : GPU MEM: COPY IN
+ 5.240131855011 s, 84.403770446777 % : GPU: KERNEL
+ 0.000009000000 s,  0.000144964652 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000080535923 % : GPU MEM: FRE
+Total time:
+6.208409786224 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000113944268 % : READ COMMAND LINE PARAMETERS
+ 0.000048000002 s,  0.000273466256 % : READ IMAGE FROM FILE
+ 0.005574999843 s,  0.031761966646 % : RESIZE IMAGE
+ 0.233351007104 s,  1.329450488091 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.006298999768 s,  0.035886749625 % : COPY DATA TO CPU->GPU
+ 0.000071000002 s,  0.000404502178 % : EXTRACT IMAGE
+17.095909118652 s, 97.399047851562 % : COMPUTE
+ 0.000028000000 s,  0.000159521980 % : COMPRESS IMAGE
+ 0.014438999817 s,  0.082262068987 % : COPY DATA TO GPU->CPU
+ 0.191370993853 s,  1.090281486511 % : SAVE IMAGE INTO FILE
+ 0.005328000057 s,  0.030354753137 % : FREE MEMORY
+Total time:
+17.552440643311 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.182425 sec
+Time for CUDA kernels:	49.144322 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.294153988361 s,  4.613954544067 % : GPU: SET DEVICE / DRIVER INIT
+ 0.304904013872 s,  4.782573699951 % : GPU MEM: ALO
+ 0.470872014761 s,  7.385866165161 % : GPU MEM: COPY IN
+ 5.305367946625 s, 83.217391967773 % : GPU: KERNEL
+ 0.000009000000 s,  0.000141169556 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000078427533 % : GPU MEM: FRE
+Total time:
+6.375311851501 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000100939869 % : READ COMMAND LINE PARAMETERS
+ 0.000051999999 s,  0.000276256469 % : READ IMAGE FROM FILE
+ 0.001784999971 s,  0.009483034723 % : RESIZE IMAGE
+ 0.141421005130 s,  0.751316666603 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001234999974 s,  0.006561091170 % : COPY DATA TO CPU->GPU
+ 0.000134999995 s,  0.000717204355 % : EXTRACT IMAGE
+18.514980316162 s, 98.363136291504 % : COMPUTE
+ 0.000028000000 s,  0.000148753490 % : COMPRESS IMAGE
+ 0.023003000766 s,  0.122206307948 % : COPY DATA TO GPU->CPU
+ 0.137740999460 s,  0.731766223907 % : SAVE IMAGE INTO FILE
+ 0.002688999986 s,  0.014285647310 % : FREE MEMORY
+Total time:
+18.823087692261 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.171724 sec
+Time for CUDA kernels:	48.785774 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.443091988564 s,  6.992445945740 % : GPU: SET DEVICE / DRIVER INIT
+ 0.229966998100 s,  3.629114866257 % : GPU MEM: ALO
+ 0.432384997606 s,  6.823478698730 % : GPU MEM: COPY IN
+ 5.231266975403 s, 82.554756164551 % : GPU: KERNEL
+ 0.000009000000 s,  0.000142029225 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000063124098 % : GPU MEM: FRE
+Total time:
+6.336723804474 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000005126832 % : SETUP VARIABLES
+ 0.000022000000 s,  0.000112790294 % : READ COMMAND LINE PARAMETERS
+ 0.000067000001 s,  0.000343497726 % : READ IMAGE FROM FILE
+ 0.018885999918 s,  0.096825338900 % : RESIZE IMAGE
+ 0.193412005901 s,  0.991590797901 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.005332000088 s,  0.027336267754 % : COPY DATA TO CPU->GPU
+ 0.000092000002 s,  0.000471668493 % : EXTRACT IMAGE
+19.118679046631 s, 98.018249511719 % : COMPUTE
+ 0.000029000001 s,  0.000148678126 % : COMPRESS IMAGE
+ 0.015058999881 s,  0.077204957604 % : COPY DATA TO GPU->CPU
+ 0.150392994285 s,  0.771039605141 % : SAVE IMAGE INTO FILE
+ 0.003251000075 s,  0.016667330638 % : FREE MEMORY
+Total time:
+19.505224227905 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.447161 sec
+Time for CUDA kernels:	51.005323 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000108749715 % : READ COMMAND LINE PARAMETERS
+ 0.000059999998 s,  0.000362499035 % : READ IMAGE FROM FILE
+ 0.001738999970 s,  0.010506430641 % : RESIZE IMAGE
+ 0.190420001745 s,  1.150451183319 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000686999992 s,  0.004150614142 % : COPY DATA TO CPU->GPU
+ 0.000074000003 s,  0.000447082130 % : EXTRACT IMAGE
+16.196472167969 s, 97.853431701660 % : COMPUTE
+ 0.000036000001 s,  0.000217499430 % : COMPRESS IMAGE
+ 0.006947000045 s,  0.041971348226 % : COPY DATA TO GPU->CPU
+ 0.137306004763 s,  0.829554915428 % : SAVE IMAGE INTO FILE
+ 0.018007999286 s,  0.108798049390 % : FREE MEMORY
+Total time:
+16.551767349243 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.512728989124 s,  7.731805801392 % : GPU: SET DEVICE / DRIVER INIT
+ 0.415558010340 s,  6.266495704651 % : GPU MEM: ALO
+ 0.478864997625 s,  7.221146583557 % : GPU MEM: COPY IN
+ 5.224260807037 s, 78.780349731445 % : GPU: KERNEL
+ 0.000009000000 s,  0.000135717419 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000060318853 % : GPU MEM: FRE
+Total time:
+6.631425857544 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.300463 sec
+Time for CUDA kernels:	48.210458 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000121019046 % : READ COMMAND LINE PARAMETERS
+ 0.000054000000 s,  0.000311191834 % : READ IMAGE FROM FILE
+ 0.002615999896 s,  0.015075515956 % : RESIZE IMAGE
+ 0.194951996207 s,  1.123471736908 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000656999997 s,  0.003786167596 % : COPY DATA TO CPU->GPU
+ 0.000073000003 s,  0.000420685275 % : EXTRACT IMAGE
+16.944707870483 s, 97.649162292480 % : COMPUTE
+ 0.000029000001 s,  0.000167121543 % : COMPRESS IMAGE
+ 0.007888999768 s,  0.045462824404 % : COPY DATA TO GPU->CPU
+ 0.199658006430 s,  1.150591492653 % : SAVE IMAGE INTO FILE
+ 0.001984999981 s,  0.011439180933 % : FREE MEMORY
+Total time:
+17.352640151978 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.457563996315 s,  7.173700809479 % : GPU: SET DEVICE / DRIVER INIT
+ 0.248787000775 s,  3.900489330292 % : GPU MEM: ALO
+ 0.447672992945 s,  7.018628597260 % : GPU MEM: COPY IN
+ 5.224316120148 s, 81.906959533691 % : GPU: KERNEL
+ 0.000009000000 s,  0.000141102239 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000078390134 % : GPU MEM: FRE
+Total time:
+6.378354072571 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.100442 sec
+Time for CUDA kernels:	48.983173 sec
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.347979992628 s,  5.555409431458 % : GPU: SET DEVICE / DRIVER INIT
+ 0.249632999301 s,  3.985325336456 % : GPU MEM: ALO
+ 0.461670011282 s,  7.370440006256 % : GPU MEM: COPY IN
+ 5.204507827759 s, 83.088600158691 % : GPU: KERNEL
+ 0.000009000000 s,  0.000143682628 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000079823687 % : GPU MEM: FRE
+Total time:
+6.263804912567 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000112646274 % : READ COMMAND LINE PARAMETERS
+ 0.000056000001 s,  0.000300390035 % : READ IMAGE FROM FILE
+ 0.001781999948 s,  0.009558840655 % : RESIZE IMAGE
+ 0.223251998425 s,  1.197547793388 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000709999993 s,  0.003808516776 % : COPY DATA TO CPU->GPU
+ 0.004341000225 s,  0.023285593837 % : EXTRACT IMAGE
+18.230520248413 s, 97.790481567383 % : COMPUTE
+ 0.000029999999 s,  0.000160923242 % : COMPRESS IMAGE
+ 0.014032999985 s,  0.075274534523 % : COPY DATA TO GPU->CPU
+ 0.158336997032 s,  0.849336743355 % : SAVE IMAGE INTO FILE
+ 0.009345999919 s,  0.050132952631 % : FREE MEMORY
+Total time:
+18.642427444458 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.652013 sec
+Time for CUDA kernels:	50.786130 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000011000000 s,  0.000065052605 % : READ COMMAND LINE PARAMETERS
+ 0.000055000000 s,  0.000325263012 % : READ IMAGE FROM FILE
+ 0.001749000046 s,  0.010343364440 % : RESIZE IMAGE
+ 0.167518004775 s,  0.990680217743 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001772999996 s,  0.010485297069 % : COPY DATA TO CPU->GPU
+ 0.000073000003 s,  0.000431712775 % : EXTRACT IMAGE
+16.347696304321 s, 96.678199768066 % : COMPUTE
+ 0.000032000000 s,  0.000189243947 % : COMPRESS IMAGE
+ 0.007569000125 s,  0.044762108475 % : COPY DATA TO GPU->CPU
+ 0.378293991089 s,  2.237182617188 % : SAVE IMAGE INTO FILE
+ 0.004621000029 s,  0.027328006923 % : FREE MEMORY
+Total time:
+16.909391403198 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.522992014885 s,  7.930611133575 % : GPU: SET DEVICE / DRIVER INIT
+ 0.314752012491 s,  4.772875308990 % : GPU MEM: ALO
+ 0.434121012688 s,  6.582977771759 % : GPU MEM: COPY IN
+ 5.322720050812 s, 80.713325500488 % : GPU: KERNEL
+ 0.000009000000 s,  0.000136475312 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000075819626 % : GPU MEM: FRE
+Total time:
+6.594598770142 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.054337 sec
+Time for CUDA kernels:	50.213574 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000125679449 % : READ COMMAND LINE PARAMETERS
+ 0.000046000001 s,  0.000275297847 % : READ IMAGE FROM FILE
+ 0.031590998173 s,  0.189063772559 % : RESIZE IMAGE
+ 0.327872991562 s,  1.962233185768 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000698000018 s,  0.004177345429 % : COPY DATA TO CPU->GPU
+ 0.000070000002 s,  0.000418931508 % : EXTRACT IMAGE
+16.090835571289 s, 96.299392700195 % : COMPUTE
+ 0.000029999999 s,  0.000179542069 % : COMPRESS IMAGE
+ 0.019016999751 s,  0.113811716437 % : COPY DATA TO GPU->CPU
+ 0.237165004015 s,  1.419369816780 % : SAVE IMAGE INTO FILE
+ 0.001829999965 s,  0.010952065699 % : FREE MEMORY
+Total time:
+16.709175109863 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.713654994965 s, 10.702478408813 % : GPU: SET DEVICE / DRIVER INIT
+ 0.286567002535 s,  4.297563076019 % : GPU MEM: ALO
+ 0.461896002293 s,  6.926921844482 % : GPU MEM: COPY IN
+ 5.205995082855 s, 78.072807312012 % : GPU: KERNEL
+ 0.000009000000 s,  0.000134970411 % : GPU MEM: COPY OUT
+ 0.000006000000 s,  0.000089980276 % : GPU MEM: FRE
+Total time:
+6.668128013611 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.216848 sec
+Time for CUDA kernels:	49.321769 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000005907823 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000118156473 % : READ COMMAND LINE PARAMETERS
+ 0.000048000002 s,  0.000283575500 % : READ IMAGE FROM FILE
+ 0.001838000026 s,  0.010858579539 % : RESIZE IMAGE
+ 0.353828012943 s,  2.090353250504 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001234999974 s,  0.007296161726 % : COPY DATA TO CPU->GPU
+ 0.000071000002 s,  0.000419455464 % : EXTRACT IMAGE
+16.296703338623 s, 96.278038024902 % : COMPUTE
+ 0.000034000001 s,  0.000200865994 % : COMPRESS IMAGE
+ 0.017457999289 s,  0.103138782084 % : COPY DATA TO GPU->CPU
+ 0.253441005945 s,  1.497284650803 % : SAVE IMAGE INTO FILE
+ 0.002031000098 s,  0.011998789385 % : FREE MEMORY
+Total time:
+16.926708221436 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.630607008934 s,  9.540053367615 % : GPU: SET DEVICE / DRIVER INIT
+ 0.318892985582 s,  4.824330329895 % : GPU MEM: ALO
+ 0.453970998526 s,  6.867839336395 % : GPU MEM: COPY IN
+ 5.206613063812 s, 78.767547607422 % : GPU: KERNEL
+ 0.000010000000 s,  0.000151283661 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000075641830 % : GPU MEM: FRE
+Total time:
+6.610098838806 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.840780 sec
+Time for CUDA kernels:	50.088049 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000117124946 % : READ COMMAND LINE PARAMETERS
+ 0.000068000001 s,  0.000419184013 % : READ IMAGE FROM FILE
+ 0.001768999966 s,  0.010904948227 % : RESIZE IMAGE
+ 0.261211991310 s,  1.610233664513 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.005657000002 s,  0.034872408956 % : COPY DATA TO CPU->GPU
+ 0.000075999997 s,  0.000468499784 % : EXTRACT IMAGE
+15.700684547424 s, 96.786407470703 % : COMPUTE
+ 0.000029000001 s,  0.000178769653 % : COMPRESS IMAGE
+ 0.011226000264 s,  0.069202348590 % : COPY DATA TO GPU->CPU
+ 0.236041992903 s,  1.455073952675 % : SAVE IMAGE INTO FILE
+ 0.005210000090 s,  0.032116889954 % : FREE MEMORY
+Total time:
+16.221992492676 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.556945979595 s,  8.541099548340 % : GPU: SET DEVICE / DRIVER INIT
+ 0.391166001558 s,  5.998764514923 % : GPU MEM: ALO
+ 0.457798004150 s,  7.020606040955 % : GPU MEM: COPY IN
+ 5.114851951599 s, 78.439315795898 % : GPU: KERNEL
+ 0.000009000000 s,  0.000138020376 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000076677992 % : GPU MEM: FRE
+Total time:
+6.520775794983 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.452893 sec
+Time for CUDA kernels:	50.904776 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000114684066 % : READ COMMAND LINE PARAMETERS
+ 0.000047000001 s,  0.000299452833 % : READ IMAGE FROM FILE
+ 0.055682998151 s,  0.354775160551 % : RESIZE IMAGE
+ 0.403313994408 s,  2.569649457932 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.002132999944 s,  0.013590061106 % : COPY DATA TO CPU->GPU
+ 0.000081999999 s,  0.000522449613 % : EXTRACT IMAGE
+14.932874679565 s, 95.142379760742 % : COMPUTE
+ 0.000027000000 s,  0.000172026106 % : COMPRESS IMAGE
+ 0.011536000296 s,  0.073499746621 % : COPY DATA TO GPU->CPU
+ 0.287651002407 s,  1.832721352577 % : SAVE IMAGE INTO FILE
+ 0.001927000005 s,  0.012277565897 % : FREE MEMORY
+Total time:
+15.695293426514 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.876348972321 s, 12.698893547058 % : GPU: SET DEVICE / DRIVER INIT
+ 0.501384973526 s,  7.265409946442 % : GPU MEM: ALO
+ 0.418139994144 s,  6.059133052826 % : GPU MEM: COPY IN
+ 5.105100154877 s, 73.976371765137 % : GPU: KERNEL
+ 0.000009000000 s,  0.000130416127 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000057962723 % : GPU MEM: FRE
+Total time:
+6.900987148285 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.730962 sec
+Time for CUDA kernels:	49.831359 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000119838238 % : READ COMMAND LINE PARAMETERS
+ 0.000051999999 s,  0.000346199347 % : READ IMAGE FROM FILE
+ 0.001747000031 s,  0.011630966328 % : RESIZE IMAGE
+ 0.182457000017 s,  1.214740276337 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000740999996 s,  0.004933340941 % : COPY DATA TO CPU->GPU
+ 0.002960999962 s,  0.019713388756 % : EXTRACT IMAGE
+14.610380172729 s, 97.271224975586 % : COMPUTE
+ 0.000031000000 s,  0.000206388067 % : COMPRESS IMAGE
+ 0.015527999960 s,  0.103380449116 % : COPY DATA TO GPU->CPU
+ 0.204465001822 s,  1.361262559891 % : SAVE IMAGE INTO FILE
+ 0.001868000021 s,  0.012436545454 % : FREE MEMORY
+Total time:
+15.020248413086 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.560998976231 s,  8.728652954102 % : GPU: SET DEVICE / DRIVER INIT
+ 0.231989994645 s,  3.609561204910 % : GPU MEM: ALO
+ 0.432473003864 s,  6.728900909424 % : GPU MEM: COPY IN
+ 5.201621055603 s, 80.932662963867 % : GPU: KERNEL
+ 0.000009000000 s,  0.000140032120 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000077795616 % : GPU MEM: FRE
+Total time:
+6.427096843719 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.738576 sec
+Time for CUDA kernels:	50.092388 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000014000000 s,  0.000089100897 % : READ COMMAND LINE PARAMETERS
+ 0.000064000000 s,  0.000407318381 % : READ IMAGE FROM FILE
+ 0.001785999979 s,  0.011366727762 % : RESIZE IMAGE
+ 0.412651002407 s,  2.626255035400 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.003160000080 s,  0.020111344755 % : COPY DATA TO CPU->GPU
+ 0.000070000002 s,  0.000445504469 % : EXTRACT IMAGE
+14.921778678894 s, 94.967422485352 % : COMPUTE
+ 0.000036000001 s,  0.000229116587 % : COMPRESS IMAGE
+ 0.004708999768 s,  0.029969722033 % : COPY DATA TO GPU->CPU
+ 0.364302009344 s,  2.318545341492 % : SAVE IMAGE INTO FILE
+ 0.003953999840 s,  0.025164637715 % : FREE MEMORY
+Total time:
+15.712525367737 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.768419027328 s, 11.161975860596 % : GPU: SET DEVICE / DRIVER INIT
+ 0.394634991884 s,  5.732428073883 % : GPU MEM: ALO
+ 0.623409986496 s,  9.055589675903 % : GPU MEM: COPY IN
+ 5.097777843475 s, 74.049797058105 % : GPU: KERNEL
+ 0.000009000000 s,  0.000130733082 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000072629489 % : GPU MEM: FRE
+Total time:
+6.884255886078 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.424330 sec
+Time for CUDA kernels:	50.909448 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000013000000 s,  0.000090822490 % : READ COMMAND LINE PARAMETERS
+ 0.000055000000 s,  0.000384248968 % : READ IMAGE FROM FILE
+ 0.001740999985 s,  0.012163227424 % : RESIZE IMAGE
+ 0.291474014521 s,  2.036337852478 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001518000034 s,  0.010605271906 % : COPY DATA TO CPU->GPU
+ 0.000110000001 s,  0.000768497935 % : EXTRACT IMAGE
+13.658962249756 s, 95.426216125488 % : COMPUTE
+ 0.000050999999 s,  0.000356303586 % : COMPRESS IMAGE
+ 0.003007000079 s,  0.021007940173 % : COPY DATA TO GPU->CPU
+ 0.354791998863 s,  2.478699445724 % : SAVE IMAGE INTO FILE
+ 0.001913000015 s,  0.013364877552 % : FREE MEMORY
+Total time:
+14.313635826111 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.832669019699 s, 12.166034698486 % : GPU: SET DEVICE / DRIVER INIT
+ 0.320293992758 s,  4.679780483246 % : GPU MEM: ALO
+ 0.574164986610 s,  8.389061927795 % : GPU MEM: COPY IN
+ 5.117068767548 s, 74.764930725098 % : GPU: KERNEL
+ 0.000009000000 s,  0.000131498004 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000058443562 % : GPU MEM: FRE
+Total time:
+6.844210147858 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.892165 sec
+Time for CUDA kernels:	49.534987 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000147122380 % : READ COMMAND LINE PARAMETERS
+ 0.000073000003 s,  0.000536996697 % : READ IMAGE FROM FILE
+ 0.005270000082 s,  0.038766749203 % : RESIZE IMAGE
+ 0.238259002566 s,  1.752661585808 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.002884000074 s,  0.021215045825 % : COPY DATA TO CPU->GPU
+ 0.000078999998 s,  0.000581133354 % : EXTRACT IMAGE
+12.987424850464 s, 95.537040710449 % : COMPUTE
+ 0.000036000001 s,  0.000264820264 % : COMPRESS IMAGE
+ 0.015897000208 s,  0.116940230131 % : COPY DATA TO GPU->CPU
+ 0.334145009518 s,  2.458010435104 % : SAVE IMAGE INTO FILE
+ 0.010037000291 s,  0.073833368719 % : FREE MEMORY
+Total time:
+13.594124794006 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.749836027622 s, 10.973443031311 % : GPU: SET DEVICE / DRIVER INIT
+ 0.401567995548 s,  5.876729965210 % : GPU MEM: ALO
+ 0.473013997078 s,  6.922303199768 % : GPU MEM: COPY IN
+ 5.208755970001 s, 76.227317810059 % : GPU: KERNEL
+ 0.000010000000 s,  0.000146344581 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000058537829 % : GPU MEM: FRE
+Total time:
+6.833188056946 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.315919 sec
+Time for CUDA kernels:	50.657338 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000006924998 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000138499963 % : READ COMMAND LINE PARAMETERS
+ 0.000057000001 s,  0.000394724892 % : READ IMAGE FROM FILE
+ 0.002449000021 s,  0.016959320754 % : RESIZE IMAGE
+ 0.291725009680 s,  2.020195007324 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000607999973 s,  0.004210398532 % : COPY DATA TO CPU->GPU
+ 0.000070000002 s,  0.000484749849 % : EXTRACT IMAGE
+13.815628051758 s, 95.673194885254 % : COMPUTE
+ 0.000029000001 s,  0.000200824928 % : COMPRESS IMAGE
+ 0.036499001086 s,  0.252755492926 % : COPY DATA TO GPU->CPU
+ 0.291319012642 s,  2.017383575439 % : SAVE IMAGE INTO FILE
+ 0.002033000113 s,  0.014078521170 % : FREE MEMORY
+Total time:
+14.440438270569 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.684984028339 s, 10.208019256592 % : GPU: SET DEVICE / DRIVER INIT
+ 0.438630014658 s,  6.536712646484 % : GPU MEM: ALO
+ 0.443401008844 s,  6.607812881470 % : GPU MEM: COPY IN
+ 5.143226146698 s, 76.647262573242 % : GPU: KERNEL
+ 0.000009000000 s,  0.000134123096 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000059610262 % : GPU MEM: FRE
+Total time:
+6.710254192352 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.291822 sec
+Time for CUDA kernels:	50.627384 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000132852263 % : READ COMMAND LINE PARAMETERS
+ 0.000059000002 s,  0.000391914189 % : READ IMAGE FROM FILE
+ 0.001808000030 s,  0.012009844184 % : RESIZE IMAGE
+ 0.247785001993 s,  1.645939826965 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.002992999973 s,  0.019881339744 % : COPY DATA TO CPU->GPU
+ 0.000736000016 s,  0.004888962954 % : EXTRACT IMAGE
+14.591012001038 s, 96.922447204590 % : COMPUTE
+ 0.000035000001 s,  0.000232491453 % : COMPRESS IMAGE
+ 0.005541000050 s,  0.036806717515 % : COPY DATA TO GPU->CPU
+ 0.200304999948 s,  1.330548644066 % : SAVE IMAGE INTO FILE
+ 0.004023000132 s,  0.026723230258 % : FREE MEMORY
+Total time:
+15.054317474365 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.739766001701 s, 10.726055145264 % : GPU: SET DEVICE / DRIVER INIT
+ 0.498468995094 s,  7.227428436279 % : GPU MEM: ALO
+ 0.480242997408 s,  6.963165283203 % : GPU MEM: COPY IN
+ 5.178414821625 s, 75.083145141602 % : GPU: KERNEL
+ 0.000010000000 s,  0.000144992533 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000057997011 % : GPU MEM: FRE
+Total time:
+6.896906852722 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.712218 sec
+Time for CUDA kernels:	49.859423 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000117365948 % : READ COMMAND LINE PARAMETERS
+ 0.000048999998 s,  0.000319496176 % : READ IMAGE FROM FILE
+ 0.002271000063 s,  0.014807671309 % : RESIZE IMAGE
+ 0.433768004179 s,  2.828310728073 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001619999995 s,  0.010562935844 % : COPY DATA TO CPU->GPU
+ 0.000075999997 s,  0.000495545100 % : EXTRACT IMAGE
+14.661838531494 s, 95.600036621094 % : COMPUTE
+ 0.000031000000 s,  0.000202130235 % : COMPRESS IMAGE
+ 0.016416000202 s,  0.107037737966 % : COPY DATA TO GPU->CPU
+ 0.218674004078 s,  1.425826787949 % : SAVE IMAGE INTO FILE
+ 0.001884000027 s,  0.012284302153 % : FREE MEMORY
+Total time:
+15.336646080017 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.781154990196 s, 11.232255935669 % : GPU: SET DEVICE / DRIVER INIT
+ 0.498885005713 s,  7.173485279083 % : GPU MEM: ALO
+ 0.546827018261 s,  7.862844944000 % : GPU MEM: COPY IN
+ 5.127686977386 s, 73.731193542480 % : GPU: KERNEL
+ 0.000010000000 s,  0.000143790356 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000071895178 % : GPU MEM: FRE
+Total time:
+6.954568862915 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.581750 sec
+Time for CUDA kernels:	51.121275 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000006430606 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000115750903 % : READ COMMAND LINE PARAMETERS
+ 0.000048999998 s,  0.000315099664 % : READ IMAGE FROM FILE
+ 0.014848000370 s,  0.095481626689 % : RESIZE IMAGE
+ 0.311217993498 s,  2.001320123672 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.004257999826 s,  0.027381518856 % : COPY DATA TO CPU->GPU
+ 0.000079999998 s,  0.000514448446 % : EXTRACT IMAGE
+14.916218757629 s, 95.920318603516 % : COMPUTE
+ 0.000032000000 s,  0.000205779390 % : COMPRESS IMAGE
+ 0.015057999641 s,  0.096832059324 % : COPY DATA TO GPU->CPU
+ 0.265188992023 s,  1.705325722694 % : SAVE IMAGE INTO FILE
+ 0.023664999753 s,  0.152180284262 % : FREE MEMORY
+Total time:
+15.550635337830 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.964920997620 s, 13.700838088989 % : GPU: SET DEVICE / DRIVER INIT
+ 0.435212999582 s,  6.179555416107 % : GPU MEM: ALO
+ 0.438380986452 s,  6.224537849426 % : GPU MEM: COPY IN
+ 5.204258918762 s, 73.894866943359 % : GPU: KERNEL
+ 0.000009000000 s,  0.000127790307 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000070994611 % : GPU MEM: FRE
+Total time:
+7.042788028717 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	57.033360 sec
+Time for CUDA kernels:	51.834168 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000138526331 % : READ COMMAND LINE PARAMETERS
+ 0.000051999999 s,  0.000400187186 % : READ IMAGE FROM FILE
+ 0.001752999960 s,  0.013490924612 % : RESIZE IMAGE
+ 0.287912994623 s,  2.215751647949 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001496999990 s,  0.011520773172 % : COPY DATA TO CPU->GPU
+ 0.000069000002 s,  0.000531017547 % : EXTRACT IMAGE
+12.138495445251 s, 93.416725158691 % : COMPUTE
+ 0.000028000000 s,  0.000215485401 % : COMPRESS IMAGE
+ 0.009368999861 s,  0.072102956474 % : COPY DATA TO GPU->CPU
+ 0.545843005180 s,  4.200757026672 % : SAVE IMAGE INTO FILE
+ 0.008883000351 s,  0.068362742662 % : FREE MEMORY
+Total time:
+12.993920326233 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.986424028873 s, 13.282716751099 % : GPU: SET DEVICE / DRIVER INIT
+ 0.660485982895 s,  8.893790245056 % : GPU MEM: ALO
+ 0.547013998032 s,  7.365829467773 % : GPU MEM: COPY IN
+ 5.232433795929 s, 70.457466125488 % : GPU: KERNEL
+ 0.000010000000 s,  0.000134655245 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000067327623 % : GPU MEM: FRE
+Total time:
+7.426373004913 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.646427 sec
+Time for CUDA kernels:	49.564035 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000158388590 % : READ COMMAND LINE PARAMETERS
+ 0.000060999999 s,  0.000483085198 % : READ IMAGE FROM FILE
+ 0.003955000080 s,  0.031321343035 % : RESIZE IMAGE
+ 0.260848999023 s,  2.065775394440 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000707999978 s,  0.005606956314 % : COPY DATA TO CPU->GPU
+ 0.000073000003 s,  0.000578118372 % : EXTRACT IMAGE
+12.018567085266 s, 95.180198669434 % : COMPUTE
+ 0.000029000001 s,  0.000229663463 % : COMPRESS IMAGE
+ 0.003402000060 s,  0.026941899210 % : COPY DATA TO GPU->CPU
+ 0.337379008532 s,  2.671849250793 % : SAVE IMAGE INTO FILE
+ 0.002128999913 s,  0.016860466450 % : FREE MEMORY
+Total time:
+12.627172470093 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.910902976990 s, 12.772753715515 % : GPU: SET DEVICE / DRIVER INIT
+ 0.506083011627 s,  7.096335887909 % : GPU MEM: ALO
+ 0.503028988838 s,  7.053512573242 % : GPU MEM: COPY IN
+ 5.211581230164 s, 73.077201843262 % : GPU: KERNEL
+ 0.000009000000 s,  0.000126198705 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000070110393 % : GPU MEM: FRE
+Total time:
+7.131609916687 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.324907 sec
+Time for CUDA kernels:	50.272031 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000137062627 % : READ COMMAND LINE PARAMETERS
+ 0.000048000002 s,  0.000365500338 % : READ IMAGE FROM FILE
+ 0.015451000072 s,  0.117653034627 % : RESIZE IMAGE
+ 0.499657988548 s,  3.804690837860 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000639999984 s,  0.004873337690 % : COPY DATA TO CPU->GPU
+ 0.000432000001 s,  0.003289503045 % : EXTRACT IMAGE
+12.246809959412 s, 93.254440307617 % : COMPUTE
+ 0.000028000000 s,  0.000213208521 % : COMPRESS IMAGE
+ 0.006682999898 s,  0.050888311118 % : COPY DATA TO GPU->CPU
+ 0.356180012226 s,  2.712164878845 % : SAVE IMAGE INTO FILE
+ 0.006734999828 s,  0.051284268498 % : FREE MEMORY
+Total time:
+13.132682800293 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.889841020107 s, 12.822225570679 % : GPU: SET DEVICE / DRIVER INIT
+ 0.429614990950 s,  6.190566539764 % : GPU MEM: ALO
+ 0.521205008030 s,  7.510339260101 % : GPU MEM: COPY IN
+ 5.099157810211 s, 73.476669311523 % : GPU: KERNEL
+ 0.000009000000 s,  0.000129686116 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000072047842 % : GPU MEM: FRE
+Total time:
+6.939833164215 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.460924 sec
+Time for CUDA kernels:	49.857723 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000024000001 s,  0.000184613367 % : READ COMMAND LINE PARAMETERS
+ 0.000069000002 s,  0.000530763413 % : READ IMAGE FROM FILE
+ 0.001864999998 s,  0.014345997013 % : RESIZE IMAGE
+ 0.289236992598 s,  2.224875688553 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000745999976 s,  0.005738398992 % : COPY DATA TO CPU->GPU
+ 0.001932000043 s,  0.014861376025 % : EXTRACT IMAGE
+12.045685768127 s, 92.658111572266 % : COMPUTE
+ 0.000029000001 s,  0.000223074487 % : COMPRESS IMAGE
+ 0.003011000110 s,  0.023161284626 % : COPY DATA TO GPU->CPU
+ 0.643750011921 s,  4.951869010925 % : SAVE IMAGE INTO FILE
+ 0.013793000020 s,  0.106098838151 % : FREE MEMORY
+Total time:
+13.000142097473 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.079334020615 s, 15.369361877441 % : GPU: SET DEVICE / DRIVER INIT
+ 0.342610001564 s,  4.878654003143 % : GPU MEM: ALO
+ 0.475571006536 s,  6.771975040436 % : GPU MEM: COPY IN
+ 5.125105857849 s, 72.979827880859 % : GPU: KERNEL
+ 0.000008000000 s,  0.000113917369 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000071198352 % : GPU MEM: FRE
+Total time:
+7.022634029388 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.598832 sec
+Time for CUDA kernels:	49.616646 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018999999 s,  0.000247613556 % : READ COMMAND LINE PARAMETERS
+ 0.000050999999 s,  0.000664646912 % : READ IMAGE FROM FILE
+ 0.012872000225 s,  0.167751669884 % : RESIZE IMAGE
+ 0.212319001555 s,  2.767003297806 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000739999989 s,  0.009643896483 % : COPY DATA TO CPU->GPU
+ 0.000082999999 s,  0.001081680297 % : EXTRACT IMAGE
+ 7.004689216614 s, 91.287155151367 % : COMPUTE
+ 0.000028000000 s,  0.000364904176 % : COMPRESS IMAGE
+ 0.160170003772 s,  2.087382316589 % : COPY DATA TO GPU->CPU
+ 0.280346006155 s,  3.653551340103 % : SAVE IMAGE INTO FILE
+ 0.001930000028 s,  0.025152325630 % : FREE MEMORY
+Total time:
+7.673246860504 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.176460981369 s, 15.808749198914 % : GPU: SET DEVICE / DRIVER INIT
+ 0.475616008043 s,  6.391111850739 % : GPU MEM: ALO
+ 0.576503992081 s,  7.746799468994 % : GPU MEM: COPY IN
+ 5.213240146637 s, 70.053153991699 % : GPU: KERNEL
+ 0.000010000000 s,  0.000134375456 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000053750184 % : GPU MEM: FRE
+Total time:
+7.441834926605 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.500011 sec
+Time for CUDA kernels:	50.170958 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000250707439 % : READ COMMAND LINE PARAMETERS
+ 0.000050999999 s,  0.000710337772 % : READ IMAGE FROM FILE
+ 0.005508999806 s,  0.076730407774 % : RESIZE IMAGE
+ 0.217842996120 s,  3.034158945084 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.014864999801 s,  0.207042574883 % : COPY DATA TO CPU->GPU
+ 0.006413999945 s,  0.089335419238 % : EXTRACT IMAGE
+ 6.514498233795 s, 90.735176086426 % : COMPUTE
+ 0.000028000000 s,  0.000389989378 % : COMPRESS IMAGE
+ 0.007519999985 s,  0.104740008712 % : COPY DATA TO GPU->CPU
+ 0.411451995373 s,  5.730782508850 % : SAVE IMAGE INTO FILE
+ 0.001485000015 s,  0.020683364943 % : FREE MEMORY
+Total time:
+7.179683208466 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.392936944962 s, 18.510044097900 % : GPU: SET DEVICE / DRIVER INIT
+ 0.571717023849 s,  7.597260951996 % : GPU MEM: ALO
+ 0.336697995663 s,  4.474211215973 % : GPU MEM: COPY IN
+ 5.223937988281 s, 69.418296813965 % : GPU: KERNEL
+ 0.000010000000 s,  0.000132885005 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000053153995 % : GPU MEM: FRE
+Total time:
+7.525303840637 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	57.117455 sec
+Time for CUDA kernels:	51.626345 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000013227180 % : SETUP VARIABLES
+ 0.000016000000 s,  0.000211634877 % : READ COMMAND LINE PARAMETERS
+ 0.000048000002 s,  0.000634904602 % : READ IMAGE FROM FILE
+ 0.001824000035 s,  0.024126373231 % : RESIZE IMAGE
+ 0.648985981941 s,  8.584254264832 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.001901000040 s,  0.025144867599 % : COPY DATA TO CPU->GPU
+ 0.000074000003 s,  0.000978811295 % : EXTRACT IMAGE
+ 6.462374210358 s, 85.478981018066 % : COMPUTE
+ 0.000029999999 s,  0.000396815361 % : COMPRESS IMAGE
+ 0.008472000249 s,  0.112060658634 % : COPY DATA TO GPU->CPU
+ 0.434942007065 s,  5.753055572510 % : SAVE IMAGE INTO FILE
+ 0.001522999955 s,  0.020144993439 % : FREE MEMORY
+Total time:
+7.560191154480 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 2.103467941284 s, 25.566917419434 % : GPU: SET DEVICE / DRIVER INIT
+ 0.458389014006 s,  5.571557998657 % : GPU MEM: ALO
+ 0.421736985445 s,  5.126065731049 % : GPU MEM: COPY IN
+ 5.243696212769 s, 63.735286712646 % : GPU: KERNEL
+ 0.000009000000 s,  0.000109391854 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000060773247 % : GPU MEM: FRE
+Total time:
+8.227304458618 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.277041 sec
+Time for CUDA kernels:	50.490757 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000012000000 s,  0.000149772022 % : READ COMMAND LINE PARAMETERS
+ 0.000069000002 s,  0.000861189154 % : READ IMAGE FROM FILE
+ 0.001796999946 s,  0.022428359836 % : RESIZE IMAGE
+ 0.527230024338 s,  6.580358505249 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000697000010 s,  0.008699258789 % : COPY DATA TO CPU->GPU
+ 0.000109000001 s,  0.001360429218 % : EXTRACT IMAGE
+ 6.740308761597 s, 84.125808715820 % : COMPUTE
+ 0.000028000000 s,  0.000349468057 % : COMPRESS IMAGE
+ 0.003275000025 s,  0.040875282139 % : COPY DATA TO GPU->CPU
+ 0.734862983227 s,  9.171827316284 % : SAVE IMAGE INTO FILE
+ 0.003787999973 s,  0.047278039157 % : FREE MEMORY
+Total time:
+8.012177467346 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.510787963867 s, 19.443786621094 % : GPU: SET DEVICE / DRIVER INIT
+ 0.457944989204 s,  5.893735408783 % : GPU MEM: ALO
+ 0.703908026218 s,  9.059269905090 % : GPU MEM: COPY IN
+ 5.097374916077 s, 65.603027343750 % : GPU: KERNEL
+ 0.000009000000 s,  0.000115829665 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000064349813 % : GPU MEM: FRE
+Total time:
+7.770030021667 s
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000237474334 % : READ COMMAND LINE PARAMETERS
+ 0.000047000001 s,  0.000620071951 % : READ IMAGE FROM FILE
+ 0.001816999982 s,  0.023971715942 % : RESIZE IMAGE
+ 0.720440983772 s,  9.504792213440 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000761999981 s,  0.010053080507 % : COPY DATA TO CPU->GPU
+ 0.082607999444 s,  1.089848995209 % : EXTRACT IMAGE
+ 6.427468776703 s, 84.797721862793 % : COMPUTE
+ 0.000032000000 s,  0.000422176614 % : COMPRESS IMAGE
+ 0.003748999909 s,  0.049460627139 % : COPY DATA TO GPU->CPU
+ 0.337026000023 s,  4.446390628815 % : SAVE IMAGE INTO FILE
+ 0.005797000136 s,  0.076479934156 % : FREE MEMORY
+Total time:
+7.579765796661 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.319910049438 s, 17.350669860840 % : GPU: SET DEVICE / DRIVER INIT
+ 0.581508994102 s,  7.644134521484 % : GPU MEM: ALO
+ 0.392661988735 s,  5.161676406860 % : GPU MEM: COPY IN
+ 5.313160896301 s, 69.843322753906 % : GPU: KERNEL
+ 0.000010000000 s,  0.000131453431 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000065726716 % : GPU MEM: FRE
+Total time:
+7.607256889343 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.797907 sec
+Time for CUDA kernels:	50.097517 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000021000000 s,  0.000273431884 % : READ COMMAND LINE PARAMETERS
+ 0.000049999999 s,  0.000651028240 % : READ IMAGE FROM FILE
+ 0.001900000032 s,  0.024739073589 % : RESIZE IMAGE
+ 0.519109010696 s,  6.759092807770 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.006785999984 s,  0.088357560337 % : COPY DATA TO CPU->GPU
+ 0.000109000001 s,  0.001419241657 % : EXTRACT IMAGE
+ 6.538145065308 s, 85.130348205566 % : COMPUTE
+ 0.000029999999 s,  0.000390616973 % : COMPRESS IMAGE
+ 0.003080999944 s,  0.040116362274 % : COPY DATA TO GPU->CPU
+ 0.608313977718 s,  7.920592308044 % : SAVE IMAGE INTO FILE
+ 0.002613000106 s,  0.034022737294 % : FREE MEMORY
+Total time:
+7.680158138275 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.187528014183 s, 15.860083580017 % : GPU: SET DEVICE / DRIVER INIT
+ 0.778778016567 s, 10.401004791260 % : GPU MEM: ALO
+ 0.320895999670 s,  4.285740852356 % : GPU MEM: COPY IN
+ 5.200308799744 s, 69.452957153320 % : GPU: KERNEL
+ 0.000011000000 s,  0.000146910985 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000066777720 % : GPU MEM: FRE
+Total time:
+7.487526893616 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	57.484924 sec
+Time for CUDA kernels:	51.272463 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000001000000 s,  0.000013846622 % : SETUP VARIABLES
+ 0.000037999998 s,  0.000526171643 % : READ COMMAND LINE PARAMETERS
+ 0.000059999998 s,  0.000830797304 % : READ IMAGE FROM FILE
+ 0.005884999875 s,  0.081487372518 % : RESIZE IMAGE
+ 0.378796011209 s,  5.245045185089 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.013372000307 s,  0.185157030821 % : COPY DATA TO CPU->GPU
+ 0.006504999939 s,  0.090072274208 % : EXTRACT IMAGE
+ 6.548916816711 s, 90.680381774902 % : COMPUTE
+ 0.000032000000 s,  0.000443091907 % : COMPRESS IMAGE
+ 0.009192000143 s,  0.127278149128 % : COPY DATA TO GPU->CPU
+ 0.257743000984 s,  3.568869829178 % : SAVE IMAGE INTO FILE
+ 0.001436999999 s,  0.019897596911 % : FREE MEMORY
+Total time:
+7.221978187561 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.329033970833 s, 17.083278656006 % : GPU: SET DEVICE / DRIVER INIT
+ 0.568502008915 s,  7.307471275330 % : GPU MEM: ALO
+ 0.560644984245 s,  7.206478595734 % : GPU MEM: COPY IN
+ 5.321541786194 s, 68.402603149414 % : GPU: KERNEL
+ 0.000008000000 s,  0.000102831254 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000064269538 % : GPU MEM: FRE
+Total time:
+7.779736042023 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.666089 sec
+Time for CUDA kernels:	50.500709 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000240599184 % : READ COMMAND LINE PARAMETERS
+ 0.000056000001 s,  0.000748530845 % : READ IMAGE FROM FILE
+ 0.001805000007 s,  0.024126753211 % : RESIZE IMAGE
+ 0.481866985559 s,  6.440933704376 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000640999991 s,  0.008568004705 % : COPY DATA TO CPU->GPU
+ 0.000069000002 s,  0.000922296953 % : EXTRACT IMAGE
+ 6.465028762817 s, 86.415596008301 % : COMPUTE
+ 0.000032000000 s,  0.000427731895 % : COMPRESS IMAGE
+ 0.003119000001 s,  0.041690491140 % : COPY DATA TO GPU->CPU
+ 0.520924985409 s,  6.963006973267 % : SAVE IMAGE INTO FILE
+ 0.007761000190 s,  0.103738345206 % : FREE MEMORY
+Total time:
+7.481321811676 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.778790950775 s, 22.100200653076 % : GPU: SET DEVICE / DRIVER INIT
+ 0.599833011627 s,  7.452493667603 % : GPU MEM: ALO
+ 0.462422996759 s,  5.745273590088 % : GPU MEM: COPY IN
+ 5.207694053650 s, 64.701858520508 % : GPU: KERNEL
+ 0.000009000000 s,  0.000111818532 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000062121413 % : GPU MEM: FRE
+Total time:
+8.048754692078 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	55.716608 sec
+Time for CUDA kernels:	50.871210 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000261151057 % : READ COMMAND LINE PARAMETERS
+ 0.000051999999 s,  0.000678992714 % : READ IMAGE FROM FILE
+ 0.001768999966 s,  0.023098811507 % : RESIZE IMAGE
+ 0.514249026775 s,  6.714833736420 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.008476000279 s,  0.110675811768 % : COPY DATA TO CPU->GPU
+ 0.000075999997 s,  0.000992373913 % : EXTRACT IMAGE
+ 6.640431880951 s, 86.707786560059 % : COMPUTE
+ 0.000034000001 s,  0.000443956786 % : COMPRESS IMAGE
+ 0.003374000080 s,  0.044056180865 % : COPY DATA TO GPU->CPU
+ 0.488122999668 s,  6.373691558838 % : SAVE IMAGE INTO FILE
+ 0.001797999954 s,  0.023477479815 % : FREE MEMORY
+Total time:
+7.658402919769 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.594964981079 s, 19.074357986450 % : GPU: SET DEVICE / DRIVER INIT
+ 0.927159011364 s, 11.087994575500 % : GPU MEM: ALO
+ 0.635429024696 s,  7.599164009094 % : GPU MEM: COPY IN
+ 5.204259872437 s, 62.238304138184 % : GPU: KERNEL
+ 0.000010000000 s,  0.000119591074 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000059795537 % : GPU MEM: FRE
+Total time:
+8.361827850342 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.403092 sec
+Time for CUDA kernels:	50.174027 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000018000001 s,  0.000214190237 % : READ COMMAND LINE PARAMETERS
+ 0.000050999999 s,  0.000606872316 % : READ IMAGE FROM FILE
+ 0.001756999991 s,  0.020907344297 % : RESIZE IMAGE
+ 1.166759967804 s, 13.883810043335 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000677999982 s,  0.008067831397 % : COPY DATA TO CPU->GPU
+ 0.000089000001 s,  0.001059051603 % : EXTRACT IMAGE
+ 6.893722057343 s, 82.031547546387 % : COMPUTE
+ 0.000028000000 s,  0.000333184784 % : COMPRESS IMAGE
+ 0.002970000030 s,  0.035341385752 % : COPY DATA TO GPU->CPU
+ 0.331703007221 s,  3.947085618973 % : SAVE IMAGE INTO FILE
+ 0.005969000049 s,  0.071027860045 % : FREE MEMORY
+Total time:
+8.403744697571 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.556640982628 s, 19.615829467773 % : GPU: SET DEVICE / DRIVER INIT
+ 0.787303984165 s,  9.921119689941 % : GPU MEM: ALO
+ 0.374193996191 s,  4.715361595154 % : GPU MEM: COPY IN
+ 5.217483997345 s, 65.747512817383 % : GPU: KERNEL
+ 0.000009000000 s,  0.000113412447 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000063006919 % : GPU MEM: FRE
+Total time:
+7.935636997223 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.905981 sec
+Time for CUDA kernels:	50.451429 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000248856668 % : READ COMMAND LINE PARAMETERS
+ 0.000067000001 s,  0.000833669794 % : READ IMAGE FROM FILE
+ 0.013434000313 s,  0.167157024145 % : RESIZE IMAGE
+ 0.659173011780 s,  8.201979637146 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.012749000452 s,  0.158633679152 % : COPY DATA TO CPU->GPU
+ 0.000079999998 s,  0.000995426672 % : EXTRACT IMAGE
+ 6.731499195099 s, 83.758918762207 % : COMPUTE
+ 0.000027000000 s,  0.000335956487 % : COMPRESS IMAGE
+ 0.003085999982 s,  0.038398582488 % : COPY DATA TO GPU->CPU
+ 0.609884977341 s,  7.588697433472 % : SAVE IMAGE INTO FILE
+ 0.006734999828 s,  0.083802476525 % : FREE MEMORY
+Total time:
+8.036754608154 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 1.724957942963 s, 21.569622039795 % : GPU: SET DEVICE / DRIVER INIT
+ 0.704734981060 s,  8.812311172485 % : GPU MEM: ALO
+ 0.354414999485 s,  4.431758403778 % : GPU MEM: COPY IN
+ 5.213041782379 s, 65.186134338379 % : GPU: KERNEL
+ 0.000010000000 s,  0.000125044317 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000050017730 % : GPU MEM: FRE
+Total time:
+7.997163772583 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.566249 sec
+Time for CUDA kernels:	50.479913 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000019999999 s,  0.000256203319 % : READ COMMAND LINE PARAMETERS
+ 0.000051999999 s,  0.000666128646 % : READ IMAGE FROM FILE
+ 0.007048999891 s,  0.090298861265 % : RESIZE IMAGE
+ 0.330024987459 s,  4.227674961090 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000738999981 s,  0.009466712363 % : COPY DATA TO CPU->GPU
+ 0.000073000003 s,  0.000935142103 % : EXTRACT IMAGE
+ 6.710360050201 s, 85.960830688477 % : COMPUTE
+ 0.000032000000 s,  0.000409925327 % : COMPRESS IMAGE
+ 0.010362000205 s,  0.132738932967 % : COPY DATA TO GPU->CPU
+ 0.744145989418 s,  9.532633781433 % : SAVE IMAGE INTO FILE
+ 0.003441999899 s,  0.044092591852 % : FREE MEMORY
+Total time:
+7.806300163269 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.904543995857 s, 12.046487808228 % : GPU: SET DEVICE / DRIVER INIT
+ 0.835017979145 s, 11.120557785034 % : GPU MEM: ALO
+ 0.540480971336 s,  7.197988986969 % : GPU MEM: COPY IN
+ 5.228722095490 s, 69.634796142578 % : GPU: KERNEL
+ 0.000009000000 s,  0.000119859717 % : GPU MEM: COPY OUT
+ 0.000004000000 s,  0.000053270986 % : GPU MEM: FRE
+Total time:
+7.508778095245 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	56.397239 sec
+Time for CUDA kernels:	50.413848 sec
+
+
+
+The file was not opened for reading
+Time spent in different stages of the application:
+ 0.000000000000 s,  0.000000000000 % : SETUP VARIABLES
+ 0.000022000000 s,  0.000289579009 % : READ COMMAND LINE PARAMETERS
+ 0.000065000000 s,  0.000855574326 % : READ IMAGE FROM FILE
+ 0.006118999794 s,  0.080542452633 % : RESIZE IMAGE
+ 0.390190005302 s,  5.135946750641 % : GPU DRIVER INIT, CPU/GPU SETUP, MEMORY ALLOCATION
+ 0.000771999999 s,  0.010161589831 % : COPY DATA TO CPU->GPU
+ 0.000081999999 s,  0.001079339883 % : EXTRACT IMAGE
+ 6.580162048340 s, 86.612579345703 % : COMPUTE
+ 0.000029999999 s,  0.000394880451 % : COMPRESS IMAGE
+ 0.003222000087 s,  0.042410161346 % : COPY DATA TO GPU->CPU
+ 0.613412022591 s,  8.074147224426 % : SAVE IMAGE INTO FILE
+ 0.003160000080 s,  0.041594073176 % : FREE MEMORY
+Total time:
+7.597236156464 s
+
+
+
+thread block size of kernel = 128 
+Configuration used: boxes1d = 30
+Time spent in different stages of GPU_CUDA KERNEL:
+ 0.914547026157 s, 10.952897071838 % : GPU: SET DEVICE / DRIVER INIT
+ 0.938534021378 s, 11.240173339844 % : GPU MEM: ALO
+ 1.313063025475 s, 15.725648880005 % : GPU MEM: COPY IN
+ 5.183660030365 s, 62.081115722656 % : GPU: KERNEL
+ 0.000009000000 s,  0.000107786778 % : GPU MEM: COPY OUT
+ 0.000005000000 s,  0.000059881546 % : GPU MEM: FRE
+Total time:
+8.349818229675 s
+
+
+
+WG size of kernel 1 = 512, WG size of kernel 2= 4 X 4
+Total Device found: 1
+Device Name 		 - NVIDIA Tegra X1 
+**************************************
+Total Global Memory			 - 4059200 KB
+Shared memory available per block 	 - 48 KB
+Number of registers per thread block 	 - 32768
+Warp size in threads 			 - 32
+Memory Pitch 				 - 2147483647 bytes
+Maximum threads per block 		 - 1024
+Maximum Thread Dimension (block) 	 - 1024 1024 64
+Maximum Thread Dimension (grid) 	 - 2147483647 65535 65535
+Total constant memory 			 - 65536 bytes
+CUDA ver 				 - 5.3
+Clock rate 				 - 921600 KHz
+Texture Alignment 			 - 512 bytes
+Device Overlap 				 - Allowed
+Number of Multi processors 		 - 1
+
+Read file from ../benchmarks/gpu-rodinia/data/gaussian/matrix2048.txt 
+
+Time total (including memory transfers)	54.780407 sec
+Time for CUDA kernels:	50.093677 sec
 
 
 
