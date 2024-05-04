@@ -175,7 +175,7 @@ def simultExecution(apps, iterations, frequency):
     global iterations_timeStats
 
     #Scaling the frequency
-    frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency     
+    frequencyScript = 'sudo ../WickedApp/set_freq.sh ' + frequency     
     run_script(frequencyScript, "Frequency Script")
     print(frequencyScript)
 
@@ -279,7 +279,7 @@ def sequentialExecution(apps, iterations, frequency):
     appNames = []
     #Scaling the frequency
     executing = True
-    frequencyScript = 'sudo ../WickedApp/freq_scalator.sh ' + frequency
+    frequencyScript = 'sudo ../WickedApp/set_freq.sh ' + frequency
     run_script(frequencyScript, "Frequency script")
     #script_thread = threading.Thread(target=run_script_repeatedly, args=(frequencyScript, 0.5))
     #script_thread.daemon = True  # Set the thread as a daemon so it exits when the main thread exits

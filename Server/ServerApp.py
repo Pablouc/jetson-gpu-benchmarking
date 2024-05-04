@@ -136,7 +136,6 @@ def gpu_monitor_thread():
 
 def update_frequency_file(stop_event):
     while not stop_event.is_set():
-        print("Hooked in the updated freq file loop\n")
         update_freqFile()
         time.sleep(FREQ_REQ_TIME)
 
@@ -227,12 +226,20 @@ def get_csv():
         file1 = os.path.join(current_directory, 'execution_results.csv')
         file2 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt')
         file3 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt')
+        file4 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/lavaMD/originalVector.txt')
+        file5 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/lavaMD/solutionVector.txt')
+        file6 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/srad/srad_v1/originalSolution.pgm')
+        file7 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/srad/srad_v1/solutionImage.pgm')
         zip_filename = os.path.join(current_directory, 'execution_results.zip')
 
         with ZipFile(zip_filename, 'w') as zipf:
             zipf.write(file1, arcname=os.path.basename(file1))
             zipf.write(file2, arcname=os.path.basename(file2))
             zipf.write(file3, arcname=os.path.basename(file3))
+            zipf.write(file4, arcname=os.path.basename(file4))
+            zipf.write(file5, arcname=os.path.basename(file5))
+            zipf.write(file6, arcname=os.path.basename(file6))
+            zipf.write(file7, arcname=os.path.basename(file7))
             zipf.close()
 
         response = send_file(zip_filename, mimetype='application/zip', as_attachment=True,download_name='execution_results.zip')

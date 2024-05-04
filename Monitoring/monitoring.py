@@ -113,7 +113,6 @@ def update_freqFile():
 
 
 def create_limited_freqFile(gpu_frequency, current_time):
-    print("OOOOOOOOOOOOOOOOOOOOOOPENING LIMITED FILE")
     filename = "limited_frequency_report.txt"
     try:
         with open(filename, "r") as file:
@@ -135,8 +134,6 @@ def create_limited_freqFile(gpu_frequency, current_time):
     
     # Extract time and frequency samples
     time_samples = [float(t) for t in lines[time_samples_index].strip().split(",") if t.strip()] if time_samples_index is not None else []
-    #time_samples = [float(t) for t in lines[time_samples_index].strip().split(",")] if time_samples_index is not None else []
-    #freq_samples = [float(f) for f in lines[freq_samples_index].strip().split(",")] if freq_samples_index is not None else []
     freq_samples = [float(f) for f in lines[freq_samples_index].strip().split(",") if f.strip()] if freq_samples_index is not None else []
     
     # Append new values and limit each section to a maximum of 200 elements
