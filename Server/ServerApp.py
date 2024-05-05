@@ -20,7 +20,7 @@ from jsonParsing import transform_input_json
 from manageExecution import manageExecution, current_apps, get_current_time, time_flags
 from manageConsole import get_console_logs, write_print_toConsole
 from manageMetrics import writeCSV
-from monitoring import monitor_gpu,update_freqFile
+from monitoring import monitor_gpu,update_freqFile, updateMetricFile
 
 
 # Create a Flask web application
@@ -97,41 +97,54 @@ def setAvgData():
     #print(gpu_iterations_data)
 
 
-def gpu_monitor_thread():
+def gpu_monitor_thread(stop_event):
     
     global global_gpu_data
     global gpu_iterations_data
-
-    try:
+    
+    startFile = False
+    while not stop_event.is_set():
+        try:
         
-        gpu_data = monitor_gpu() 
-        print("monitor output:" , gpu_data) 
-        global_gpu_data["temperature"] = gpu_data[0]
-        gpu_iterations_data['temperature'].append(gpu_data[0])
+            gpu_data = monitor_gpu() 
+            print("monitor output:" , gpu_data) 
+            global_gpu_data["temperature"] = gpu_data[0]
+            gpu_iterations_data['temperature'].append(gpu_data[0])
 
-        global_gpu_data["frequency"] = gpu_data[1]
+            global_gpu_data["frequency"] = gpu_data[1]
 
-        global_gpu_data["power"] = gpu_data[2]
-        gpu_iterations_data['power'].append(gpu_data[2])
+            global_gpu_data["power"] = gpu_data[2]
+            gpu_iterations_data['power'].append(gpu_data[2])
 
-        global_gpu_data["ram_used"] = gpu_data[3]
-        gpu_iterations_data['ram_used'].append(gpu_data[3])
+            global_gpu_data["ram_used"] = gpu_data[3]
+            gpu_iterations_data['ram_used'].append(gpu_data[3])
 
-        gpu_iterations_data['gpu_usage'].append(gpu_data[5])       
-        current_time, iterations_time = get_current_time()
+            gpu_iterations_data['gpu_usage'].append(gpu_data[5])       
+            current_time, iterations_time = get_current_time()
 
-        if current_time != 0 :
-            gpu_iterations_data["current_time"].append(current_time)
+            if current_time != 0 :
+                gpu_iterations_data["current_time"].append(current_time)
 
-        if iterations_time !=[]:
-            gpu_iterations_data['iteration_time'] = iterations_time
+            if iterations_time !=[]:
+                gpu_iterations_data['iteration_time'] = iterations_time
 
-        #print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'], "RAM", gpu_iterations_data["ram_used"])
+            #Update metric CSV FILES
+            if len(gpu_iterations_data['temperature']) == 1:
+                startFile = True
+            else: 
+                startFile =False
+
+            updateMetricFile('temperature', current_time, gpu_data[0], startFile)
+            updateMetricFile('power', current_time, gpu_data[2], startFile)
+            updateMetricFile('gpu_usage', current_time, gpu_data[5], startFile)
+            
+            time.sleep(1)
+            #print("Power Array",gpu_iterations_data['power'], "Temperature Aray", gpu_iterations_data['temperature'], "RAM", gpu_iterations_data["ram_used"])
         
-    except Exception as e:
-        print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
-        import traceback
-        traceback.print_exc()
+        except Exception as e:
+            print(f"Exception in gpu_monitor_thread: {type(e).__name__}: {str(e)}")
+            import traceback
+            traceback.print_exc()
 
 
 def update_frequency_file(stop_event):
@@ -156,19 +169,24 @@ def send_frequency_task(stop_event):
             socketio.emit('error', {'message': 'Failed to send file', 'error': str(e)})
         time.sleep(1)
 
-def background_task():
+def background_task(stop_event):
     last_console_length=0
-    while True:
+
+    while not stop_event.is_set():
         console_logs = get_console_logs()
-        if last_console_length != len(console_logs):
+        current_console_length = len(console_logs)
         
-            last_console_length = len(console_logs)
+        if current_console_length > last_console_length:
+            
+            new_logs = [console_logs[i] for i in range(last_console_length, current_console_length)]
             # Redirecting stdout to /dev/null to suppress print statements
             sys.stdout = open('/dev/null', 'w')
-            socketio.emit('response', {'console_logs': console_logs})
+            socketio.emit('response', {'console_logs': new_logs})
             # Reverting stdout back to its original value
             sys.stdout = sys.__stdout__
-        time.sleep(0.5)  
+
+            last_console_length = current_console_length
+        time.sleep(1)  
     
 
 # Define a socket event for 'message'
@@ -201,7 +219,6 @@ def get_gpuData():
         else:
             execution_data['global_current_apps']= list(current_apps)    
         
-        gpu_monitor_thread()
         response = jsonify(execution_data)
         response.headers['ngrok-skip-browser-warning'] = '1'
     else:
@@ -215,8 +232,8 @@ def get_gpuData():
 def get_csv():
     global injection_fault
     current_directory = os.path.dirname(os.path.abspath(__file__))
-
-    if injection_fault == False:
+    dummyFlag=True
+    if dummyFlag ==False:  # injection_fault == False:
         path_to_file = os.path.join(current_directory, 'execution_results.csv')
         response = send_file(path_to_file, as_attachment=True, download_name='execution_results.csv')
         response.headers['ngrok-skip-browser-warning'] = '1'
@@ -227,11 +244,17 @@ def get_csv():
         file2 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/originalSol2048.txt')
         file3 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/gaussian/solutionVector.txt')
         file4 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/lavaMD/originalVector.txt')
-        file5 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/lavaMD/solutionVector.txt')
+        file5 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/lavaMD/solution_LavaVector.txt')
         file6 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/srad/srad_v1/originalSolution.pgm')
         file7 = os.path.join(current_directory, '../benchmarks/gpu-rodinia/cuda/srad/srad_v1/solutionImage.pgm')
+        file8 = os.path.join(current_directory, './Results/temperature.csv')
+        file9 = os.path.join(current_directory, './Results/power.csv')
+        file10 = os.path.join(current_directory, './Results/gpu_usage.csv')
+        file11 = os.path.join(current_directory, './frequency_report.txt')
         zip_filename = os.path.join(current_directory, 'execution_results.zip')
-
+        if os.path.exists(zip_filename):
+            os.remove(zip_filename)
+        
         with ZipFile(zip_filename, 'w') as zipf:
             zipf.write(file1, arcname=os.path.basename(file1))
             zipf.write(file2, arcname=os.path.basename(file2))
@@ -240,6 +263,10 @@ def get_csv():
             zipf.write(file5, arcname=os.path.basename(file5))
             zipf.write(file6, arcname=os.path.basename(file6))
             zipf.write(file7, arcname=os.path.basename(file7))
+            zipf.write(file8, arcname=os.path.basename(file8))
+            zipf.write(file9, arcname=os.path.basename(file9))
+            zipf.write(file10, arcname=os.path.basename(file10))
+            zipf.write(file11, arcname=os.path.basename(file11))
             zipf.close()
 
         response = send_file(zip_filename, mimetype='application/zip', as_attachment=True,download_name='execution_results.zip')
@@ -348,13 +375,14 @@ def executionTask(executionRequest):
     stop_event = threading.Event()
     thread_updateFreq = threading.Thread(target=update_frequency_file, args=(stop_event,))
     thread_sendFreq = Thread(target=send_frequency_task, args=(stop_event,))
+    thread_gpuMonitor = Thread(target=gpu_monitor_thread, args=(stop_event,))
+    thread_console = Thread(target=background_task, args=(stop_event,))
+    
+    thread_console.start()
     thread_updateFreq.start()
     thread_sendFreq.start()
+    thread_gpuMonitor.start()
     appNames, workloads, exec_num, exec_type, freq, total_execTime, execution_result = manageExecution(executionJson)
-    
-    stop_event.set()
-    thread_updateFreq.join()
-    thread_sendFreq.join()
 
     setAvgData()
     input_filename = "execution_results.txt"    
@@ -368,19 +396,26 @@ def executionTask(executionRequest):
 
     writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
                              ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
-    
-    if execution_result == 0:
-        return jsonify({"message": "Execution request processed successfully."})
-    else:
-        injection_fault = True
-        return jsonify({"message": "Execution stoped due to injection fault"})
 
+    
+    stop_event.set()
+    thread_updateFreq.join()
+    thread_sendFreq.join()
+    thread_gpuMonitor.join()
+    thread_console.join()
+
+
+    result_data = {"message": "Execution request processed successfully."}
+    
+    if execution_result != 0:
+        injection_fault = True
+        result_data["message"]="Execution stoped due to injection fault"
+        
+    return result_data
 
 # Run the Flask application on a local development server
 if __name__ == '__main__':
     
-    thread = Thread(target=background_task)
-    thread.start()
     
     #app.run(threaded=True, host='0.0.0.0', port=5000)
     socketio.run(app, host='0.0.0.0', port=5000)
