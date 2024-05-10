@@ -23,6 +23,7 @@ function MonitoringView (props) {
     const [consoleLogs, setConsoleLogs] = useState([]);
     const [timeSamples, setTimeSamples] = useState([]);
     const [frequencySamples, setFrequencySamples] = useState([]);
+    const [executionStatus, setExecutionStatus] = useState('');
 
     const tempChartRef = useRef(null);
     const powerChartRef = useRef(null);
@@ -76,7 +77,7 @@ function MonitoringView (props) {
             if(props.getExecState == 'Injection Fault detected'){
               a.download = 'execution_results.zip'; // Or whatever you want the filename to be
             }
-            else{a.download = 'execution_results.csv'; }
+            else{a.download = 'execution_results.zip'; }
             a.click();
             window.URL.revokeObjectURL(url);
         })
@@ -128,7 +129,7 @@ function MonitoringView (props) {
 
 
     useEffect(() => {
-        if (props.getExecState === 'InProgress') {
+        if (executionStatus === 'InProgress') {
           fetch_GPUData();
       
           // Set up a polling interval (every second in this example) for both
@@ -138,20 +139,12 @@ function MonitoringView (props) {
       
             return () => clearInterval(pollingIntervalId);
         }
-    }, [props.currentAppsURL, props.getExecState, props.gpuData]); 
+    }, [props.currentAppsURL, executionStatus, props.gpuData]); 
 
   
     useEffect(() => {
-      if (props.getExecState === 'InProgress'){
-        const interval = setInterval(() => {
-          // Update the timer every second (1000 milliseconds)
-          setTimer((prevTimer) => prevTimer + 100);
-        }, 100);
-    
-        // Cleanup the interval when the component unmounts
-        return () => clearInterval(interval);
-      }
-    }, [props.getExecState, timer]);
+      setExecutionStatus(props.getExecState)
+    }, [props.getExecState]);
 
 
     
@@ -175,8 +168,10 @@ function MonitoringView (props) {
         console.log('Received response:', data);
         // Update the consoleLogs state with the received logs
         if (data.console_logs) {
-          const newConsoleLogs = Object.values(data.console_logs || {});
-          setConsoleLogs(newConsoleLogs);
+          if (data.console_logs) {
+            const newConsoleLogs = data.console_logs.flatMap(log => log.split('\n'));
+            setConsoleLogs(prevLogs => [...prevLogs, ...newConsoleLogs]);
+          }
         }
       });
 
@@ -184,6 +179,21 @@ function MonitoringView (props) {
         
         if (data.file_content) {
           parseFileContent(data.file_content);
+        }
+      });
+
+      socket.on('task_complete', (data) => {
+        
+        if (data.result) {
+          if(data.result.message == 'Execution request processed successfully.'){
+            setExecutionStatus('Succeded');
+          }
+          else if(data.result.message == 'Execution stoped due to injection fault'){
+            setExecutionStatus('Injection Fault detected');
+          }else{
+            setExecutionStatus('Failed');
+          }
+          
         }
       });
 
@@ -216,8 +226,8 @@ function MonitoringView (props) {
                 <button className="monitoring-button" onClick={changeView}>Request Execution</button>
               </div>
               <div className="labels-container">
-                <label className="execution-state">Execution State: {'  '} {props.getExecState}</label>
-                <label className="execution-time">Execution time: {timer/1000} s</label>
+                <label className="execution-state">Execution State: {'  '} {executionStatus}</label>
+                {/* <label className="execution-time">Execution time: {timer/1000} s</label> */}
                 
               </div>
 
@@ -230,7 +240,7 @@ function MonitoringView (props) {
                     <h2 >Apps being executed </h2>
                   </div>
                   <div className="cell-body">
-                    {props.getExecState === "InProgress" ? (
+                    {executionStatus === "InProgress" ? (
                       currentApps === null ? (
                         <p>Loading...</p>
                       ) : Array.isArray(currentApps) ? (
@@ -284,7 +294,7 @@ function MonitoringView (props) {
                   <div className="cell-body">
                     {execTimeArray && gpu_TempArray && execTimeArray.length > 0 && gpu_TempArray.length > 0 ? (
                         <div>
-                          <MyChart ref={tempChartRef} label={['Temperature','Temperature (°C)']} execution_time={execTimeArray} temperatureArray={gpu_TempArray} />
+                          <MyChart ref={tempChartRef} label={['Temperature','Temperature (°C)']} execution_time={execTimeArray.slice(-100)} temperatureArray={gpu_TempArray.slice(-100)} />
                         </div>
                       ) : (
                         <p>No data available for the chart.</p>
@@ -301,7 +311,7 @@ function MonitoringView (props) {
                   <div className="cell-body">
                     {execTimeArray && gpuUsageArray && execTimeArray.length > 0 && gpuUsageArray.length > 0 ? (
                         <div>
-                          <MyChart ref={usageChartRef} label={['Usage','Usage (%)']} execution_time={execTimeArray} usageArray={gpuUsageArray} />
+                          <MyChart ref={usageChartRef} label={['Usage','Usage (%)']} execution_time={execTimeArray.slice(-100)} usageArray={gpuUsageArray.slice(-100)} />
                         </div>
                       ) : (
                         <p>No data available for the chart.</p>
@@ -316,7 +326,7 @@ function MonitoringView (props) {
                   <div className="cell-body">
                     {execTimeArray && gpu_PowerArray && execTimeArray.length > 0 && gpu_PowerArray.length > 0 ? (
                         <div>
-                          <MyChart ref={powerChartRef} label={['Power','Power (W)']} execution_time={execTimeArray} powerArray={gpu_PowerArray} />
+                          <MyChart ref={powerChartRef} label={['Power','Power (W)']} execution_time={execTimeArray.slice(-100)} powerArray={gpu_PowerArray.slice(-100)} />
                         </div>
                       ) : (
                         <p>No data available for the chart.</p>

@@ -16,7 +16,6 @@ const ConsoleView = (props) => {
             {index < props.consoleLogs.length - 1 && (
               <>
                 <br />
-                <br />
               </>
             )}
           </>

@@ -39,8 +39,8 @@ function MainView(props) {
             showMonitoring == false  && (
                 <>
                 <ExecutionView gauss_workloadsURL={props.gauss_workloadsURL} bfs_workloadsURL={props.bfs_workloadsURL} 
-                                executionURL={props.executionURL} frequenciesURL={props.frequenciesURL} setView={handleView} 
-                                setExecState={handleExecState} setExecProperties={handleExecProperties}/>
+                                resultsFileURL={props.resultsFileURL} executionURL={props.executionURL} frequenciesURL={props.frequenciesURL} 
+                                setView={handleView} setExecState={handleExecState} setExecProperties={handleExecProperties}/>
                 </>
             ) 
         }

@@ -1,6 +1,6 @@
 import MainView from "./components/MainView/MainView";
 
-const ngrokURL = 'https://bebf-141-3-72-67.ngrok-free.app';
+const ngrokURL = 'https://f17e-141-3-72-67.ngrok-free.app';
 
 const gauss_workloadsNamesURL = ngrokURL + '/gauss_workloads';
 const bfs_workloadsNamesURL = ngrokURL + '/bfs_workloads';

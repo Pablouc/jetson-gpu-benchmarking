@@ -23,6 +23,36 @@ function ExecutionView(props) {
          
     }
 
+    const downloadResults = () => {
+        console.log(props.resultsFileURL);
+        fetch(props.resultsFileURL, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': '1'
+            }
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.blob();
+        })
+        .then((blob) => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            if(props.getExecState == 'Injection Fault detected'){
+              a.download = 'execution_results.zip'; // Or whatever you want the filename to be
+            }
+            else{a.download = 'execution_results.zip'; }
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+    }
+
     async function requestExecution() {
         setRefreshFlag(true);
         setRefreshFlag(false);
@@ -149,7 +179,12 @@ function ExecutionView(props) {
                         <TextInput field={freq} onExecuteEvent = {executeHandler} label={freqString}></TextInput>
                     </div>
                 */}
-                    <button className='button' onClick={requestExecution}>Execute</button>
+                    <div>
+                        <button className='button' onClick={requestExecution}>Execute</button>
+                    </div>
+                    <div>
+                        <button className='button' onClick={downloadResults}>Download previous result</button>
+                    </div>
                 </Card>
             </div>
         </div>

@@ -26,6 +26,7 @@ const AppComponent = (props) => {
     const [externalWorkload, setExternalWorkload] = useState('');
     const [make_isChecked, setMakeIsChecked] = useState(false);
     const [make_input, setMakeInput] = useState('');
+    const [power, setPower] = useState('');
 
     const executeHandler = ( enteredUserData ) => {
         userData = {
@@ -63,6 +64,11 @@ const AppComponent = (props) => {
 
     const handleCheckboxChange = () => {
         setIsChecked(prevState => !prevState); 
+    };
+
+
+    const handleRadioChange = (event) => {
+        setPower(event.target.value);
     };
 
     //Sending data the the parent
@@ -107,9 +113,9 @@ const AppComponent = (props) => {
     else if(props.appName=='Wicked'){
         const wicked={ 
         wicked_name: 'Wicked',
-        wicked_workloads: ' '  +  String(freq_min) + ' ' + String(freq_max) + ' ' + String(delay)
+        wicked_workloads: ' '  +  String(freq_min) + ' ' + String(freq_max) + ' ' + String(delay) + ' ' + String(power)
         };
-        if((freq_min!='') && (freq_max!='') && (delay!='')) props.onExecuteEvent(wicked); 
+        if((freq_min!='') && (freq_max!='') && (delay!='') && (power!='')) props.onExecuteEvent(wicked); 
     }
 
     else if(props.appName=='Srad'){
@@ -201,6 +207,12 @@ const AppComponent = (props) => {
                     <label>Delay</label>
                     <input type='number' className='input-style' value={delay} onChange={e => setdelay(e.target.value)}></input>
                 </div>
+
+                <div>
+                    <label>Power mode(W)</label>
+                    <input type='radio' name='power' class='input-style' value='10' checked={power === '10'} onChange={handleRadioChange}/>10W
+                    <input type='radio' name='power' class='input-style' value='5' checked={power === '5'} onChange={handleRadioChange}/>5W
+                </div>
             </>
         )}
 
@@ -259,7 +271,7 @@ const AppComponent = (props) => {
 
                 <div className='input-style'>
                     <label>
-                    <input type="checkbox" checked={make_isChecked} onChange={handle_makeCheckbox}/>Does it require execution of the makefile?
+                    <input type="checkbox" checked={make_isChecked} onChange={handle_makeCheckbox}/>Does it require compilation?
                     </label>
                 </div>
 
