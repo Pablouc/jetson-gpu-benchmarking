@@ -18,7 +18,8 @@ def monitor_gpu():
     
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        tegrastats_script = os.path.join(script_dir, "tegrastats.sh")
+        tegrastats_script = os.path.join(script_dir, "tegrascript.sh")
+        tegrastats_output = subprocess.check_output(tegrastats_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT)
 
         gpu_power_script = os.path.join(script_dir, "gpu_power.sh")
         gpu_power_output = subprocess.check_output("sudo " + gpu_power_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT).splitlines()
@@ -34,26 +35,28 @@ def monitor_gpu():
                 print("GPU Power:", gpu_power, "W")
                 break
 
-        tegrastats_output = subprocess.check_output(tegrastats_script, shell=True, universal_newlines=True, stderr=subprocess.STDOUT)
-        
+           
         lines = tegrastats_output.split('\n')
         
         for line in lines:
+            print(line)
             if "GPU@" in line:          
                 gpu_temperature = line.split("GPU@")[1].split('C')[0].strip()
-                print(gpu_temperature)
+                print(gpu_temperature) 
             if "GR3D_FREQ" in line:                
                 match = re.search(r'GR3D_FREQ (\d+)%', line)
                 if match:                                                    
                     gpu_usage = int(match.group(1))
-                    print("GR3D_FREQ:", gpu_usage, "%")  
-            if "RAM" in line:               
+                    print("GR3D_FREQ:", gpu_usage, "%") 
+            if "RAM" in line:   
                 ram_parts = line.split("RAM")[1].split('/')[0].strip()
                 ram_used = ram_parts.split('MB')[0].strip()
                 ram_total = line.split("RAM ")[1].split('/')[1].split('MB')[0].strip()
                 print("RAM Used:", ram_used)
                 print("RAM Total:", ram_total)
                 break
+    except subprocess.TimeoutExpired:
+        print("Error: Timeout occurred while executing tegrastats command.")
 
     except subprocess.CalledProcessError as e:
         print("Error: ", e.output)
@@ -126,11 +129,13 @@ def create_limited_freqFile(gpu_frequency, current_time):
             time_samples_index = i + 1
         elif "Frequency samples" in line:
             freq_samples_index = i + 1
-
+    
+    
+    
     # Extract time and frequency samples
-    time_samples = [float(t) for t in lines[time_samples_index].strip().split(",")] if time_samples_index is not None else []
-    freq_samples = [float(f) for f in lines[freq_samples_index].strip().split(",")] if freq_samples_index is not None else []
-
+    time_samples = [float(t) for t in lines[time_samples_index].strip().split(",") if t.strip()] if time_samples_index is not None else []
+    freq_samples = [float(f) for f in lines[freq_samples_index].strip().split(",") if f.strip()] if freq_samples_index is not None else []
+    
     # Append new values and limit each section to a maximum of 200 elements
     time_samples.append(current_time)
     freq_samples.append(gpu_frequency)
@@ -141,11 +146,13 @@ def create_limited_freqFile(gpu_frequency, current_time):
     if time_samples_index is not None:
         lines[time_samples_index] = ",".join([f"{t:.2f}" for t in time_samples]) + "\n"
     else:
-        lines.insert(time_samples_index, ",".join([f"{t:.2f}" for t in time_samples]) + "\n")
+        lines.insert(0, "Time samples\n")
+        lines.insert(1, ",".join([f"{t:.2f}" for t in time_samples]) + "\n")
     if freq_samples_index is not None:
         lines[freq_samples_index] = ",".join([f"{f:.2f}" for f in freq_samples]) + "\n"
     else:
-        lines.insert(freq_samples_index, ",".join([f"{f:.2f}" for f in freq_samples]) + "\n")
+        lines.insert(2, "Frequency samples\n")
+        lines.insert(3, ",".join([f"{f:.2f}" for f in freq_samples]) + "\n")
 
     # Write the modified content back to the file
     with open(filename, "w") as file:
