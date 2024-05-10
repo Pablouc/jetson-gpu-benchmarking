@@ -335,15 +335,16 @@ def background_execution(executionRequest):
 
 
 def executionTask(executionRequest):
-    global global_gpu_data
-    global gpu_iterations_data
-    global injection_fault
-    global stop_event
-    #Transform the input to the JSON expected format of the managerApp
-    executionJson =  transform_input_json(executionRequest)
-    print(executionJson)
+    try:
+        global global_gpu_data
+        global gpu_iterations_data
+        global injection_fault
+        global stop_event
+        #Transform the input to the JSON expected format of the managerApp
+        executionJson =  transform_input_json(executionRequest)
+        print(executionJson)
     
-    gpu_iterations_data = {
+        gpu_iterations_data = {
         "temperature" : [],
         "power":[],
         "iteration_time": [],
@@ -355,64 +356,68 @@ def executionTask(executionRequest):
         "power_avg" : 0,
         "ram_avg" : 0,
         "gpu_usage_avg":0
-    }
+        }   
 
 
-    global_gpu_data = {
+        global_gpu_data = {
         "temperature": None,           
         "frequency": None,
         "power": None,
         "ram_used" : None
-    }
-    frequency_report_path= './frequency_report.txt'
-    frequency_limited_report= './limited_frequency_report.txt'
-    if os.path.exists(frequency_report_path):
-        os.remove(frequency_report_path)
-        os.remove(frequency_limited_report)
+        }
+        frequency_report_path= './frequency_report.txt'
+        frequency_limited_report= './limited_frequency_report.txt'
+        if os.path.exists(frequency_report_path):
+            os.remove(frequency_report_path)
+            os.remove(frequency_limited_report)
     
-    injection_fault = False
+        injection_fault = False
 
-    stop_event = threading.Event()
-    thread_updateFreq = threading.Thread(target=update_frequency_file, args=(stop_event,))
-    thread_sendFreq = Thread(target=send_frequency_task, args=(stop_event,))
-    thread_gpuMonitor = Thread(target=gpu_monitor_thread, args=(stop_event,))
-    thread_console = Thread(target=background_task, args=(stop_event,))
+        stop_event = threading.Event()
+        thread_updateFreq = threading.Thread(target=update_frequency_file, args=(stop_event,))
+        thread_sendFreq = Thread(target=send_frequency_task, args=(stop_event,))
+        thread_gpuMonitor = Thread(target=gpu_monitor_thread, args=(stop_event,))
+        thread_console = Thread(target=background_task, args=(stop_event,))
     
-    thread_console.start()
-    thread_updateFreq.start()
-    thread_sendFreq.start()
-    thread_gpuMonitor.start()
-    appNames, workloads, exec_num, exec_type, freq, total_execTime, execution_result = manageExecution(executionJson)
+        thread_console.start()
+        thread_updateFreq.start()
+        thread_sendFreq.start()
+        thread_gpuMonitor.start()
+        appNames, workloads, exec_num, exec_type, freq, total_execTime, execution_result = manageExecution(executionJson)
 
-    setAvgData()
-    input_filename = "execution_results.txt"    
-    csv_filename = 'execution_results.csv'
+        setAvgData()
+        input_filename = "execution_results.txt"    
+        csv_filename = 'execution_results.csv'
 
-    power_avg = gpu_iterations_data['power_avg']
-    temp_avg = gpu_iterations_data['temp_avg']
-    ram_avg = gpu_iterations_data['ram_avg']
-    iterations_execTime = gpu_iterations_data['iteration_time']
-    gpu_usage_avg = gpu_iterations_data['gpu_usage_avg']
+        power_avg = gpu_iterations_data['power_avg']
+        temp_avg = gpu_iterations_data['temp_avg']
+        ram_avg = gpu_iterations_data['ram_avg']
+        iterations_execTime = gpu_iterations_data['iteration_time']
+        gpu_usage_avg = gpu_iterations_data['gpu_usage_avg']
 
-    writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
+        writeCSV(csv_filename,input_filename, appNames, exec_num, exec_type, freq, power_avg, temp_avg,
                              ram_avg, workloads, total_execTime, iterations_execTime, gpu_usage_avg)
 
     
-    stop_event.set()
-    thread_updateFreq.join()
-    thread_sendFreq.join()
-    thread_gpuMonitor.join()
-    thread_console.join()
+        stop_event.set()
+        thread_updateFreq.join()
+        thread_sendFreq.join()
+        thread_gpuMonitor.join()
+        thread_console.join()
 
 
-    result_data = {"message": "Execution request processed successfully."}
+        result_data = {"message": "Execution request processed successfully."}
     
-    if execution_result != 0:
-        injection_fault = True
-        result_data["message"]="Execution stoped due to injection fault"
+        if execution_result != 0:
+            injection_fault = True
+            result_data["message"]="Execution stoped due to injection fault"
         
-    return result_data
+        return result_data
 
+    except Exception as e:
+        print("Error:", str(e))
+        write_print_toConsole("Error: " + str(e))
+        return {"message": "An error occurred during execution: " + str(e)}
 # Run the Flask application on a local development server
 if __name__ == '__main__':
     
